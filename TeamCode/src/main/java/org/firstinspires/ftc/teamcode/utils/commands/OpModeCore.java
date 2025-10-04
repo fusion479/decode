@@ -6,8 +6,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
-
 public abstract class OpModeCore extends CommandOpMode {
     private final ElapsedTime period = new ElapsedTime();
 

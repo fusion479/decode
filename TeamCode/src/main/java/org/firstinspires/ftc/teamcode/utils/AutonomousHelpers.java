@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.utils;
 
-import com.pedropathing.localization.Pose;
-import com.pedropathing.pathgen.BezierCurve;
-import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.Point;
+import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,44 +22,32 @@ public class AutonomousHelpers {
         TANGENT
     }
 
-    public static Path buildLine(Pose startPose, Pose endPose, HeadingInterpolation interpolation) {
-        Point startPoint = new Point(startPose.getX(), startPose.getY());
-        Point endPoint = new Point(endPose.getX(), endPose.getY());
-
-        Path path = new Path(new BezierLine(startPoint, endPoint));
+    public static com.pedropathing.paths.Path buildLine(Pose startPose, Pose endPose, HeadingInterpolation interpolation) {
+        Path path = new Path(new BezierLine(startPose, endPose));
         setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
 
         return path;
     }
 
-    public static Path buildCurve(Pose startPose, Point controlPoint, Pose endPose,
+    public static Path buildCurve(Pose startPose, Pose controlPose, Pose endPose,
                                   HeadingInterpolation interpolation) {
-        Point startPoint = new Point(startPose.getX(), startPose.getY());
-        Point endPoint = new Point(endPose.getX(), endPose.getY());
-
-        Path path = new Path(new BezierCurve(startPoint, controlPoint, endPoint));
+        Path path = new Path(new BezierCurve(startPose, controlPose, endPose));
         setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
 
         return path;
     }
 
-    public static Path buildCurve(Pose startPose, Point firstControlPoint, Point secondControlPoint,
+    public static Path buildCurve(Pose startPose, Pose firstControlPose, Pose secondControlPose,
                                   Pose endPose, HeadingInterpolation interpolation) {
-        Point startPoint = new Point(startPose.getX(), startPose.getY());
-        Point endPoint = new Point(endPose.getX(), endPose.getY());
-
-        Path path = new Path(new BezierCurve(startPoint, firstControlPoint, secondControlPoint, endPoint));
+        Path path = new Path(new BezierCurve(startPose, firstControlPose, secondControlPose, endPose));
         setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
 
         return path;
     }
 
-    public static Path buildCurve(Pose startPose, Point firstControlPoint, Point secondControlPoint,
-                                  Point thirdControlPoint, Pose endPose, HeadingInterpolation interpolation) {
-        Point startPoint = new Point(startPose.getX(), startPose.getY());
-        Point endPoint = new Point(endPose.getX(), endPose.getY());
-
-        Path path = new Path(new BezierCurve(startPoint, firstControlPoint, secondControlPoint, thirdControlPoint, endPoint));
+    public static Path buildCurve(Pose startPose, Pose firstControlPose, Pose secondControlPose,
+                                  Pose thirdControlPose, Pose endPose, HeadingInterpolation interpolation) {
+        Path path = new Path(new BezierCurve(startPose, firstControlPose, secondControlPose, thirdControlPose, endPose));
         setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
 
         return path;
@@ -145,10 +132,6 @@ public class AutonomousHelpers {
                 object.getDouble("y"),
                 object.has("startDeg") ? Math.toRadians(object.getDouble("startDeg")) : -1.0
         );
-    }
-
-    public static Point poseToPoint(Pose pose) {
-        return new Point(pose.getX(), pose.getY());
     }
 
     private static void setHeadingInterpolation(Path path, double startHeading, double endHeading,

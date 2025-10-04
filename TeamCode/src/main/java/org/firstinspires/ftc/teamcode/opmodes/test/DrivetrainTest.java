@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.pedropathing.localization.Pose;
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Drivetrain Test")
@@ -34,7 +34,7 @@ public class DrivetrainTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.logCycles();
-            TelemetryCore.getInstance().update();
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
         }
 
         super.end();

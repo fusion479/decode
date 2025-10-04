@@ -1,22 +1,20 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
-import com.pedropathing.util.Constants;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
-import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@Config
+@Configurable
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
@@ -35,8 +33,7 @@ public class Drivetrain extends SubsystemBase {
     private double yPower = 0.0;
 
     public Drivetrain(final HardwareMap hwMap, Pose startPose) {
-        Constants.setConstants(FConstants.class, LConstants.class);
-        this.follower = new Follower(hwMap, FConstants.class, LConstants.class);
+        this.follower = Constants.createFollower(hwMap);
         this.follower.setStartingPose(startPose);
     }
 
@@ -61,14 +58,14 @@ public class Drivetrain extends SubsystemBase {
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
 
-                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
                         this.follower.update();
                     }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
                     StringWriter errors = new StringWriter();
                     e.printStackTrace(new PrintWriter(errors));
-                    TelemetryCore.getInstance().addLine(errors.toString());
+                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
                 }
         }).start();
     }

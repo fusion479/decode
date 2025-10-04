@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.utils.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.pathgen.Path;
+import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
@@ -37,7 +37,7 @@ public class PathCommand extends CommandBase {
     @Override
     public void execute() {
         this.follower.update();
-        this.follower.getDashboardPoseTracker().update();
+        this.follower.poseTracker.update();
     }
 
     @Override

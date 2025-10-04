@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.utils.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathChain;
+import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 
@@ -33,7 +33,7 @@ public class PathChainCommand extends CommandBase {
     @Override
     public void execute() {
         follower.update();
-        follower.getDashboardPoseTracker().update();
+        follower.poseTracker.update();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class DrivetrainTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.drive = new Drivetrain(super.hardwareMap, new Pose(0, 0, 0));
+        this.drive = new Drivetrain(super.hardwareMap, new Pose(0, 0, 0), this.gamepad);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DrivetrainTest extends OpModeCore {
 
         super.waitForStart();
 
-        this.drive.startThread(this.gamepad, this);
+        // this.drive.startThread(this.gamepad, this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase {
                     double power;
 
                     power = this.controller.calculate(shooter.getVelocity());
-                    this.shooter.setPower(Math.max(power, Shooter.MIN_POWER));
+//                    this.shooter.setPower(Math.max(power, Shooter.MIN_POWER));
 
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
@@ -62,16 +62,16 @@ public class Shooter extends SubsystemBase {
         double power;
 
         power = this.controller.calculate(shooter.getVelocity());
-        this.shooter.setPower(Math.max(power, Shooter.MIN_POWER));
+ //       this.shooter.setPower(Math.max(power, Shooter.MIN_POWER));
     }
 
     public synchronized double getTarget() {
         return this.controller.getTarget();
     }
 
-    public synchronized void setMinPower(double min) {
-        Shooter.MIN_POWER = min;
-    }
+//    public synchronized void setMinPower(double min) {
+//        Shooter.MIN_POWER = min;
+//    }
 
     public synchronized void setTarget(double target) {
         this.controller.setTarget(target);

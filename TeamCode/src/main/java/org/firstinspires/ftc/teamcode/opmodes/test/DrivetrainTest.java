@@ -31,10 +31,14 @@ public class DrivetrainTest extends OpModeCore {
         this.drive.getFollower().update();
         this.drive.getFollower().startTeleopDrive();
 
-        // this.drive.startThread(this.gamepad, this);
+        this.drive.startThread(this.gamepad, this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
+
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Left Y", gamepad.getLeftY());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Left X", gamepad.getLeftX());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Right X", gamepad.getRightX());
 
             super.logCycles();
             PanelsTelemetry.INSTANCE.getTelemetry().update();

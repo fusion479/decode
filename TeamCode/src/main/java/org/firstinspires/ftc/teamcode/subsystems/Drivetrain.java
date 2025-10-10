@@ -61,43 +61,38 @@ public class Drivetrain extends SubsystemBase {
         return check - prevPower >= 0 ? rel : -rel;
     }
 
-//    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
-//        new Thread(() -> {
-//            this.follower.startTeleopDrive();
-//
-//            while (opMode.opModeIsActive())
-//                try {
-//                    synchronized (this.follower) {
-//                        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-//                        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
-//                        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
-//
-//                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-//                        this.follower.update();
-//                    }
-//                    Thread.sleep(10);
-//                } catch (InterruptedException e) {
-//                    StringWriter errors = new StringWriter();
-//                    e.printStackTrace(new PrintWriter(errors));
-//                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
-//                }
-//        }).start();
-//    }
+    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
+        new Thread(() -> {
+            while (opMode.opModeIsActive())
+                try {
+                    synchronized (this.follower) {
+                        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
+                        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+                        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
-    @Override
-    public void periodic() {
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Left Y", gamepad.getLeftY());
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Left X", gamepad.getLeftX());
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Gamepad Right X", gamepad.getRightX());
-
-        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
-        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
-
-        this.follower.update();
-        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-        this.follower.update();
+                        this.follower.update();
+                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+                        this.follower.update();
+                    }
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
+                }
+        }).start();
     }
+
+//    @Override
+//    public void periodic() {
+//        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
+//        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+//        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+//
+//        this.follower.update();
+//        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+//        this.follower.update();
+//    }
 
     public void alignToShoot() {
 //        LLResult llResult = limelight.getLatestResult();

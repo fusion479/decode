@@ -5,13 +5,14 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.transfer.transferAccept;
-import org.firstinspires.ftc.teamcode.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.commands.shooter.shooterCloseTip;
+import org.firstinspires.ftc.teamcode.commands.shooter.shooterFarTip;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "Transfer Test")
-public class TransferTest extends OpModeCore {
-    private Transfer transfer;
+@TeleOp(name = "Shooter Test")
+public class ShooterTest extends OpModeCore {
+    private Shooter shooter;
     private GamepadEx gamepad;
 
     @Override
@@ -19,9 +20,10 @@ public class TransferTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.transfer = new Transfer(super.hardwareMap);
+        this.shooter = new Shooter(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new transferAccept(this.transfer));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new shooterCloseTip(this.shooter));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new shooterFarTip(this.shooter));
     }
 
     @Override

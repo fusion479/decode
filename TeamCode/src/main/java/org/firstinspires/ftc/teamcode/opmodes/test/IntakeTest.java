@@ -5,9 +5,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.intake.intakeAccept;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
-import org.firstinspires.ftc.teamcode.commands.intake.intakeACCEPT;
 
 @TeleOp(name = "Intake Test")
 public class IntakeTest extends OpModeCore {
@@ -21,7 +21,7 @@ public class IntakeTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.intake = new Intake(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new intakeACCEPT(this.intake));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new intakeAccept(this.intake));
     }
 
     @Override

@@ -5,9 +5,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.commands.intakeACCEPT;
 
 @TeleOp(name = "Transfer Test")
 public class TransferTest extends OpModeCore {

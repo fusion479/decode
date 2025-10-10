@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.commands.intakeACCEPT;
+import org.firstinspires.ftc.teamcode.commands.intake.intakeACCEPT;
 
 @TeleOp(name = "Intake Test")
 public class IntakeTest extends OpModeCore {

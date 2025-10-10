@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.utils.commands;
+package org.firstinspires.ftc.teamcode.commands.transfer;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 public class TransferAccept extends CommandBase {
     private final Transfer transfer;
 
-    public transferAccept(final Transfer transfer) {
+    public TransferAccept(final Transfer transfer) {
         this.transfer = transfer;
         super.addRequirements(transfer);
     }

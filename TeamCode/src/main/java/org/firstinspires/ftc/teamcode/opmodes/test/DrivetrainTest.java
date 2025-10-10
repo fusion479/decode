@@ -28,6 +28,9 @@ public class DrivetrainTest extends OpModeCore {
 
         super.waitForStart();
 
+        this.drive.getFollower().update();
+        this.drive.getFollower().startTeleopDrive();
+
         // this.drive.startThread(this.gamepad, this);
         while (opModeIsActive()) {
             super.resetCycle();

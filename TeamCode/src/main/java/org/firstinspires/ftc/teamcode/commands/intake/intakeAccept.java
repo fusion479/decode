@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-public class intakeACCEPT extends CommandBase {
+public class intakeAccept extends CommandBase {
     private final Intake intake;
 
-    public intakeACCEPT(final Intake intake) {
+    public intakeAccept(final Intake intake) {
         this.intake = intake;
         super.addRequirements(intake);
     }

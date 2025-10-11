@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.transfer.transferAccept;
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -22,7 +22,7 @@ public class TransferTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.transfer = new Transfer(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new transferAccept(this.transfer));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new TransferAccept(this.transfer));
     }
 
     @Override

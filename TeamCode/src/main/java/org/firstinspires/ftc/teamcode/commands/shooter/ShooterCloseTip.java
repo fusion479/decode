@@ -4,18 +4,18 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 
-public class shooterFarTip extends CommandBase {
+public class ShooterCloseTip extends CommandBase {
 
     private final Shooter shooter;
 
-    public shooterFarTip(final Shooter shooter) {
+    public ShooterCloseTip(final Shooter shooter) {
         this.shooter = shooter;
         super.addRequirements(shooter);
     }
 
     @Override
     public void initialize() {
-        this.shooter.setTarget(Shooter.FAR_TIP_VELOCITY);
+        this.shooter.setTarget(Shooter.CLOSE_TIP_VELOCITY);
     }
 
     @Override

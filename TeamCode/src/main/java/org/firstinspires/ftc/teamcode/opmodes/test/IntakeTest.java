@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.intake.intakeAccept;
+import org.firstinspires.ftc.teamcode.commands.intake.IntakeAccept;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -21,7 +22,7 @@ public class IntakeTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.intake = new Intake(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new intakeAccept(this.intake));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new IntakeAccept(this.intake));
     }
 
     @Override
@@ -36,6 +37,7 @@ public class IntakeTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.logCycles();
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
         }
 
         super.end();

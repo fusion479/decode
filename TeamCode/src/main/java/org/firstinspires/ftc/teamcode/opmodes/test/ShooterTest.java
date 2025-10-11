@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.shooter.shooterCloseTip;
-import org.firstinspires.ftc.teamcode.commands.shooter.shooterFarTip;
+import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseTip;
+import org.firstinspires.ftc.teamcode.commands.shooter.ShooterFarTip;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -22,8 +23,8 @@ public class ShooterTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.shooter = new Shooter(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new shooterCloseTip(this.shooter));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new shooterFarTip(this.shooter));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ShooterCloseTip(this.shooter));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShooterFarTip(this.shooter));
     }
 
     @Override
@@ -38,6 +39,7 @@ public class ShooterTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.logCycles();
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
         }
 
         super.end();

@@ -32,7 +32,7 @@ public class Drivetrain extends SubsystemBase {
     public static boolean ROBOT_CENTRIC = true;
     private final Follower follower;
 
-//    private final Limelight3A limelight;
+    private final Limelight3A limelight;
     private final GamepadEx gamepad;
 
     private double xPower = 0.0;
@@ -44,9 +44,9 @@ public class Drivetrain extends SubsystemBase {
         this.follower.setStartingPose(startPose);
         this.follower.update();
 
-//        this.limelight = hwMap.get(Limelight3A.class, "limelight");
-//        this.limelight.pipelineSwitch(0);
-//        this.limelight.start();
+        this.limelight = hwMap.get(Limelight3A.class, "limelight");
+        this.limelight.pipelineSwitch(0);
+        this.limelight.start();
 
         this.gamepad = gamepad;
     }
@@ -61,58 +61,62 @@ public class Drivetrain extends SubsystemBase {
         return check - prevPower >= 0 ? rel : -rel;
     }
 
-    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
-        new Thread(() -> {
-            while (opMode.opModeIsActive())
-                try {
-                    synchronized (this.follower) {
-                        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-                        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
-                        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
-
-                        this.follower.update();
-                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-                        this.follower.update();
-                    }
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    StringWriter errors = new StringWriter();
-                    e.printStackTrace(new PrintWriter(errors));
-                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
-                }
-        }).start();
-    }
-
-//    @Override
-//    public void periodic() {
-//        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-//        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
-//        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+//    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
+//        new Thread(() -> {
+//            while (opMode.opModeIsActive())
+//                try {
+//                    synchronized (this.follower) {
+//                        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
+//                        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
+//                        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 //
-//        this.follower.update();
-//        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-//        this.follower.update();
+//                        this.follower.update();
+//                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+//                        this.follower.update();
+//                    }
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    StringWriter errors = new StringWriter();
+//                    e.printStackTrace(new PrintWriter(errors));
+//                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
+//                }
+//        }).start();
 //    }
 
-    public void alignToShoot() {
-//        LLResult llResult = limelight.getLatestResult();
-//        if (llResult != null && llResult.isValid()) {
-//            Pose3D botpose = llResult.getBotpose();
-//
-//            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
-//            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
-//            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
-//            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
-//            PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
-//
-//            // using the provided data from the lightlight, align the robot so that it is facing the goal
-//            // you can use pedropathing's follower to do this i.e., calculate the correct point we want to go to.
-//            // double tx = result.getTx(); // How far left or right the target is (degrees)
-//            // double ty = result.getTy(); // How far up or down the target is (degrees)
-//            // double ta = result.getTa(); // How big the target looks (0%-100% of the image)
-//
-//            // new PathCommand(buildLine(currentPose => new Pose)).schedule();
-//        }
+    @Override
+    public void periodic() {
+        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
+        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+
+        this.follower.update();
+        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+        this.follower.update();
+
+        this.relocalize();
+    }
+
+
+    public void relocalize() {
+        LLResult llResult = limelight.getLatestResult();
+
+        if (llResult != null && llResult.isValid()) {
+            Pose3D botpose = llResult.getBotpose();
+
+            this.follower.setPose(
+                    new Pose(
+                            botpose.getPosition().x,
+                            botpose.getPosition().y,
+                            botpose.getOrientation().getYaw()
+                    )
+            );
+
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
+        }
     }
 
     public Follower getFollower() {

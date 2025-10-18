@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 
+// add drivetrain subsystem requirement
 public class PathCommand extends CommandBase {
     private final Path path;
     private final Follower follower;
@@ -18,6 +19,20 @@ public class PathCommand extends CommandBase {
         this.speed = 1;
         this.timer = new ElapsedTime();
         this.follower = robot.getFollower();
+    }
+
+    public PathCommand(Follower follower, Path path, double speed) {
+        this.path = path;
+        this.timer = new ElapsedTime();
+        this.follower = follower;
+        this.speed = speed;
+    }
+
+    public PathCommand(Follower follower, Path path) {
+        this.path = path;
+        this.timer = new ElapsedTime();
+        this.follower = follower;
+        this.speed = 1;
     }
 
     public PathCommand(CommandRobot robot, Path path, double speed) {

@@ -22,7 +22,7 @@ public class AutonomousHelpers {
         TANGENT
     }
 
-    public static com.pedropathing.paths.Path buildLine(Pose startPose, Pose endPose, HeadingInterpolation interpolation) {
+    public static Path buildLine(Pose startPose, Pose endPose, HeadingInterpolation interpolation) {
         Path path = new Path(new BezierLine(startPose, endPose));
         setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
 

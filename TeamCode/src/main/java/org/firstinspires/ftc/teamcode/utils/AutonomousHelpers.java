@@ -70,53 +70,16 @@ public class AutonomousHelpers {
             poses.put("startPoint", new Pose(
                     data.getJSONObject("startPoint").getDouble("x"),
                     data.getJSONObject("startPoint").getDouble("y"),
-                    Math.toRadians(lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg"))
+                    Math.toRadians(data.getJSONObject("startPoint").getDouble("startDeg"))
             ));
 
             for (int i = 0; i < lines.length(); i++) {
                 JSONObject line = lines.getJSONObject(i);
-                poses.put(line.getJSONObject("endPoint").getString("name"), getPose(line.getJSONObject("endPoint")));
+                poses.put(line.getString("name"), getPose(line.getJSONObject("endPoint")));
 
                 JSONArray controlPoints = line.getJSONArray("controlPoints");
                 for (int j = 0; j < controlPoints.length(); j++) {
-                    poses.put(controlPoints.getJSONObject(j).getString("name"), getPose(controlPoints.getJSONObject(j)));
-                }
-            }
-
-            return poses;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static ArrayList<Pose> getPoses(String path) {
-        try {
-            ArrayList<Pose> poses = new ArrayList<Pose>();
-            String jsonString = "";
-
-            File file = new File(path);
-            Scanner reader = new Scanner(file);
-
-            while (reader.hasNextLine())
-                jsonString += reader.nextLine();
-
-            JSONObject data = new JSONObject(jsonString);
-            JSONArray lines = data.getJSONArray("lines");
-
-            poses.add(new Pose(
-                    data.getJSONObject("startPoint").getDouble("x"),
-                    data.getJSONObject("startPoint").getDouble("y"),
-                    Math.toRadians(lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg"))
-            ));
-
-            for (int i = 0; i < lines.length(); i++) {
-                JSONObject line = lines.getJSONObject(i);
-                System.out.println(line);
-                poses.add(getPose(line.getJSONObject("endPoint")));
-
-                JSONArray controlPoints = line.getJSONArray("controlPoints");
-                for (int j = 0; j < controlPoints.length(); j++) {
-                    poses.add(getPose(controlPoints.getJSONObject(j)));
+                    poses.put(line.getString("name") + "Control" + j, getPose(controlPoints.getJSONObject(j)));
                 }
             }
 
@@ -130,9 +93,46 @@ public class AutonomousHelpers {
         return new Pose(
                 object.getDouble("x"),
                 object.getDouble("y"),
-                object.has("startDeg") ? Math.toRadians(object.getDouble("startDeg")) : -1.0
+                object.has("endDeg") ? Math.toRadians(object.getDouble("endDeg")) : -1.0
         );
     }
+
+//    public static ArrayList<Pose> getPoses(String path) {
+//        try {
+//            ArrayList<Pose> poses = new ArrayList<Pose>();
+//            String jsonString = "";
+//
+//            File file = new File(path);
+//            Scanner reader = new Scanner(file);
+//
+//            while (reader.hasNextLine())
+//                jsonString += reader.nextLine();
+//
+//            JSONObject data = new JSONObject(jsonString);
+//            JSONArray lines = data.getJSONArray("lines");
+//
+//            poses.add(new Pose(
+//                    data.getJSONObject("startPoint").getDouble("x"),
+//                    data.getJSONObject("startPoint").getDouble("y"),
+//                    Math.toRadians(lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg"))
+//            ));
+//
+//            for (int i = 0; i < lines.length(); i++) {
+//                JSONObject line = lines.getJSONObject(i);
+//                System.out.println(line);
+//                poses.add(getPose(line.getJSONObject("endPoint")));
+//
+//                JSONArray controlPoints = line.getJSONArray("controlPoints");
+//                for (int j = 0; j < controlPoints.length(); j++) {
+//                    poses.add(getPose(controlPoints.getJSONObject(j)));
+//                }
+//            }
+//
+//            return poses;
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     private static void setHeadingInterpolation(Path path, double startHeading, double endHeading,
                                                 HeadingInterpolation interpolation) {

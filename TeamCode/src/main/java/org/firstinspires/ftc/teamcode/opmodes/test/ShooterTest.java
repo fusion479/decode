@@ -38,8 +38,12 @@ public class ShooterTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
-            super.logCycles();
+            PanelsTelemetry.INSTANCE.getTelemetry().debug("Target", this.shooter.getTarget());
+            PanelsTelemetry.INSTANCE.getTelemetry().debug("Velocity", this.shooter.getVelocity());
+            PanelsTelemetry.INSTANCE.getTelemetry().debug("Error", this.shooter.getError());
             PanelsTelemetry.INSTANCE.getTelemetry().update();
+
+            super.logCycles();
         }
 
         super.end();

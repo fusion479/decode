@@ -11,20 +11,20 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 public class BlueTip extends CommandBase {
-    private final Follower follower;
+    private final Drivetrain drivetrain;
 
     public BlueTip(final Drivetrain drivetrain) {
-        this.follower = drivetrain.getFollower();
+        this.drivetrain = drivetrain;
 
         super.addRequirements(drivetrain);
     }
 
     @Override
     public void initialize() {
-        Path traj = AutonomousHelpers.buildLine(this.follower.getPose(), new Pose(36, -12, Math.toRadians(0)),
+        Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), new Pose(36, -12, Math.toRadians(0)),
                 AutonomousHelpers.HeadingInterpolation.LINEAR);
 
-        new PathCommand(this.follower, traj).schedule();
+        new PathCommand(this.drivetrain, traj).schedule();
     }
 
     @Override

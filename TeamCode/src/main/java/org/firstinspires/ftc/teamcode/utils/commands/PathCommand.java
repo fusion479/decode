@@ -6,6 +6,7 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 // add drivetrain subsystem requirement
 public class PathCommand extends CommandBase {
@@ -21,17 +22,19 @@ public class PathCommand extends CommandBase {
         this.follower = robot.getFollower();
     }
 
-    public PathCommand(Follower follower, Path path, double speed) {
+    public PathCommand(Drivetrain drivetrain, Path path, double speed) {
+        super.addRequirements(drivetrain);
         this.path = path;
         this.timer = new ElapsedTime();
-        this.follower = follower;
+        this.follower = drivetrain.getFollower();
         this.speed = speed;
     }
 
-    public PathCommand(Follower follower, Path path) {
+    public PathCommand(Drivetrain drivetrain, Path path) {
+        super.addRequirements(drivetrain);
         this.path = path;
         this.timer = new ElapsedTime();
-        this.follower = follower;
+        this.follower = drivetrain.getFollower();
         this.speed = 1;
     }
 

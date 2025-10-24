@@ -6,6 +6,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
+import com.pedropathing.ftc.FTCCoordinates;
+import com.pedropathing.geometry.PedroCoordinates;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -86,12 +88,16 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
         this.follower.update();
         this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
         this.follower.update();
+
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("X: ", this.follower.getPose().getX());
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
         this.relocalize();
     }
@@ -107,9 +113,11 @@ public class Drivetrain extends SubsystemBase {
                     new Pose(
                             botpose.getPosition().x,
                             botpose.getPosition().y,
-                            botpose.getOrientation().getYaw()
-                    )
+                            botpose.getOrientation().getYaw(),
+                            FTCCoordinates.INSTANCE
+                    ).getAsCoordinateSystem(PedroCoordinates.INSTANCE)
             );
+            this.follower.updatePose();
 
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());

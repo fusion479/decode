@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -10,7 +11,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
+@Configurable
 public class BlueTip extends CommandBase {
+    public static Pose tip = new Pose(94.29986742936502, 92.9960053262317, Math.toRadians(45));
+
     private final Drivetrain drivetrain;
 
     public BlueTip(final Drivetrain drivetrain) {
@@ -21,7 +25,7 @@ public class BlueTip extends CommandBase {
 
     @Override
     public void initialize() {
-        Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), new Pose(36, -12, Math.toRadians(0)),
+        Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
                 AutonomousHelpers.HeadingInterpolation.LINEAR);
 
         new PathCommand(this.drivetrain, traj).schedule();

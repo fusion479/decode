@@ -1,7 +1,7 @@
 {
     "startPoint": {
-        "x": 22.5,
-        "y": 124.5,
+        "x": 123.4,
+        "y": 123,
         "heading": "linear",
         "startDeg": 90,
         "endDeg": 180,
@@ -11,102 +11,96 @@
         {
             "name": "Path 1",
             "endPoint": {
-                "x": 63,
-                "y": 78,
+                "x": 84,
+                "y": 83.5,
                 "heading": "constant",
-                "startDeg": 233,
-                "endDeg": 233,
-                "index": 1,
-                "degrees": 236
+                "startDeg": 126,
+                "endDeg": 180,
+                "degrees": 126,
+                "index": 1
             },
             "controlPoints": [],
-            "color": "#6B888A"
+            "color": "#DBD8A6"
         },
         {
             "name": "Path 2",
             "endPoint": {
-                "x": 40,
-                "y": 78,
+                "x": 103,
+                "y": 83.5,
                 "heading": "linear",
                 "reverse": false,
-                "startDeg": 233,
-                "endDeg": 180,
+                "startDeg": 126,
+                "endDeg": 0,
                 "index": 2
             },
             "controlPoints": [],
-            "color": "#BD896C"
+            "color": "#765DC7"
         },
         {
             "name": "Path 3",
             "endPoint": {
-                "x": 17,
-                "y": 78,
+                "x": 125,
+                "y": 83.5,
                 "heading": "tangential",
                 "reverse": false,
                 "index": 3
             },
             "controlPoints": [],
-            "color": "#C775AC"
+            "color": "#B9A6C5"
         },
         {
             "name": "Path 4",
             "endPoint": {
-                "x": 63,
-                "y": 78,
+                "x": 84,
+                "y": 83.5,
                 "heading": "linear",
                 "reverse": false,
-                "startDeg": 180,
-                "endDeg": 233,
+                "startDeg": 0,
+                "endDeg": 126,
                 "index": 4
             },
             "controlPoints": [],
-            "color": "#5A9C67"
+            "color": "#B55D58"
         },
         {
             "name": "Path 5",
             "endPoint": {
-                "x": 40,
-                "y": 52,
+                "x": 103,
+                "y": 60,
                 "heading": "linear",
                 "reverse": false,
-                "startDeg": 233,
-                "endDeg": 180,
+                "startDeg": 126,
+                "endDeg": 0,
                 "index": 5
             },
-            "controlPoints": [
-                {
-                    "x": 60,
-                    "y": 60,
-                    "index": 6
-                }
-            ],
-            "color": "#CACB59"
+            "controlPoints": [],
+            "color": "#DADABA"
         },
         {
             "name": "Path 6",
             "endPoint": {
-                "x": 17,
-                "y": 52,
+                "x": 125,
+                "y": 60,
                 "heading": "tangential",
                 "reverse": false,
-                "index": 7
+                "index": 6
             },
             "controlPoints": [],
-            "color": "#B86B9B"
+            "color": "#A78C89"
         },
         {
             "name": "Path 7",
             "endPoint": {
-                "x": 63,
-                "y": 78,
+                "x": 84,
+                "y": 83.5,
                 "heading": "linear",
                 "reverse": false,
-                "startDeg": 180,
-                "endDeg": 233,
-                "index": 8
+                "startDeg": 0,
+                "endDeg": 126,
+                "index": 7
             },
             "controlPoints": [],
-            "color": "#86AAD5"
+            "color": "#8795C9"
         }
     ]
 }

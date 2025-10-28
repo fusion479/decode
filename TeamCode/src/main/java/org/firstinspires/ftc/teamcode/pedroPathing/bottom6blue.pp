@@ -1,6 +1,6 @@
 {
     "startPoint": {
-        "x": 52,
+        "x": 56,
         "y": 8,
         "heading": "linear",
         "startDeg": 90,
@@ -11,7 +11,7 @@
         {
             "name": "Path 1",
             "endPoint": {
-                "x": 65,
+                "x": 72,
                 "y": 23,
                 "heading": "linear",
                 "startDeg": 90,
@@ -19,13 +19,13 @@
                 "index": 1
             },
             "controlPoints": [],
-            "color": "#C8DBBC"
+            "color": "#69D995"
         },
         {
             "name": "Path 2",
             "endPoint": {
-                "x": 38,
-                "y": 35.5,
+                "x": 42,
+                "y": 35,
                 "heading": "linear",
                 "reverse": false,
                 "startDeg": 45,
@@ -33,24 +33,24 @@
                 "index": 2
             },
             "controlPoints": [],
-            "color": "#5C7A56"
+            "color": "#DB8A68"
         },
         {
             "name": "Path 3",
             "endPoint": {
-                "x": 17,
-                "y": 35.5,
+                "x": 20,
+                "y": 35,
                 "heading": "tangential",
                 "reverse": false,
                 "index": 3
             },
             "controlPoints": [],
-            "color": "#A87ADC"
+            "color": "#D8DA56"
         },
         {
             "name": "Path 4",
             "endPoint": {
-                "x": 65,
+                "x": 72,
                 "y": 23,
                 "heading": "linear",
                 "reverse": false,
@@ -59,12 +59,12 @@
                 "index": 4
             },
             "controlPoints": [],
-            "color": "#759855"
+            "color": "#679756"
         },
         {
             "name": "Path 5",
             "endPoint": {
-                "x": 38,
+                "x": 42,
                 "y": 60,
                 "heading": "linear",
                 "reverse": false,
@@ -73,24 +73,24 @@
                 "index": 5
             },
             "controlPoints": [],
-            "color": "#8A67A9"
+            "color": "#8D58B6"
         },
         {
             "name": "Path 6",
             "endPoint": {
-                "x": 17,
+                "x": 20,
                 "y": 60,
                 "heading": "tangential",
                 "reverse": false,
                 "index": 6
             },
             "controlPoints": [],
-            "color": "#58D869"
+            "color": "#978CDC"
         },
         {
             "name": "Path 7",
             "endPoint": {
-                "x": 65,
+                "x": 72,
                 "y": 23,
                 "heading": "linear",
                 "reverse": false,
@@ -99,7 +99,7 @@
                 "index": 7
             },
             "controlPoints": [],
-            "color": "#A8A695"
+            "color": "#6B57DD"
         }
     ]
 }

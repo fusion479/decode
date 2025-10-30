@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.field.PanelsField;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.ftc.FTCCoordinates;
@@ -12,6 +13,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.teamcode.utils.Drawing;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
@@ -42,6 +44,7 @@ public class Drivetrain extends SubsystemBase {
     private double yPower = 0.0;
 
     public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad) {
+        Drawing.init();
         this.follower = Constants.createFollower(hwMap);
         this.follower.setStartingPose(startPose);
         this.follower.update();
@@ -49,6 +52,8 @@ public class Drivetrain extends SubsystemBase {
         this.limelight = hwMap.get(Limelight3A.class, "limelight");
         this.limelight.pipelineSwitch(0);
         this.limelight.start();
+
+        drawOnlyCurrent();
 
         this.gamepad = gamepad;
     }
@@ -99,6 +104,8 @@ public class Drivetrain extends SubsystemBase {
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
+        draw();
+
         this.relocalize();
     }
 
@@ -111,11 +118,10 @@ public class Drivetrain extends SubsystemBase {
 
             this.follower.setPose(
                     new Pose(
-                            botpose.getPosition().x,
-                            botpose.getPosition().y,
-                            botpose.getOrientation().getYaw(),
-                            FTCCoordinates.INSTANCE
-                    ).getAsCoordinateSystem(PedroCoordinates.INSTANCE)
+                            botpose.getPosition().y * 39 + 72,
+                            botpose.getPosition().x * -39 + 72,
+                            this.follower.getHeading()
+                    )
             );
             this.follower.updatePose();
 
@@ -125,6 +131,19 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
         }
+    }
+
+    public void drawOnlyCurrent() {
+        try {
+            Drawing.drawRobot(follower.getPose());
+            Drawing.sendPacket();
+        } catch (Exception e) {
+            throw new RuntimeException("Drawing failed " + e);
+        }
+    }
+
+    public void draw() {
+        Drawing.drawDebug(follower);
     }
 
     public Follower getFollower() {

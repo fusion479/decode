@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawOnlyCurrent;
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -21,7 +23,7 @@ public class DrivetrainTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.drive = new Drivetrain(super.hardwareMap, new Pose(0, 0, 0), this.gamepad);
+        this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, Math.toRadians(-90)), this.gamepad);
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new BlueTip(this.drive));
     }

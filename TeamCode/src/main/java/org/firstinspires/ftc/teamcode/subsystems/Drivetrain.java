@@ -24,6 +24,8 @@ import java.io.StringWriter;
 
 @Configurable
 public class Drivetrain extends SubsystemBase {
+    public static double YAW_OFFSET = Math.PI / 4;
+
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
 
@@ -113,14 +115,14 @@ public class Drivetrain extends SubsystemBase {
     public void relocalize() {
         LLResult llResult = limelight.getLatestResult();
 
-        if (llResult != null && llResult.isValid()) {
+        if (llResult != null && !follower.isBusy() && llResult.isValid()) {
             Pose3D botpose = llResult.getBotpose();
 
             this.follower.setPose(
                     new Pose(
                             botpose.getPosition().y * 39 + 72,
                             botpose.getPosition().x * -39 + 72,
-                            this.follower.getHeading()
+                            Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
                     )
             );
             this.follower.updatePose();

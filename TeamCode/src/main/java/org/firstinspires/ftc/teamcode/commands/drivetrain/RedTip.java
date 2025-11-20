@@ -10,12 +10,12 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-public class BlueTip extends CommandBase {
-    public static Pose tip = new Pose(55, 93, Math.toRadians(135));
+public class RedTip extends CommandBase {
+    public static Pose tip = new Pose(94, 93, Math.toRadians(45));
 
     private final Drivetrain drivetrain;
 
-    public BlueTip(final Drivetrain drivetrain) {
+    public RedTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
         super.addRequirements(drivetrain);

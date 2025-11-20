@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake extends SubsystemBase {
-
-    public static double ACCEPT = 1.0;
     private double power;
 
     private final DcMotorEx rIntake;
@@ -17,21 +15,6 @@ public class Intake extends SubsystemBase {
         this.lIntake = hwMap.get(DcMotorEx.class, "lIntake");
 
     }
-
-    //public void startThread(CommandOpMode opMode) {
-    //    new Thread(() -> {
-    //        while (opMode.opModeIsActive())
-    //            try {
-    //                this.rIntake.setPower(power)
-    //                this.lIntake.setPower(power)
-    //                Thread.sleep(50);
-    //            } catch (InterruptedException e) {
-    //                StringWriter errors = new StringWriter();
-    //                e.printStackTrace(new PrintWriter(errors));
-    //                TelemetryCore.getInstance().addLine(errors.toString());
-    //            }
-    //    }).start();
-    //}
 
     @Override
     public void periodic() {

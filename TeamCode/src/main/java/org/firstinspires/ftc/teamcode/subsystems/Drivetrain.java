@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
-import com.bylazar.field.PanelsField;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.ftc.FTCCoordinates;
-import com.pedropathing.geometry.PedroCoordinates;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -17,15 +13,9 @@ import org.firstinspires.ftc.teamcode.utils.Drawing;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 @Configurable
 public class Drivetrain extends SubsystemBase {
-    public static double YAW_OFFSET = Math.PI / 4;
-
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
 
@@ -70,28 +60,6 @@ public class Drivetrain extends SubsystemBase {
         return check - prevPower >= 0 ? rel : -rel;
     }
 
-//    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
-//        new Thread(() -> {
-//            while (opMode.opModeIsActive())
-//                try {
-//                    synchronized (this.follower) {
-//                        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-//                        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
-//                        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
-//
-//                        this.follower.update();
-//                        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-//                        this.follower.update();
-//                    }
-//                    Thread.sleep(10);
-//                } catch (InterruptedException e) {
-//                    StringWriter errors = new StringWriter();
-//                    e.printStackTrace(new PrintWriter(errors));
-//                    PanelsTelemetry.INSTANCE.getTelemetry().addLine(errors.toString());
-//                }
-//        }).start();
-//    }
-
     @Override
     public void periodic() {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
@@ -110,7 +78,6 @@ public class Drivetrain extends SubsystemBase {
 
         this.relocalize();
     }
-
 
     public void relocalize() {
         LLResult llResult = limelight.getLatestResult();

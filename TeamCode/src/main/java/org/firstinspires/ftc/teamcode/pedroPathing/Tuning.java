@@ -142,7 +142,7 @@ class LocalizationTest extends OpMode {
     @Override
     public void start() {
         follower.startTeleopDrive();
-        follower.setStartingPose(new Pose(72, 72, Math.toRadians(-90)));
+        follower.setStartingPose(new Pose(72, 72, Math.toRadians(0)));
         follower.update();
     }
 

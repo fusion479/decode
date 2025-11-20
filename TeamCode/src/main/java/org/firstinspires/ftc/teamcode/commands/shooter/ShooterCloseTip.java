@@ -10,6 +10,7 @@ public class ShooterCloseTip extends CommandBase {
 
     public ShooterCloseTip(final Shooter shooter) {
         this.shooter = shooter;
+
         super.addRequirements(shooter);
     }
 

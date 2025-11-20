@@ -1,38 +1,37 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Transfer extends SubsystemBase {
+    public static double STOP = 0.5;
 
-    public static double ACCEPT = 1.0;
     private double power;
 
-    private final DcMotorEx transfer;
+    private CRServo leftTransfer, rightTransfer;
+    private Servo stop;
+
+    private DistanceSensor ballOne, ballTwo;
+    // add brakebeam
 
     public Transfer(final HardwareMap hwMap) {
-        this.transfer = hwMap.get(DcMotorEx.class, "transfer");
+        this.stop = hwMap.get(Servo.class, "transferStop");
 
+        this.leftTransfer = hwMap.get(CRServo.class, "leftTransfer");
+        this.rightTransfer = hwMap.get(CRServo.class, "rightTransfer");
     }
-
-    //public void startThread(CommandOpMode opMode) {
-    //    new Thread(() -> {
-    //        while (opMode.opModeIsActive())
-    //            try {
-    //                this.transfer.setPower(power)
-    //                Thread.sleep(50);
-    //            } catch (InterruptedException e) {
-    //                StringWriter errors = new StringWriter();
-    //                e.printStackTrace(new PrintWriter(errors));
-    //                TelemetryCore.getInstance().addLine(errors.toString());
-    //            }
-    //    }).start();
-    //}
 
     @Override
     public void periodic() {
-        this.transfer.setPower(power);
+        this.leftTransfer.setPower(power);
+        this.rightTransfer.setPower(power);
+    }
+
+    public void stop() {
+        this.stop.setPosition(Transfer.STOP);
     }
 
     public void setPower(double power) {

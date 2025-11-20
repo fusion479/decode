@@ -6,13 +6,16 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Transfer Test")
 public class TransferTest extends OpModeCore {
     private Transfer transfer;
+
+    private GamepadTrigger transferAccept, transferReject;
+
     private GamepadEx gamepad;
 
     @Override
@@ -22,7 +25,8 @@ public class TransferTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.transfer = new Transfer(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new TransferAccept(this.transfer));
+        this.transferAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.transfer.setPower(-d), this.gamepad);
+        this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.transfer::setPower, this.gamepad);
     }
 
     @Override
@@ -35,6 +39,9 @@ public class TransferTest extends OpModeCore {
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
+
+            this.transferAccept.update();
+            this.transferReject.update();
 
             super.logCycles();
             PanelsTelemetry.INSTANCE.getTelemetry().update();

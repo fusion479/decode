@@ -29,12 +29,17 @@ public class CommandRobot {
         this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setPower(-d), this.gamepad2);
         this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setPower, this.gamepad2);
 
-        this.drive = new Drivetrain(hwMap, new Pose(0, 0, 0), this.gamepad1);
+        this.drive = new Drivetrain(hwMap, new Pose(72, 72, Math.toRadians(-90)), this.gamepad1);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
 
         this.configureControls();
+    }
+
+    public void updateTriggers() {
+        this.intakeAccept.update();
+        this.intakeReject.update();
     }
 
     public void configureControls() {
@@ -43,5 +48,9 @@ public class CommandRobot {
 
     public Drivetrain getDrivetrain() {
         return this.drive;
+    }
+
+    public Follower getFollower() {
+        return this.drive.getFollower();
     }
 }

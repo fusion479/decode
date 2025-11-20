@@ -20,22 +20,26 @@ public class PathCommand extends CommandBase {
         this.speed = 1;
         this.timer = new ElapsedTime();
         this.follower = robot.getFollower();
+
+        super.addRequirements(robot.getDrivetrain());
     }
 
     public PathCommand(Drivetrain drivetrain, Path path, double speed) {
-        super.addRequirements(drivetrain);
         this.path = path;
         this.timer = new ElapsedTime();
         this.follower = drivetrain.getFollower();
         this.speed = speed;
+
+        super.addRequirements(drivetrain);
     }
 
     public PathCommand(Drivetrain drivetrain, Path path) {
-        super.addRequirements(drivetrain);
         this.path = path;
         this.timer = new ElapsedTime();
         this.follower = drivetrain.getFollower();
         this.speed = 1;
+
+        super.addRequirements(drivetrain);
     }
 
     public PathCommand(CommandRobot robot, Path path, double speed) {
@@ -43,6 +47,8 @@ public class PathCommand extends CommandBase {
         this.timer = new ElapsedTime();
         this.follower = robot.getFollower();
         this.speed = speed;
+
+        super.addRequirements(robot.getDrivetrain());
     }
 
     @Override

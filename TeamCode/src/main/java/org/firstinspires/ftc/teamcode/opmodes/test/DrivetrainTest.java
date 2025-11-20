@@ -10,6 +10,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueTip;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedTip;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -25,7 +26,7 @@ public class DrivetrainTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, Math.toRadians(-90)), this.gamepad);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new BlueTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new RedTip(this.drive));
     }
 
     @Override
@@ -37,7 +38,6 @@ public class DrivetrainTest extends OpModeCore {
         this.drive.getFollower().update();
         this.drive.getFollower().startTeleopDrive();
 
-        // this.drive.startThread(this.gamepad, this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 
@@ -14,10 +18,14 @@ public class RedTip extends CommandBase {
     public static Pose tip = new Pose(94, 93, Math.toRadians(45));
 
     private final Drivetrain drivetrain;
+    private final Follower follower;
+
+    private boolean following = false;
 
     public RedTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
+        this.follower = drivetrain.getFollower();
         super.addRequirements(drivetrain);
     }
 
@@ -25,8 +33,18 @@ public class RedTip extends CommandBase {
     public void initialize() {
         Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
                 AutonomousHelpers.HeadingInterpolation.LINEAR);
+//
+//        new PathCommand(this.drivetrain, traj).schedule();
+        if(!following) {
+            follower.followPath(
+                    follower.pathBuilder()
+                            .addPath(new BezierLine(follower.getPose(), tip))
+                            .setLinearHeadingInterpolation(follower.getHeading(), tip.minus(follower.getPose()).getAsVector().getTheta())
+                            .build()
+            );
+        }
 
-        new PathCommand(this.drivetrain, traj).schedule();
+        if (following && !follower.isBusy()) following = false;
     }
 
     @Override

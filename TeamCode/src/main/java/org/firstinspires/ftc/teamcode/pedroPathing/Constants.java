@@ -34,7 +34,7 @@ public class Constants {
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
 
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(4.18)
+            .forwardPodY(-4.18)
             .strafePodX(-5.069)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("odo")

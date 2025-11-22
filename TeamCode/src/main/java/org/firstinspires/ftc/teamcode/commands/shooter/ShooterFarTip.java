@@ -10,7 +10,6 @@ public class ShooterFarTip extends CommandBase {
 
     public ShooterFarTip(final Shooter shooter) {
         this.shooter = shooter;
-
         super.addRequirements(shooter);
     }
 

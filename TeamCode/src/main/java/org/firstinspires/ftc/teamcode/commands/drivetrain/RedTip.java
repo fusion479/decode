@@ -20,11 +20,12 @@ public class RedTip extends CommandBase {
     private final Drivetrain drivetrain;
     private final Follower follower;
 
-    private boolean following = false;
+    private boolean done;
 
     public RedTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
+        this.done = false;
         this.follower = drivetrain.getFollower();
         super.addRequirements(drivetrain);
     }
@@ -35,20 +36,18 @@ public class RedTip extends CommandBase {
                 AutonomousHelpers.HeadingInterpolation.LINEAR);
 //
 //        new PathCommand(this.drivetrain, traj).schedule();
-        if(!following) {
-            follower.followPath(
+        follower.followPath(
                     follower.pathBuilder()
                             .addPath(new BezierLine(follower.getPose(), tip))
-                            .setLinearHeadingInterpolation(follower.getHeading(), tip.minus(follower.getPose()).getAsVector().getTheta())
+                            .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                             .build()
-            );
-        }
+        );
 
-        if (following && !follower.isBusy()) following = false;
+        this.done = true;
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return done && !follower.isBusy();
     }
 }

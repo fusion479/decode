@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -12,28 +13,36 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+
+@Configurable
 public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_VELOCITY = 10;
-    public static double FAR_TIP_VELOCITY = 40;
+    public static double FAR_TIP_VELOCITY = 10000;
 
-    public static double kP = 0.055;
+    public static double kP = 0.065;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
 
-    private final DcMotorEx shooter;
+    private final DcMotorEx rightShooter;
+    private final DcMotorEx leftShooter;
 
     private final PIDController controller;
     public Shooter(final HardwareMap hwMap) {
-        this.shooter = hwMap.get(DcMotorEx.class, "rightFront");
+        this.rightShooter = hwMap.get(DcMotorEx.class, "rightFront");
+        this.leftShooter = hwMap.get(DcMotorEx.class, "rightRear");
 
-        this.shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.rightShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.leftShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        this.shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.leftShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        this.shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.shooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kG);
         this.controller.setAllowedError(15);
@@ -46,7 +55,8 @@ public class Shooter extends SubsystemBase {
                 try {
                     double power;
 
-                    power = this.controller.calculate(shooter.getVelocity());
+                    power = this.controller.calculate(rightShooter.getVelocity());
+
 //                    this.shooter.setPower(Math.max(power, Shooter.MIN_POWER));
 
                     Thread.sleep(50);
@@ -61,8 +71,9 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         double power;
 
-        power = this.controller.calculate(shooter.getVelocity());
-        this.shooter.setPower(Math.max(power, 0));
+        power = this.controller.calculate(rightShooter.getVelocity());
+        this.rightShooter.setPower(Math.max(power, 0));
+        this.leftShooter.setPower(Math.max(power,0));
 
     }
 
@@ -79,7 +90,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public synchronized double getVelocity() {
-        return this.shooter.getVelocity();
+        return this.rightShooter.getVelocity();
     }
 
     public synchronized boolean isFinished() {

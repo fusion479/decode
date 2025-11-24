@@ -26,7 +26,7 @@ public class DrivetrainTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, 0), this.gamepad);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new RedTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new RedTip(this.drive));
     }
 
     @Override

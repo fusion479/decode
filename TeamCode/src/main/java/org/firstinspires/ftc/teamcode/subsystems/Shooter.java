@@ -16,8 +16,8 @@ import java.io.StringWriter;
 
 @Configurable
 public class Shooter extends SubsystemBase {
-    public static double CLOSE_TIP_VELOCITY = 10;
-    public static double FAR_TIP_VELOCITY = 10000;
+    public static double CLOSE_TIP_VELOCITY = 3;
+    public static double FAR_TIP_VELOCITY = 15;
 
     public static double kP = 0.065;
     public static double kI = 0;
@@ -71,7 +71,8 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         double power;
 
-        power = this.controller.calculate(rightShooter.getVelocity());
+        power = this.controller.calculate(rightShooter.getVelocity()) * 1000;
+
         this.rightShooter.setPower(Math.max(power, 0));
         this.leftShooter.setPower(Math.max(power,0));
 

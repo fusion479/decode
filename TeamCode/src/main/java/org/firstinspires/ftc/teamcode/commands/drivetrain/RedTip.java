@@ -40,7 +40,8 @@ public class RedTip extends CommandBase {
                     follower.pathBuilder()
                             .addPath(new BezierLine(follower.getPose(), tip))
                             .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
-                            .build()
+                            .build(),
+                    false
         );
 
         this.done = true;

@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_VELOCITY = 3;
     public static double FAR_TIP_VELOCITY = 15;
 
-    public static double kP = 0.065;
+    public static double kP = 0.09;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;

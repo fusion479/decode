@@ -40,11 +40,18 @@ public class RedTip extends CommandBase {
                     follower.pathBuilder()
                             .addPath(new BezierLine(follower.getPose(), tip))
                             .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
-                            .build(),
-                    false
+                            .build()
         );
 
         this.done = true;
+    }
+
+    @Override
+    public void end(boolean interrupted){
+        if (interrupted){
+            follower.breakFollowing();
+        }
+        follower.startTeleopDrive();
     }
 
     @Override

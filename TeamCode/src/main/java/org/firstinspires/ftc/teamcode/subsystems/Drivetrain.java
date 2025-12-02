@@ -97,6 +97,7 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
         }

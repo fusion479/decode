@@ -43,8 +43,12 @@ public class TransferTest extends OpModeCore {
             this.transferAccept.update();
             this.transferReject.update();
 
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Voltage", this.transfer.getleftVoltage());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Voltage", this.transfer.getRightVoltage());
+
             super.logCycles();
             PanelsTelemetry.INSTANCE.getTelemetry().update();
+
         }
 
         super.end();

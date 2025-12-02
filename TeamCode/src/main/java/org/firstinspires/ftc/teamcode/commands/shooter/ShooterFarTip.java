@@ -15,6 +15,7 @@ public class ShooterFarTip extends CommandBase {
 
     @Override
     public void initialize() {
+        this.shooter.setPosition(Shooter.FAR_TIP_POSITION);
         this.shooter.setTarget(Shooter.FAR_TIP_VELOCITY);
     }
 

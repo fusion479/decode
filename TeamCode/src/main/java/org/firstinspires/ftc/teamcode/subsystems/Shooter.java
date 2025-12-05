@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.panels.Panels;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -12,8 +14,8 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Configurable
 public class Shooter extends SubsystemBase {
-    public static double CLOSE_TIP_VELOCITY = 3;
-    public static double FAR_TIP_VELOCITY = 15;
+    public static double CLOSE_TIP_VELOCITY = 3000;
+    public static double FAR_TIP_VELOCITY = 25000;
     public static double CLOSE_TIP_POSITION = 0.65;
     public static double FAR_TIP_POSITION = 0.7;
 
@@ -36,7 +38,6 @@ public class Shooter extends SubsystemBase {
 
         this.rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         this.leftShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         this.rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -52,9 +53,18 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         double power = this.controller.calculate(rightShooter.getVelocity()) * 1000;
 
-        this.rightShooter.setPower(Math.max(power, 0));
-        this.leftShooter.setPower(Math.max(power,0));
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Power", power);
+        this.rightShooter.setPower(power);
+        this.leftShooter.setPower(power);
 
+    }
+
+    public double getRightVoltage(){
+        return this.rightShooter.getPower();
+    }
+
+    public double getleftVoltage(){
+        return this.leftShooter.getPower();
     }
 
     public void setPosition(double position) {

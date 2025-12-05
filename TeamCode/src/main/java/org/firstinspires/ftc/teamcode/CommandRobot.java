@@ -59,6 +59,25 @@ public class CommandRobot {
         this.configureControls();
     }
 
+    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Pose startPose) {
+        this.color = color;
+
+        this.gamepad1 = new GamepadEx(gamepad1);
+
+        this.drive = new Drivetrain(hwMap, startPose, this.gamepad1);
+        this.intake = new Intake(hwMap);
+        this.shooter = new Shooter(hwMap);
+        this.transfer = new Transfer(hwMap);
+
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setPower(-d), this.gamepad1);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setPower, this.gamepad1);
+
+        this.transferAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.transfer.setPower(-d), this.gamepad2);
+        this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.transfer::setPower, this.gamepad2);
+
+        this.configureControls();
+    }
+
     public void updateTriggers() {
         this.intakeAccept.update();
         this.intakeReject.update();
@@ -84,7 +103,6 @@ public class CommandRobot {
 
     public Command ready(){
         return new SequentialCommandGroup(
-          new ShooterFarTip(this.shooter),
           new TransferStop(this.transfer)
         );
     }
@@ -98,22 +116,30 @@ public class CommandRobot {
 
     public Command goClose(){
         return new SequentialCommandGroup(
-                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
                 new ShooterCloseTip(this.shooter),
-                new TransferStop(this.transfer)
+                new TransferStop(this.transfer),
+                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive)
         );
     }
 
     public Command goFar(){
         return new SequentialCommandGroup(
-                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
                 new ShooterCloseTip(this.shooter),
-                new TransferStop(this.transfer)
+                new TransferStop(this.transfer),
+                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive)
         );
     }
 
     public Drivetrain getDrivetrain() {
         return this.drive;
+    }
+
+    public Transfer getTransfer() {
+        return this.transfer;
+    }
+
+    public Intake getIntake() {
+        return this.intake;
     }
 
     public Follower getFollower() {

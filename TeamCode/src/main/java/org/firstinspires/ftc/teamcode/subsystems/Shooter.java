@@ -47,7 +47,8 @@ public class Shooter extends SubsystemBase {
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kG);
         this.controller.setAllowedError(15);
 
-        this.setTarget(0);
+        this.setTarget(this.FAR_TIP_VELOCITY);
+        this.setPosition(this.FAR_TIP_POSITION);
     }
 
     public void periodic() {

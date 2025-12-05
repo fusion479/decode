@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class RedFarTrajectories {
     private final HashMap<String, Pose> poses;
 
-    Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird;
 
     public RedFarTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedFarSix.pp"));

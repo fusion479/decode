@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class BlueFarTrajectories {
     private final HashMap<String, Pose> poses;
 
-    Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird;
 
     public BlueFarTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarSix.pp"));

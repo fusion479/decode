@@ -23,6 +23,8 @@ public class Transfer extends SubsystemBase {
 
         this.leftTransfer = hwMap.get(CRServo.class, "leftTransfer");
         this.rightTransfer = hwMap.get(CRServo.class, "rightTransfer");
+
+        this.setStopPosiiton(this.STOP);
     }
 
     @Override

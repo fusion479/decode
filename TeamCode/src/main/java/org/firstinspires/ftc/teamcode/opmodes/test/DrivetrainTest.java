@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawOnlyCurrent;
-
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -9,8 +7,7 @@ import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueTip;
-import org.firstinspires.ftc.teamcode.commands.drivetrain.RedTip;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -26,7 +23,7 @@ public class DrivetrainTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, 0), this.gamepad);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new RedTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new RedFarTip(this.drive));
     }
 
     @Override

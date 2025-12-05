@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Transfer extends SubsystemBase {
     public static double STOP = 0.5;
+    public static double ALLOW = 0.5;
 
     private double power;
 
@@ -38,8 +39,8 @@ public class Transfer extends SubsystemBase {
         return this.leftTransfer.getPower();
     }
 
-    public void stop() {
-        this.stop.setPosition(Transfer.STOP);
+    public void setStopPosiiton(double position) {
+        this.stop.setPosition(position);
     }
 
     public void setPower(double power) {

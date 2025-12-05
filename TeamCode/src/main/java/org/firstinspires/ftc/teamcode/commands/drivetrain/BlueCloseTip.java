@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.bylazar.configurables.annotations.Configurable;
@@ -11,10 +10,9 @@ import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
-import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-public class RedTip extends CommandBase {
+public class BlueCloseTip extends CommandBase {
     public static Pose tip = new Pose(94, 93, Math.toRadians(45));
 
     private final Drivetrain drivetrain;
@@ -22,7 +20,7 @@ public class RedTip extends CommandBase {
 
     private boolean done;
 
-    public RedTip(final Drivetrain drivetrain) {
+    public BlueCloseTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
         this.done = false;
@@ -37,10 +35,10 @@ public class RedTip extends CommandBase {
 //
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
-                    follower.pathBuilder()
-                            .addPath(new BezierLine(follower.getPose(), tip))
-                            .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
-                            .build()
+                follower.pathBuilder()
+                        .addPath(new BezierLine(follower.getPose(), tip))
+                        .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
+                        .build()
         );
 
         this.done = true;

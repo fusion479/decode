@@ -12,20 +12,20 @@ public class Intake extends SubsystemBase {
     private final CRServo rightRoller, leftRoller;
 
     public Intake(final HardwareMap hwMap) {
-        this.rightIntake = hwMap.get(DcMotorEx.class, "rightINtake");
-        this.leftIntake = hwMap.get(DcMotorEx.class, "lIntake");
+        this.rightIntake = hwMap.get(DcMotorEx.class, "rightIntake");
+        this.leftIntake = hwMap.get(DcMotorEx.class, "leftIntake");
 
         this.leftRoller = hwMap.get(CRServo.class, "leftRoller");
-        this.rightRoller = hwMap.get(CRServo.class, "rIntakeRoller");
+        this.rightRoller = hwMap.get(CRServo.class, "rightRoller");
     }
 
     @Override
     public void periodic() {
         this.rightIntake.setPower(power);
-        this.leftIntake.setPower(power);
+        this.leftIntake.setPower(-power);
 
         this.rightRoller.setPower(power);
-        this.leftRoller.setPower(power);
+        this.leftRoller.setPower(-power);
     }
 
     public void setPower(double power) {

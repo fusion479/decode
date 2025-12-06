@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@Configurable
 public class Transfer extends SubsystemBase {
     public static double STOP = 0.5;
-    public static double ALLOW = 0.5;
+    public static double ALLOW = 0.23;
 
     private double power;
 

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "0 Main")
+@TeleOp(name = "RedMain")
 public class RedMain extends OpModeCore {
     private CommandRobot robot;
 

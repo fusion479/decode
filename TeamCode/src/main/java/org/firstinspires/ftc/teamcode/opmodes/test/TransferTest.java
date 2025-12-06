@@ -1,11 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferAllow;
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferStop;
+import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
@@ -27,6 +32,10 @@ public class TransferTest extends OpModeCore {
 
         this.transferAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.transfer.setPower(-d), this.gamepad);
         this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.transfer::setPower, this.gamepad);
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new TransferAllow(this.transfer));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new TransferStop(this.transfer));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new TransferAccept(this.transfer, 1000));
+
     }
 
     @Override

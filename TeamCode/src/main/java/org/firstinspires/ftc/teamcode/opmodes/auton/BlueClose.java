@@ -1,4 +1,4 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton;
 
-public class BlueCloseMain {
+public class BlueClose {
 }

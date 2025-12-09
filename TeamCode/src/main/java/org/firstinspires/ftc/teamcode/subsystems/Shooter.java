@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.bylazar.configurables.annotations.Configurable;
 
+import com.bylazar.graph.PanelsGraph;
+import com.bylazar.panels.Panels;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,16 +12,18 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Configurable
 public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_VELOCITY = 3000;
-    public static double FAR_TIP_VELOCITY = 25000;
-    public static double CLOSE_TIP_POSITION = 0.65;
-    public static double FAR_TIP_POSITION = 0.7;
+    public static double FAR_TIP_VELOCITY = 2220;
+    public static double ROAM_VELOCITY = 1500;
+    public static double CLOSE_TIP_POSITION = 0.75;
+    public static double FAR_TIP_POSITION = 0.75;
 
-    public static double kP = 0.5;
+    public static double kP = 0.55;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
@@ -47,14 +51,22 @@ public class Shooter extends SubsystemBase {
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kG);
         this.controller.setAllowedError(15);
 
-        this.setTarget(this.FAR_TIP_VELOCITY);
-        this.setPosition(this.FAR_TIP_POSITION);
+        this.setTarget(CLOSE_TIP_VELOCITY);
+        this.setPosition(FAR_TIP_POSITION);
     }
 
     public void periodic() {
         double power = this.controller.calculate(rightShooter.getVelocity());
 
         PanelsTelemetry.INSTANCE.getTelemetry().addData("power", power);
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Target", this.controller.getTarget());
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Velocity", this.getVelocity());
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Amps", this.getAmps());
+
+        PanelsGraph.INSTANCE.getManager().addData("Velocity", this.getVelocity());
+        PanelsGraph.INSTANCE.getManager().update();
+
+        PanelsTelemetry.INSTANCE.getTelemetry().update();
 
         this.rightShooter.setPower(Math.max(power, 0));
         this.leftShooter.setPower(Math.max(power,0));
@@ -82,6 +94,10 @@ public class Shooter extends SubsystemBase {
 
     public synchronized double getVelocity() {
         return this.rightShooter.getVelocity();
+    }
+
+    public synchronized double getAmps() {
+        return this.rightShooter.getCurrent(CurrentUnit.AMPS);
     }
 
     public synchronized boolean isFinished() {

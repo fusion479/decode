@@ -26,6 +26,8 @@ public class RedMain extends OpModeCore {
         this.initialize();
         super.waitForStart();
 
+        this.robot.getDrivetrain().getFollower().update();
+        this.robot.getDrivetrain().getFollower().startTeleopDrive();
         while (!isStopRequested() && opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

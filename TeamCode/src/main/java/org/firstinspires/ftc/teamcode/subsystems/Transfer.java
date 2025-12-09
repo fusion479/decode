@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Transfer extends SubsystemBase {
-    public static double STOP = 0.5;
-    public static double ALLOW = 0.23;
+    public static double STOP = 1;
+    public static double ALLOW = 0.15;
 
     private double power;
 
@@ -34,7 +34,6 @@ public class Transfer extends SubsystemBase {
         this.leftTransfer.setPower(power);
         this.rightTransfer.setPower(-power);
     }
-
     public double getRightVoltage(){
         return this.rightTransfer.getPower();
     }

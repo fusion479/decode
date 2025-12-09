@@ -21,5 +21,7 @@ dependencies {
 
     implementation 'com.bylazar:fullpanels:1.0.6'
     implementation "com.bylazar:limelightproxy:1.0.2"
+
+    implementation "com.bylazar:graph:1.0.4"
 }
 

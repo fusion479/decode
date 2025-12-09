@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.bylazar.configurables.annotations.Configurable;
 
-import com.bylazar.graph.PanelsGraph;
 import com.bylazar.panels.Panels;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -58,14 +57,11 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         double power = this.controller.calculate(rightShooter.getVelocity());
 
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("power", power);
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Target", this.controller.getTarget());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Velocity", this.getVelocity());
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Error", this.controller.getLastError());
+
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Amps", this.getAmps());
-
-        PanelsGraph.INSTANCE.getManager().addData("Velocity", this.getVelocity());
-        PanelsGraph.INSTANCE.getManager().update();
-
         PanelsTelemetry.INSTANCE.getTelemetry().update();
 
         this.rightShooter.setPower(Math.max(power, 0));

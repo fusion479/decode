@@ -9,22 +9,22 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.intake.IntakeAccept;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "RedFarMain", preselectTeleOp = "RedMain")
-public class RedFarMain extends OpModeCore {
+@Autonomous(name = "Blue Far", preselectTeleOp = "BlueMain")
+public class BlueFar extends OpModeCore {
     private CommandRobot robot;
-    private RedFarTrajectories trajectories;
+    private BlueFarTrajectories trajectories;
 
     public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
 
     @Override
     public void initialize() {
-        this.trajectories = new RedFarTrajectories();
+        this.trajectories = new BlueFarTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart());
     }
@@ -45,8 +45,8 @@ public class RedFarMain extends OpModeCore {
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, SCORE_SPEED),
                         new ParallelCommandGroup(
-                                new IntakeAccept(this.robot.getIntake(), 5000),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
+                           new IntakeAccept(this.robot.getIntake(), 5000),
+                           new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),

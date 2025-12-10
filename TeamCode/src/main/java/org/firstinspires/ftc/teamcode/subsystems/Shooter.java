@@ -22,9 +22,9 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_POSITION = 0.75;
     public static double FAR_TIP_POSITION = 0.75;
 
-    public static double kP = 0.55;
+    public static double kP = 0.055;
     public static double kI = 0;
-    public static double kD = 0;
+    public static double kD = 0.0001;
     public static double kG = 0;
 
     private final DcMotorEx rightShooter, leftShooter;
@@ -66,6 +66,8 @@ public class Shooter extends SubsystemBase {
 
         this.rightShooter.setPower(Math.max(power, 0));
         this.leftShooter.setPower(Math.max(power,0));
+
+        this.controller.setCoefficients(kP, kI, kD);
     }
 
     public double getRightVoltage(){

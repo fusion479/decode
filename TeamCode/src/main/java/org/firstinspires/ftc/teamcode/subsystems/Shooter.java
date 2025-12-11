@@ -22,10 +22,10 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_POSITION = 0.75;
     public static double FAR_TIP_POSITION = 0.75;
 
-    public static double kP = 0.055;
+    public static double kP = 0.01;
     public static double kI = 0;
-    public static double kD = 0.0001;
-    public static double kG = 0;
+    public static double kD = 0;
+    public static double kF = 0;
 
     private final DcMotorEx rightShooter, leftShooter;
     private final Servo hood;
@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase {
         this.rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kG);
+        this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
         this.controller.setAllowedError(15);
 
         this.setTarget(CLOSE_TIP_VELOCITY);
@@ -67,7 +67,7 @@ public class Shooter extends SubsystemBase {
         this.rightShooter.setPower(Math.max(power, 0));
         this.leftShooter.setPower(Math.max(power,0));
 
-        this.controller.setCoefficients(kP, kI, kD);
+        this.controller.setCoefficients(kP, kI, kD, kF);
     }
 
     public double getRightVoltage(){
@@ -107,6 +107,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public synchronized void setConstants() {
-        this.controller.setCoefficients(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kG);
+        this.controller.setCoefficients(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
     }
 }

@@ -24,8 +24,6 @@ public class ShooterTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.shooter = new Shooter(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new InstantCommand(() -> this.shooter.setPosition(Shooter.CLOSE_TIP_POSITION)));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> this.shooter.setPosition(Shooter.FAR_TIP_POSITION)));
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ShooterCloseTip(this.shooter));
         this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ShooterFarTip(this.shooter));
     }

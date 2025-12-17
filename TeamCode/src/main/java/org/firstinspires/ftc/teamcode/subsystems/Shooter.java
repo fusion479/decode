@@ -16,25 +16,22 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Configurable
 public class Shooter extends SubsystemBase {
-    public static double CLOSE_TIP_VELOCITY = 3000;
-    public static double FAR_TIP_VELOCITY = 2220;
-    public static double ROAM_VELOCITY = 1500;
-    public static double CLOSE_TIP_POSITION = 0.75;
-    public static double FAR_TIP_POSITION = 0.75;
+    public static double CLOSE_TIP_VELOCITY = 1000;
+    public static double FAR_TIP_VELOCITY = 2300;
+    public static double ROAM_VELOCITY = 500;
 
     public static double kP = 0.01;
     public static double kI = 0;
     public static double kD = 0;
-    public static double kF = 0;
+    public static double kF = 0.005;
+    public static double kS = 1.3;
 
     private final DcMotorEx rightShooter, leftShooter;
-    private final Servo hood;
 
     private final PIDController controller;
     public Shooter(final HardwareMap hwMap) {
         this.rightShooter = hwMap.get(DcMotorEx.class, "rightShooter");
         this.leftShooter = hwMap.get(DcMotorEx.class, "leftShooter");
-        this.hood = hwMap.get(Servo.class, "hood");
 
         this.rightShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.leftShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -50,12 +47,11 @@ public class Shooter extends SubsystemBase {
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
         this.controller.setAllowedError(15);
 
-        this.setTarget(CLOSE_TIP_VELOCITY);
-        this.setPosition(FAR_TIP_POSITION);
+        this.setTarget(ROAM_VELOCITY);
     }
 
     public void periodic() {
-        double power = this.controller.calculate(rightShooter.getVelocity());
+        double power = this.controller.calculate(rightShooter.getVelocity()) + kS;
 
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Target", this.controller.getTarget());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Velocity", this.getVelocity());
@@ -76,10 +72,6 @@ public class Shooter extends SubsystemBase {
 
     public double getleftVoltage(){
         return this.leftShooter.getPower();
-    }
-
-    public void setPosition(double position) {
-        this.hood.setPosition(position);
     }
 
     public synchronized double getTarget() {

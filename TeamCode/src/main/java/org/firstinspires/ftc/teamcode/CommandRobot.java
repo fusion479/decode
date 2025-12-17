@@ -51,8 +51,8 @@ public class CommandRobot {
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
 
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setPower(-d), this.gamepad1);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setPower, this.gamepad1);
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {this.intake.setPower(-d / 1.9); this.transfer.setPower(d);}, this.gamepad1);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> { this.intake.setPower(d / 1.9); this.transfer.setPower(-d);}, this.gamepad1);
 
         this.configureControls();
     }
@@ -66,9 +66,6 @@ public class CommandRobot {
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
-
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setPower(-d), this.gamepad1);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setPower, this.gamepad1);
 
         this.configureControls();
     }

@@ -15,7 +15,6 @@ public class ShooterCloseTip extends CommandBase {
 
     @Override
     public void initialize() {
-        this.shooter.setPosition(Shooter.CLOSE_TIP_POSITION);
         this.shooter.setTarget(Shooter.CLOSE_TIP_VELOCITY);
     }
 

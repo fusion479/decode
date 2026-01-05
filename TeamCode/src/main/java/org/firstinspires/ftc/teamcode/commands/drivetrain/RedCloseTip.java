@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.bylazar.configurables.annotations.Configurable;
-import com.pedropathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
+
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -13,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 
 @Configurable
 public class RedCloseTip extends CommandBase {
-    public static Pose tip = new Pose(94, 93, Math.toRadians(45));
+    public static Pose tip = new Pose(73, 74, Math.toRadians(130));
 
     private final Drivetrain drivetrain;
     private final Follower follower;
@@ -30,13 +32,13 @@ public class RedCloseTip extends CommandBase {
 
     @Override
     public void initialize() {
-        Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
-                AutonomousHelpers.HeadingInterpolation.LINEAR);
+//        Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
+//                AutonomousHelpers.HeadingInterpolation.LINEAR);
 //
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
                 follower.pathBuilder()
-                        .addPath(new BezierLine(follower.getPose(), tip))
+                        .addPath(new BezierCurve(follower.getPose(), tip))
                         .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                         .build()
         );
@@ -54,6 +56,7 @@ public class RedCloseTip extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return done && !follower.isBusy();
+
+        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())) < 3);
     }
 }

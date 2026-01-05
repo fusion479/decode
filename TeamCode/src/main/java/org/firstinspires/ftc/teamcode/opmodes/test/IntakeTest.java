@@ -25,8 +25,8 @@ public class IntakeTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.intake = new Intake(super.hardwareMap);
 
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setPower(-d), this.gamepad);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setPower, this.gamepad);
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.intake.setIntakePower(-d), this.gamepad);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.intake::setOuttakePower, this.gamepad);
     }
 
     @Override

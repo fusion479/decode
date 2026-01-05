@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.utils.commands;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.pedropathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 

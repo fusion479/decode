@@ -21,13 +21,13 @@ public class IntakeAccept extends CommandBase {
     @Override
     public void initialize() {
         this.timer.reset();
-        this.intake.setPower(1);
+        this.intake.setIntakePower(1);
     }
 
     @Override
     public boolean isFinished() {
         if (this.timer.milliseconds() >= this.duration) {
-            this.intake.setPower(0);
+            this.intake.setIntakePower(0);
             return true;
         }
         return false;

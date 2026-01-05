@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
-import com.pedropathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.Mecanum;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.utils.Drawing;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
@@ -17,6 +20,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 @Configurable
 public class Drivetrain extends SubsystemBase {
@@ -30,6 +34,9 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_ANGULAR_VEL = 0.6;
 
     public static boolean ROBOT_CENTRIC = true;
+
+    public static double compensationFactor = 0.95;
+
     private final Follower follower;
 
     private final Limelight3A limelight;
@@ -42,6 +49,7 @@ public class Drivetrain extends SubsystemBase {
     public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad) {
         Drawing.init();
         this.follower = Constants.createFollower(hwMap);
+
         this.follower.setStartingPose(startPose);
         this.follower.update();
 
@@ -67,7 +75,7 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
+        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
         this.follower.update();
@@ -77,6 +85,13 @@ public class Drivetrain extends SubsystemBase {
         PanelsTelemetry.INSTANCE.getTelemetry().addData("X: ", this.follower.getPose().getX());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
+
+        List<DcMotorEx> motors = ((Mecanum) this.follower.getDrivetrain()).getMotors();
+
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Front Amps", motors.get(0).getCurrent(CurrentUnit.AMPS));
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Rear Amps",  motors.get(1).getCurrent(CurrentUnit.AMPS));
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Front Amps", motors.get(2).getCurrent(CurrentUnit.AMPS));
+        PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Rear Amps",  motors.get(3).getCurrent(CurrentUnit.AMPS));
 
         draw();
 
@@ -136,6 +151,9 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
+
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
+
         }
     }
 

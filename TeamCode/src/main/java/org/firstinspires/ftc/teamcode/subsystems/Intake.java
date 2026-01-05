@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake extends SubsystemBase {
-    private double power;
+    private double upperPower;
+    private double lowerPower;
 
     private final DcMotorEx rightIntake, leftIntake;
     private final CRServo rightRoller, leftRoller;
@@ -21,14 +22,20 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        this.rightIntake.setPower(power);
-        this.leftIntake.setPower(-power);
+        this.rightIntake.setPower(lowerPower);
+        this.leftIntake.setPower(-lowerPower);
 
-        this.rightRoller.setPower(power);
-        this.leftRoller.setPower(-power);
+        this.rightRoller.setPower(upperPower);
+        this.leftRoller.setPower(-upperPower);
     }
 
-    public void setPower(double power) {
-        this.power = power;
+    public void setIntakePower(double power) {
+        this.upperPower = power;
+        this.lowerPower = power;
+
+    }
+
+    public void setOuttakePower(double power) {
+        this.lowerPower = power;
     }
 }

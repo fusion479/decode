@@ -35,7 +35,7 @@ public class Drivetrain extends SubsystemBase {
 
     public static boolean ROBOT_CENTRIC = true;
 
-    public static double compensationFactor = 0.95;
+    public static double compensationFactor = 0.98;
 
     private final Follower follower;
 

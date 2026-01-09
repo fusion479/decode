@@ -2,15 +2,12 @@ package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.bylazar.configurables.annotations.Configurable;
-import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
 
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
-import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 
 @Configurable
 public class BlueFarTip extends CommandBase {
@@ -52,6 +49,8 @@ public class BlueFarTip extends CommandBase {
         }
         follower.startTeleopDrive();
     }
+
+
 
     @Override
     public boolean isFinished() {

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.utils;
 import com.bylazar.field.FieldManager;
 import com.bylazar.field.PanelsField;
 import com.bylazar.field.Style;
-import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
 import com.pedropathing.paths.Path;

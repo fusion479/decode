@@ -4,8 +4,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
-import org.firstinspires.ftc.teamcode.pedroPathing.Follower;
-import org.firstinspires.ftc.teamcode.pedroPathing.Mecanum;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -75,7 +74,7 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
         this.follower.update();
@@ -86,15 +85,7 @@ public class Drivetrain extends SubsystemBase {
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
-        List<DcMotorEx> motors = ((Mecanum) this.follower.getDrivetrain()).getMotors();
-
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Front Amps", motors.get(0).getCurrent(CurrentUnit.AMPS));
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Rear Amps",  motors.get(1).getCurrent(CurrentUnit.AMPS));
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Front Amps", motors.get(2).getCurrent(CurrentUnit.AMPS));
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Rear Amps",  motors.get(3).getCurrent(CurrentUnit.AMPS));
-
         draw();
-
         this.relocalize();
     }
 

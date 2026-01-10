@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 @Configurable
 public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_VELOCITY = 1100;
-    public static double FAR_TIP_VELOCITY = 2000;
+    public static double FAR_TIP_VELOCITY = 1250;
     public static double ROAM_VELOCITY = 500;
 
     public static double kP = 0.01;

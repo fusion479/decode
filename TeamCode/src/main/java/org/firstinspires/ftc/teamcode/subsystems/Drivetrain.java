@@ -74,7 +74,7 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
+        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
         this.follower.update();
@@ -127,14 +127,16 @@ public class Drivetrain extends SubsystemBase {
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
             Pose3D botpose = llResult.getBotpose();
 
-            this.follower.setPose(
-                    new Pose(
-                            botpose.getPosition().y * 39 + 72,
-                            botpose.getPosition().x * -39 + 72,
-                            Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
-                    )
-            );
-            this.follower.updatePose();
+            if (llResult.getBotposeAvgDist() < 1.6) {
+                this.follower.setPose(
+                        new Pose(
+                                botpose.getPosition().y * 39 + 72,
+                                botpose.getPosition().x * -39 + 72,
+                                Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
+                        )
+                );
+                this.follower.updatePose();
+            }
 
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());

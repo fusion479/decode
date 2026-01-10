@@ -14,16 +14,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
-            .forwardZeroPowerAcceleration(-29.323)
-            .lateralZeroPowerAcceleration(-67.204)
+            .forwardZeroPowerAcceleration(-30.8165395246)
+            .lateralZeroPowerAcceleration(-59.07927183968)
             .mass(12.8);
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
     public static MecanumConstants driveConstants = new MecanumConstants()
-            .xVelocity(71.936)
-            .yVelocity(57.537)
             .maxPower(1)
+            .xVelocity(73.314)
+            .yVelocity(59.8314)
             .useBrakeModeInTeleOp(true)
             .rightFrontMotorName("rightFront")
             .rightRearMotorName("rightRear")
@@ -40,8 +40,8 @@ public class Constants {
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("odo")
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
-            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
-            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
+            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)

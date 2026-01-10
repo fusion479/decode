@@ -5,13 +5,14 @@ import com.bylazar.configurables.annotations.Configurable;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Configurable
 public class RedFarTip extends CommandBase {
-    public static Pose tip = new Pose(67, 26, Math.toRadians(150));
+    public static Pose tip = new Pose(67, 26, Math.toRadians(145));
 
     private final Drivetrain drivetrain;
     private final Follower follower;
@@ -34,7 +35,7 @@ public class RedFarTip extends CommandBase {
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
                     follower.pathBuilder()
-                            .addPath(new BezierCurve(follower.getPose(), tip))
+                            .addPath(new BezierLine(follower.getPose(), tip))
                             .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                             .build()
         );

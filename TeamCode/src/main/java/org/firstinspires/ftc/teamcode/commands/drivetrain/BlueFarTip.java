@@ -5,23 +5,21 @@ import com.bylazar.configurables.annotations.Configurable;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Configurable
 public class BlueFarTip extends CommandBase {
-    public static Pose tip = new Pose(67, 26, Math.toRadians(210));
+    public static Pose tip = new Pose(57, 23, Math.toRadians(202));
 
     private final Drivetrain drivetrain;
     private final Follower follower;
 
-    private boolean done;
-
     public BlueFarTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
-        this.done = false;
         this.follower = drivetrain.getFollower();
         super.addRequirements(drivetrain);
     }
@@ -34,12 +32,10 @@ public class BlueFarTip extends CommandBase {
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
                 follower.pathBuilder()
-                        .addPath(new BezierCurve(follower.getPose(), tip))
+                        .addPath(new BezierLine(follower.getPose(), tip))
                         .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                         .build()
         );
-
-        this.done = true;
     }
 
     @Override
@@ -50,11 +46,16 @@ public class BlueFarTip extends CommandBase {
         follower.startTeleopDrive();
     }
 
-
-
     @Override
     public boolean isFinished() {
-        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())) < 3);
+        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(
+                follower.getPose().getHeading()
+        )
+                + (Math.toDegrees(
+                follower.getPose().getHeading()
+        ) < 0 ? 360 : 0)
+                - Math.toDegrees(tip.getHeading()))
+                < 3);
     }
 }
 

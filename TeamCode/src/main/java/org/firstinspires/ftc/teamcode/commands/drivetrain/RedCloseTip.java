@@ -18,12 +18,9 @@ public class RedCloseTip extends CommandBase {
     private final Drivetrain drivetrain;
     private final Follower follower;
 
-    private boolean done;
-
     public RedCloseTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
-        this.done = false;
         this.follower = drivetrain.getFollower();
         super.addRequirements(drivetrain);
     }
@@ -40,8 +37,6 @@ public class RedCloseTip extends CommandBase {
                         .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                         .build()
         );
-
-        this.done = true;
     }
 
     @Override

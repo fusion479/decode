@@ -7,13 +7,14 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Configurable
 public class BlueCloseTip extends CommandBase {
-    public static Pose tip = new Pose(73, 74, Math.toRadians(235));
+    public static Pose tip = new Pose(73, 74, Math.toRadians(228));
 
     private final Drivetrain drivetrain;
     private final Follower follower;
@@ -26,14 +27,6 @@ public class BlueCloseTip extends CommandBase {
     }
 
     @Override
-    public void execute() {
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("X", Math.abs(follower.getPose().getY() - tip.getY()));
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Y",Math.abs(follower.getPose().getX() - tip.getX()));
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading", Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())));
-        PanelsTelemetry.INSTANCE.getTelemetry().update();
-    }
-
-    @Override
     public void initialize() {
         //Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
                 //AutonomousHelpers.HeadingInterpolation.LINEAR);
@@ -41,7 +34,7 @@ public class BlueCloseTip extends CommandBase {
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
                 follower.pathBuilder()
-                        .addPath(new BezierCurve(follower.getPose(), tip))
+                        .addPath(new BezierLine(follower.getPose(), tip))
                         .setLinearHeadingInterpolation(follower.getHeading(), tip.getHeading())
                         .build()
         );
@@ -59,6 +52,13 @@ public class BlueCloseTip extends CommandBase {
     @Override
     public boolean isFinished() {
 
-        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())) < 3);
+        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(
+                follower.getPose().getHeading()
+        )
+                + (Math.toDegrees(
+                follower.getPose().getHeading()
+        ) < 0 ? 360 : 0)
+                - Math.toDegrees(tip.getHeading()))
+                < 3);
     }
 }

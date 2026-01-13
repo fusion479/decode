@@ -26,7 +26,7 @@ public class DrivetrainTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, 0), this.gamepad);
+        this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, 0), this.gamepad, "teleop");
 
         this.rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         this.leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");

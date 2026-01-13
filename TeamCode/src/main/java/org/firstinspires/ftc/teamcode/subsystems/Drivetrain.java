@@ -34,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
 
     public static boolean ROBOT_CENTRIC = true;
 
-    public static double compensationFactor = 0.98;
+    public static double AVG_THRESHOLD = 2.3;
 
     private final Follower follower;
 
@@ -45,8 +45,12 @@ public class Drivetrain extends SubsystemBase {
     private double angPower = 0.0;
     private double yPower = 0.0;
 
-    public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad) {
+    private String OpMode;
+
+    public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad, String OpMode) {
         Drawing.init();
+
+        this.OpMode = OpMode;
         this.follower = Constants.createFollower(hwMap);
 
         this.follower.setStartingPose(startPose);
@@ -73,6 +77,7 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (OpMode.equals("teleop")) {
         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
@@ -87,6 +92,7 @@ public class Drivetrain extends SubsystemBase {
 
         draw();
         this.relocalize();
+        }
     }
 
 //    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
@@ -127,7 +133,7 @@ public class Drivetrain extends SubsystemBase {
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
             Pose3D botpose = llResult.getBotpose();
 
-            if (llResult.getBotposeAvgDist() < 1.6) {
+            if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
                 this.follower.setPose(
                         new Pose(
                                 botpose.getPosition().y * 39 + 72,

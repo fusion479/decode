@@ -35,7 +35,6 @@ public class IntakeTransferTest extends OpModeCore {
         this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> { this.intake.setOuttakePower(d); this.transfer.setPower(-d);}, this.gamepad);
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new TransferAllow(this.transfer));
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new TransferStop(this.transfer));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new TransferAccept(this.transfer, 1000));
     }
 
     @Override

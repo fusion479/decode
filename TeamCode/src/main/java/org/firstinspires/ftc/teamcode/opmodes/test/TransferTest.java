@@ -34,7 +34,6 @@ public class TransferTest extends OpModeCore {
         this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.transfer::setPower, this.gamepad);
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new TransferAllow(this.transfer));
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new TransferStop(this.transfer));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new TransferAccept(this.transfer, 1000));
 
     }
 

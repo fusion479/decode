@@ -26,7 +26,7 @@ public class BlueFar extends OpModeCore {
     public void initialize() {
         this.trajectories = new BlueFarTrajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart());
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BlueFar extends OpModeCore {
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
                         robot.shoot(),
-                        new TransferAccept(this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
                         robot.ready(),
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, SCORE_SPEED),
@@ -51,7 +51,7 @@ public class BlueFar extends OpModeCore {
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
                         robot.shoot(),
-                        new TransferAccept(this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
                         robot.ready(),
 
                         new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
@@ -62,7 +62,7 @@ public class BlueFar extends OpModeCore {
 
                         new PathCommand(this.robot, this.trajectories.shootThird, NORMAL_SPEED),
                         robot.shoot(),
-                        new TransferAccept(this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
                         robot.ready()
                 )
         );

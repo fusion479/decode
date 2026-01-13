@@ -12,17 +12,14 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Configurable
 public class RedFarTip extends CommandBase {
-    public static Pose tip = new Pose(67, 26, Math.toRadians(145));
+    public static Pose tip = new Pose(86, 16, Math.toRadians(157.9));
 
     private final Drivetrain drivetrain;
     private final Follower follower;
 
-    private boolean done;
-
     public RedFarTip(final Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
-        this.done = false;
         this.follower = drivetrain.getFollower();
         super.addRequirements(drivetrain);
     }
@@ -40,7 +37,6 @@ public class RedFarTip extends CommandBase {
                             .build()
         );
 
-        this.done = true;
     }
 
     @Override

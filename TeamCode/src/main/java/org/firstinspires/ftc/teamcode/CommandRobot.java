@@ -36,13 +36,15 @@ public class CommandRobot {
     private GamepadEx gamepad1, gamepad2;
     private GamepadTrigger intakeAccept, intakeReject;
 
+    public static long SHOOT_WAIT = 500;
+
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, String color) {
         this.color = color;
 
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.drive = new Drivetrain(hwMap, new Pose(72, 72, 0), this.gamepad1);
+        this.drive = new Drivetrain(hwMap, new Pose(72, 72, 0), this.gamepad1, "teleop");
 
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
@@ -54,12 +56,12 @@ public class CommandRobot {
         this.configureControls();
     }
 
-    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Pose startPose) {
+    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Pose startPose, String color) {
         this.color = color;
 
         this.gamepad1 = new GamepadEx(gamepad1);
 
-        this.drive = new Drivetrain(hwMap, startPose, this.gamepad1);
+        this.drive = new Drivetrain(hwMap, startPose, this.gamepad1, "auton");
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
@@ -105,9 +107,8 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
                 this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
-                new WaitCommand(1000),
+                new WaitCommand(SHOOT_WAIT),
                 new TransferAllow(this.transfer)
-
                 );
     }
 
@@ -115,6 +116,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
                 this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
+                new WaitCommand(SHOOT_WAIT),
                 new TransferAllow(this.transfer)
                 );
     }

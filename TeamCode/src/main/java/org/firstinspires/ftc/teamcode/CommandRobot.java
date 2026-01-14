@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -25,6 +26,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 
+@Configurable
 public class CommandRobot {
     private String color;
 
@@ -36,7 +38,7 @@ public class CommandRobot {
     private GamepadEx gamepad1, gamepad2;
     private GamepadTrigger intakeAccept, intakeReject;
 
-    public static long SHOOT_WAIT = 500;
+    public static long SHOOT_WAIT = 5000;
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, String color) {
         this.color = color;
@@ -51,7 +53,7 @@ public class CommandRobot {
         this.transfer = new Transfer(hwMap);
 
         this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {this.intake.setIntakePower(-d); this.transfer.setPower(d);}, this.gamepad1);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> this.intake.setOuttakePower(d), this.gamepad1);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> {this.intake.setOuttakePower(d); this.transfer.setPower(-d);}, this.gamepad1);
 
         this.configureControls();
     }

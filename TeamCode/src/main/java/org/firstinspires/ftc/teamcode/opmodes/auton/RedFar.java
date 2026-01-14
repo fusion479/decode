@@ -21,6 +21,7 @@ public class RedFar extends OpModeCore {
 
     public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
+    public static double Intake_Speed = 0.5;
 
     @Override
     public void initialize() {
@@ -45,8 +46,8 @@ public class RedFar extends OpModeCore {
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, SCORE_SPEED),
                         new ParallelCommandGroup(
-                                new IntakeAccept(this.robot.getIntake(), 5000),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 5000),
+                                new PathCommand(this.robot, this.trajectories.intakeSecond, Intake_Speed)
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
@@ -56,8 +57,8 @@ public class RedFar extends OpModeCore {
 
                         new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
                         new ParallelCommandGroup(
-                                new IntakeAccept(this.robot.getIntake(), 5000),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
+                                new PathCommand(this.robot, this.trajectories.intakeThird, Intake_Speed)
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootThird, NORMAL_SPEED),

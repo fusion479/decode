@@ -21,7 +21,7 @@ public class IntakeAccept extends CommandBase {
     @Override
     public void initialize() {
         this.timer.reset();
-        this.intake.setIntakePower(1);
+        this.intake.setIntakePower(-1);
     }
 
     @Override

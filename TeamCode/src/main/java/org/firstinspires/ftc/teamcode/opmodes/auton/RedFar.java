@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -22,6 +24,7 @@ public class RedFar extends OpModeCore {
     public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
 
+    public static int SHOOT_WAIT = 500;
     @Override
     public void initialize() {
         this.trajectories = new RedFarTrajectories();
@@ -38,7 +41,12 @@ public class RedFar extends OpModeCore {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
+                        new ParallelCommandGroup(
+                                new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
+                                robot.autonFar()
+                        ),
+                        new WaitCommand(SHOOT_WAIT),
+
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
                         robot.ready(),

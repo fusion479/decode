@@ -112,6 +112,18 @@ public class CommandRobot {
                 );
     }
 
+    public Command autonClose(){
+        return new SequentialCommandGroup(
+                new ShooterCloseTip(this.shooter)
+        );
+    }
+
+    public Command autonFar(){
+        return new SequentialCommandGroup(
+                new ShooterFarTip(this.shooter)
+        );
+    }
+
     public Command goFar(){
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),

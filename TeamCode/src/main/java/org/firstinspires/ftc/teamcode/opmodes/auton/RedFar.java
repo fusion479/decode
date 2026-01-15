@@ -23,6 +23,10 @@ public class RedFar extends OpModeCore {
 
     public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
+    public static double INTAKE_SPEED = 0.5;
+
+    public static int SHOOT_DURATION = 3000;
+    public static int INTAKE_DURATION = 2000;
 
     public static int SHOOT_WAIT = 500;
     @Override
@@ -48,29 +52,29 @@ public class RedFar extends OpModeCore {
                         new WaitCommand(SHOOT_WAIT),
 
                         robot.shoot(),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(),  SHOOT_DURATION),
                         robot.ready(),
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, SCORE_SPEED),
                         new ParallelCommandGroup(
-                                new IntakeAccept(this.robot.getIntake(), 5000),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
+                                new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED)
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
                         robot.shoot(),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
 
                         new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
                         new ParallelCommandGroup(
-                                new IntakeAccept(this.robot.getIntake(), 5000),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
+                                new PathCommand(this.robot, this.trajectories.intakeThird, INTAKE_SPEED)
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootThird, NORMAL_SPEED),
                         robot.shoot(),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), 1000),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready()
                 )
         );

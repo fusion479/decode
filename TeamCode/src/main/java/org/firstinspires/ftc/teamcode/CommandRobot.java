@@ -109,7 +109,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
                 this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
-                new WaitCommand(SHOOT_WAIT),
+                new WaitCommand(1000),
                 new TransferAllow(this.transfer)
                 );
     }
@@ -118,7 +118,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
                 this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
-                new WaitCommand(SHOOT_WAIT),
+                new WaitCommand(1000),
                 new TransferAllow(this.transfer)
                 );
     }

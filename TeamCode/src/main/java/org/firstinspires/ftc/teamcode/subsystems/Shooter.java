@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.bylazar.configurables.annotations.Configurable;
-
-import com.bylazar.panels.Panels;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.utils.PIDController;
@@ -19,6 +17,7 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE_TIP_VELOCITY = 1100;
     public static double FAR_TIP_VELOCITY = 1250;
     public static double ROAM_VELOCITY = 1250;
+    public static double COMPENSATE = 12.0;
 
     public static double kP = 0.01;
     public static double kI = 0;
@@ -27,9 +26,12 @@ public class Shooter extends SubsystemBase {
     public static double kS = 1.3;
 
     private final DcMotorEx rightShooter, leftShooter;
-
+    private final VoltageSensor voltageSensor;
     private final PIDController controller;
+
     public Shooter(final HardwareMap hwMap) {
+        this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
+
         this.rightShooter = hwMap.get(DcMotorEx.class, "rightShooter");
         this.leftShooter = hwMap.get(DcMotorEx.class, "leftShooter");
 
@@ -51,7 +53,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void periodic() {
-        double power = this.controller.calculate(rightShooter.getVelocity()) + kS;
+        double power = this.controller.calculate(rightShooter.getVelocity()) + kS * (COMPENSATE / voltageSensor.getVoltage());
 
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Target", this.controller.getTarget());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Velocity", this.getVelocity());
@@ -61,16 +63,16 @@ public class Shooter extends SubsystemBase {
         PanelsTelemetry.INSTANCE.getTelemetry().update();
 
         this.rightShooter.setPower(Math.max(power, 0));
-        this.leftShooter.setPower(Math.max(power,0));
+        this.leftShooter.setPower(Math.max(power, 0));
 
         this.controller.setCoefficients(kP, kI, kD, kF);
     }
 
-    public double getRightVoltage(){
+    public double getRightVoltage() {
         return this.rightShooter.getPower();
     }
 
-    public double getleftVoltage(){
+    public double getleftVoltage() {
         return this.leftShooter.getPower();
     }
 

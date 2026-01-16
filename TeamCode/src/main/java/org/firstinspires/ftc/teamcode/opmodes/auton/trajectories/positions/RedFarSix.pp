@@ -42,7 +42,7 @@
       {
          "name":"intakeSecond",
          "endPoint":{
-            "x":125,
+            "x":128,
             "y":32,
             "heading":"linear",
             "reverse":false,
@@ -63,7 +63,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":158,
+            "endDeg":160,
             "index":4
          },
          "controlPoints":[
@@ -90,7 +90,7 @@
       {
          "name":"intakeThird",
          "endPoint":{
-            "x":130,
+            "x":133,
             "y":57,
             "heading":"linear",
             "reverse":false,
@@ -111,7 +111,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":157,
+            "endDeg":155,
             "index":7
          },
          "controlPoints":[

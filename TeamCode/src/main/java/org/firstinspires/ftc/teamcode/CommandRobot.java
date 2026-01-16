@@ -26,17 +26,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 
 public class CommandRobot {
-    private String color;
-
-    private Intake intake;
-    private Drivetrain drive;
-    private Shooter shooter;
-    private Transfer transfer;
-
-    private GamepadEx gamepad1, gamepad2;
-    private GamepadTrigger intakeAccept, intakeReject;
-
     public static long SHOOT_WAIT = 500;
+    private final String color;
+    private final Intake intake;
+    private final Drivetrain drive;
+    private final Shooter shooter;
+    private final Transfer transfer;
+    private final GamepadEx gamepad1;
+    private GamepadEx gamepad2;
+    private GamepadTrigger intakeAccept, intakeReject;
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, String color) {
         this.color = color;
@@ -50,8 +48,17 @@ public class CommandRobot {
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
 
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {this.intake.setIntakePower(-d); this.transfer.setPower(d);}, this.gamepad1);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> this.intake.setOuttakePower(d), this.gamepad1);
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {
+            this.intake.setIntakePower(-d);
+            this.transfer.setPower(d);
+            (new TransferStop(transfer)).schedule();
+        }, this.gamepad1);
+
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> {
+            this.intake.setOuttakePower(d);
+            this.transfer.setPower(-d);
+            (new TransferStop(transfer)).schedule();
+        }, this.gamepad1);
 
         this.configureControls();
     }
@@ -75,13 +82,13 @@ public class CommandRobot {
 
     }
 
-    public void update(){
+    public void update() {
         this.updateTriggers();
     }
 
     public void configureControls() {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(this.shoot());
+                .whileHeld(this.shoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
@@ -90,47 +97,49 @@ public class CommandRobot {
                 .whileHeld(this.goFar());
     }
 
-    public Command ready(){
+    public Command ready() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.shooter.setTarget(Shooter.ROAM_VELOCITY)),
-          new TransferStop(this.transfer)
+                new TransferStop(this.transfer)
         );
     }
 
-    public Command shoot(){
+    public Command shoot() {
         return new SequentialCommandGroup(
-                new TransferAllow(this.transfer)
+                new TransferAllow(this.transfer),
+                new InstantCommand(() -> this.transfer.setPower(-1)),
+                new InstantCommand(() -> this.intake.setIntakePower(1))
         );
     }
 
-    public Command goClose(){
+    public Command goClose() {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
                 this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
                 new WaitCommand(SHOOT_WAIT),
                 new TransferAllow(this.transfer)
-                );
+        );
     }
 
-    public Command autonClose(){
+    public Command autonClose() {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter)
         );
     }
 
-    public Command autonFar(){
+    public Command autonFar() {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter)
         );
     }
 
-    public Command goFar(){
+    public Command goFar() {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
                 this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
                 new WaitCommand(SHOOT_WAIT),
                 new TransferAllow(this.transfer)
-                );
+        );
     }
 
     public Drivetrain getDrivetrain() {

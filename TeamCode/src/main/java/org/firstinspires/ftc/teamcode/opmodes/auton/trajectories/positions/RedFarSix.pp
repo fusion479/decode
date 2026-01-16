@@ -12,7 +12,7 @@
          "name":"shootFirst",
          "endPoint":{
             "x":86,
-            "y":9,
+            "y":10.5,
             "heading":"linear",
             "startDeg":90,
             "endDeg":141,
@@ -63,7 +63,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":160,
+            "endDeg":155,
             "index":4
          },
          "controlPoints":[

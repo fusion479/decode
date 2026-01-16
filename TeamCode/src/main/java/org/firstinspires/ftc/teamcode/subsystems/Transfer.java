@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Transfer extends SubsystemBase {
-    public static double STOP = 0.5;
-    public static double ALLOW = 0.3;
+    public static double STOP = 0.4;
+    public static double ALLOW = 0.2;
 
     private double power;
 

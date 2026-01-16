@@ -89,26 +89,28 @@ public class CommandRobot {
     public void configureControls() {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                 .whileHeld(this.shoot());
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(this.goClose());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                .whenReleased(this.ready());
     }
 
     public Command ready() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.shooter.setTarget(Shooter.ROAM_VELOCITY)),
-                new TransferStop(this.transfer)
+                new TransferStop(this.transfer),
+                new InstantCommand(() -> this.transfer.setPower(0)),
+                new InstantCommand(() -> this.intake.setIntakePower(0))
         );
     }
 
     public Command shoot() {
         return new SequentialCommandGroup(
                 new TransferAllow(this.transfer),
-                new InstantCommand(() -> this.transfer.setPower(-1)),
-                new InstantCommand(() -> this.intake.setIntakePower(1))
+                new InstantCommand(() -> this.transfer.setPower(1)),
+                new InstantCommand(() -> this.intake.setIntakePower(-1))
         );
     }
 

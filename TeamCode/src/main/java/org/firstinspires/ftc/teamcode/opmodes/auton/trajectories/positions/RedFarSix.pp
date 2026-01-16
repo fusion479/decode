@@ -12,7 +12,7 @@
          "name":"shootFirst",
          "endPoint":{
             "x":86,
-            "y":16,
+            "y":9,
             "heading":"linear",
             "startDeg":90,
             "endDeg":141,
@@ -42,7 +42,7 @@
       {
          "name":"intakeSecond",
          "endPoint":{
-            "x":128,
+            "x":125,
             "y":32,
             "heading":"linear",
             "reverse":false,
@@ -59,11 +59,11 @@
          "name":"shootSecond",
          "endPoint":{
             "x":85,
-            "y":16,
+            "y":15,
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":170,
+            "endDeg":158,
             "index":4
          },
          "controlPoints":[
@@ -78,7 +78,7 @@
             "y":57,
             "heading":"linear",
             "reverse":false,
-            "startDeg":170,
+            "startDeg":158,
             "endDeg":180,
             "index":5
          },

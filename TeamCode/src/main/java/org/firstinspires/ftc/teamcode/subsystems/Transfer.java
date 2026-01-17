@@ -9,14 +9,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Transfer extends SubsystemBase {
-    public static double STOP = 0.4;
-    public static double ALLOW = 0.2;
-
+    public static double STOP = 0.28;
+    public static double ALLOW = 0.12;
+    private final CRServo leftTransfer;
+    private final Servo stop;
     private double power;
-
-    private CRServo leftTransfer;
-    private Servo stop;
-
     private DistanceSensor ballOne, ballTwo;
     // add brakebeam
 
@@ -25,7 +22,7 @@ public class Transfer extends SubsystemBase {
 
         this.leftTransfer = hwMap.get(CRServo.class, "leftFlicker");
 
-        this.setStopPosiiton(this.STOP);
+        this.setStopPosiiton(STOP);
     }
 
     @Override
@@ -33,7 +30,7 @@ public class Transfer extends SubsystemBase {
         this.leftTransfer.setPower(power);
     }
 
-    public double getleftVoltage(){
+    public double getleftVoltage() {
         return this.leftTransfer.getPower();
     }
 

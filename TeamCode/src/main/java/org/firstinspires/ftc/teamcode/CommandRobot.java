@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.pedropathing.follower.Follower;
@@ -88,25 +87,30 @@ public class CommandRobot {
 
     public void configureControls() {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whileHeld(this.shoot());
+                .whileHeld(this.holdShoot())
+                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(this.goClose());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar());
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                .whenReleased(this.ready());
     }
 
     public Command ready() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.shooter.setTarget(Shooter.ROAM_VELOCITY)),
-                new TransferStop(this.transfer),
-                new InstantCommand(() -> this.transfer.setPower(0)),
-                new InstantCommand(() -> this.intake.setIntakePower(0))
+                new TransferStop(this.transfer)
         );
     }
 
     public Command shoot() {
+        return new SequentialCommandGroup(
+                new TransferAllow(this.transfer)
+        );
+    }
+
+    public Command holdShoot() {
         return new SequentialCommandGroup(
                 new TransferAllow(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(1)),
@@ -114,12 +118,18 @@ public class CommandRobot {
         );
     }
 
+    public Command releaseShoot() {
+        return new SequentialCommandGroup(
+                new TransferStop(this.transfer),
+                new InstantCommand(() -> this.transfer.setPower(0)),
+                new InstantCommand(() -> this.intake.setIntakePower(0))
+        );
+    }
+
     public Command goClose() {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
-                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
-                new WaitCommand(SHOOT_WAIT),
-                new TransferAllow(this.transfer)
+                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive)
         );
     }
 
@@ -138,9 +148,7 @@ public class CommandRobot {
     public Command goFar() {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
-                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
-                new WaitCommand(SHOOT_WAIT),
-                new TransferAllow(this.transfer)
+                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive)
         );
     }
 

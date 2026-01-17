@@ -15,7 +15,7 @@
             "y":9,
             "heading":"linear",
             "startDeg":90,
-            "endDeg":141,
+            "endDeg":147,
             "index":1
          },
          "controlPoints":[
@@ -30,7 +30,7 @@
             "y":32,
             "heading":"linear",
             "reverse":false,
-            "startDeg":141,
+            "startDeg":147,
             "endDeg":180,
             "index":2
          },
@@ -63,7 +63,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":158,
+            "endDeg":156,
             "index":4
          },
          "controlPoints":[
@@ -78,7 +78,7 @@
             "y":57,
             "heading":"linear",
             "reverse":false,
-            "startDeg":158,
+            "startDeg":156,
             "endDeg":180,
             "index":5
          },
@@ -118,6 +118,22 @@
 
          ],
          "color":"#6B699A"
+      },
+      {
+         "name":"park",
+         "endPoint":{
+            "x":86,
+            "y":40,
+            "heading":"linear",
+            "reverse":false,
+            "index":6,
+            "startDeg":157,
+            "endDeg":90
+         },
+         "controlPoints":[
+
+         ],
+         "color":"#CCDCD7"
       }
    ]
 }

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.trajectories;
 
-import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
 import com.bylazar.configurables.annotations.Configurable;
@@ -10,14 +9,13 @@ import com.pedropathing.paths.Path;
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Configurable
 public class RedFarTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
 
     public RedFarTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedFarSix.pp"));
@@ -61,6 +59,12 @@ public class RedFarTrajectories {
         this.shootThird = buildLine(
                 poses.get("intakeThird"),
                 poses.get("shootThird"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.park = buildLine(
+                poses.get("shootThird"),
+                poses.get("park"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
     }

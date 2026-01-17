@@ -71,7 +71,9 @@ public class RedFar extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
-                        robot.ready()
+                        robot.ready(),
+
+                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )
         );
 

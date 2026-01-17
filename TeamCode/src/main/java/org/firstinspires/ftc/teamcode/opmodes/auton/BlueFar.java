@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarTrajectories;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
@@ -72,7 +71,9 @@ public class BlueFar extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
-                        robot.ready()
+                        robot.ready(),
+
+                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )
         );
 

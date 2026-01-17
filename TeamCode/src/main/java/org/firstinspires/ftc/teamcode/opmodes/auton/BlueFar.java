@@ -21,7 +21,7 @@ public class BlueFar extends OpModeCore {
     public static double INTAKE_SPEED = 0.5;
     public static int SHOOT_DURATION = 3000;
     public static int INTAKE_DURATION = 2000;
-    public static int SHOOT_WAIT = 750;
+    public static int SHOOT_WAIT = 800;
     private CommandRobot robot;
     private BlueFarTrajectories trajectories;
 

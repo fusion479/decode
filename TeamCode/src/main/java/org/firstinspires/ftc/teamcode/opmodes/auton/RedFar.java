@@ -16,12 +16,12 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Configurable
 @Autonomous(name = "Red Far", preselectTeleOp = "RedMain")
 public class RedFar extends OpModeCore {
-    public static double SCORE_SPEED = 0.65;
-    public static double NORMAL_SPEED = 0.65;
+    public static double SCORE_SPEED = 0.75;
+    public static double NORMAL_SPEED = 0.75;
     public static double INTAKE_SPEED = 0.5;
     public static int SHOOT_DURATION = 3000;
     public static int INTAKE_DURATION = 2000;
-    public static int SHOOT_WAIT = 750;
+    public static int SHOOT_WAIT = 650;
     private CommandRobot robot;
     private RedFarTrajectories trajectories;
 

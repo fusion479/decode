@@ -41,7 +41,7 @@ public class CommandRobot {
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.drive = new Drivetrain(hwMap, new Pose(72, 72, 0), this.gamepad1, "teleop");
+        this.drive = new Drivetrain(hwMap, new Pose(72, 72, 0), this.gamepad1, "teleop", color);
 
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
@@ -67,7 +67,7 @@ public class CommandRobot {
 
         this.gamepad1 = new GamepadEx(gamepad1);
 
-        this.drive = new Drivetrain(hwMap, startPose, this.gamepad1, "auton");
+        this.drive = new Drivetrain(hwMap, startPose, this.gamepad1, "auton", color);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);

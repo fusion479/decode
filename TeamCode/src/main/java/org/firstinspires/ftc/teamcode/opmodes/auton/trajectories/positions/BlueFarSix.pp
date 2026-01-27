@@ -122,7 +122,7 @@
       {
          "name":"park",
          "endPoint":{
-            "x":58,
+            "x":54,
             "y":40,
             "heading":"linear",
             "reverse":false,

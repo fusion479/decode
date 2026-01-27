@@ -30,7 +30,7 @@
             "y":32,
             "heading":"linear",
             "reverse":false,
-            "startDeg":147,
+            "startDeg":147,adb
             "endDeg":180,
             "index":2
          },
@@ -42,10 +42,10 @@
       {
          "name":"intakeSecond",
          "endPoint":{
-            "x":125,
+            "x":128,
             "y":32,
             "heading":"linear",
-            "reverse":false,
+            "reverse":false,™£™¡
             "index":3,
             "startDeg":180,
             "endDeg":180

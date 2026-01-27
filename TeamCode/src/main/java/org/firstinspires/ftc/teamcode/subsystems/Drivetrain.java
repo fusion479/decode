@@ -8,18 +8,11 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-import org.firstinspires.ftc.teamcode.utils.Drawing;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
+import org.firstinspires.ftc.teamcode.utils.Drawing;
 
 @Configurable
 public class Drivetrain extends SubsystemBase {
@@ -41,15 +34,16 @@ public class Drivetrain extends SubsystemBase {
     private final Limelight3A limelight;
     private final GamepadEx gamepad;
 
+    private final String color;
+    private final String OpMode;
     private double xPower = 0.0;
     private double angPower = 0.0;
     private double yPower = 0.0;
 
-    private String OpMode;
-
-    public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad, String OpMode) {
+    public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad, String OpMode, String color) {
         Drawing.init();
 
+        this.color = color;
         this.OpMode = OpMode;
         this.follower = Constants.createFollower(hwMap);
 
@@ -78,20 +72,26 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         if (OpMode.equals("teleop")) {
-        this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
-        this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
-        this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+            if (color.equals("red")) {
+                this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, -gamepad.getLeftY());
+                this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
+                this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+            } else {
+                this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
+                this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+                this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+            }
 
-        this.follower.update();
-        this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
-        this.follower.update();
+            this.follower.update();
+            this.follower.setTeleOpDrive(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
+            this.follower.update();
 
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("X: ", this.follower.getPose().getX());
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
-        PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("X: ", this.follower.getPose().getX());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Y: ", this.follower.getPose().getY());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
-        draw();
-        this.relocalize();
+            draw();
+            this.relocalize();
         }
     }
 

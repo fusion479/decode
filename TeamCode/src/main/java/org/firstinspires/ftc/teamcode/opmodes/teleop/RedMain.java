@@ -38,6 +38,7 @@ public class RedMain extends OpModeCore {
             super.telemetry.update();
         }
 
+        robot.getLimelight().stop();
         super.end();
     }
 }

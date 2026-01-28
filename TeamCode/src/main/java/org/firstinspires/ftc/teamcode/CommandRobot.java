@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -166,5 +167,9 @@ public class CommandRobot {
 
     public Follower getFollower() {
         return this.drive.getFollower();
+    }
+
+    public Limelight3A getLimelight(){
+        return this.drive.getLimelight();
     }
 }

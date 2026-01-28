@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.bylazar.telemetry.PanelsTelemetry;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
-import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
-import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
+
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "BlueMain")
@@ -38,15 +38,15 @@ public class BlueMain extends OpModeCore {
 
             this.robot.update();
 
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Y", Math.abs(this.robot.getDrivetrain().getFollower().getPose().getY() - BlueCloseTip.tip.getY()) < 6);
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("X",Math.abs(this.robot.getDrivetrain().getFollower().getPose().getX() - BlueCloseTip.tip.getX()) < 6);
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Curren Heading", Math.toDegrees(
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Y", Math.abs(this.robot.getDrivetrain().getFollower().getPose().getY() - BlueFarTip.tip.getY()) < 6);
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("X",Math.abs(this.robot.getDrivetrain().getFollower().getPose().getX() - BlueFarTip.tip.getX()) < 6);
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Current Heading", Math.toDegrees(
                     this.robot.getDrivetrain().getFollower().getPose().getHeading()
             )
                     + (Math.toDegrees(
                     this.robot.getDrivetrain().getFollower().getPose().getHeading()
             ) < 0 ? 360 : 0));
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Blue Close Heading", Math.toDegrees(BlueCloseTip.tip.getHeading()));
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Blue Close Heading", Math.toDegrees(BlueFarTip.tip.getHeading()));
             PanelsTelemetry.INSTANCE.getTelemetry().addData(
                     "Heading",
                     Math.abs(Math.toDegrees(
@@ -55,7 +55,7 @@ public class BlueMain extends OpModeCore {
                             + (Math.toDegrees(
                             this.robot.getDrivetrain().getFollower().getPose().getHeading()
                     ) < 0 ? 360 : 0)
-                            - Math.toDegrees(BlueCloseTip.tip.getHeading()))
+                            - Math.toDegrees(BlueFarTip.tip.getHeading()))
                             < 3
             );
 
@@ -63,6 +63,7 @@ public class BlueMain extends OpModeCore {
             super.telemetry.update();
         }
 
+        robot.getLimelight().stop();
         super.end();
     }
 }

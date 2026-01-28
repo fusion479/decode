@@ -7,6 +7,7 @@ import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -14,13 +15,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Drawing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configurable
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
 
-    public static double X_OFFSET = -42;
-    public static double Y_OFFSET = 72;
+    public static double BLUE_X_OFFSET = -44;
+    public static double BLUE_Y_OFFSET = 72;
+
+    public static double RED_X_OFFSET = 66;
+    public static double RED_Y_OFFSET = 189;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
@@ -134,13 +141,24 @@ public class Drivetrain extends SubsystemBase {
     public void relocalize() {
         this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
 
+        double OFFSET_X, OFFSET_Y;
         LLResult llResult = limelight.getLatestResult();
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
+
+            int tagId = llResult.getFiducialResults().get(0).getFiducialId();
+            if (tagId == 24) {
+                OFFSET_X = RED_X_OFFSET;
+                OFFSET_Y = RED_Y_OFFSET;
+            }
+            else  {
+                OFFSET_X = BLUE_X_OFFSET;
+                OFFSET_Y = BLUE_Y_OFFSET;
+            }
             Pose3D botpose = llResult.getBotpose_MT2();
 
             if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
-                this.follower.setY(botpose.getPosition().y * -39.37 + Y_OFFSET);
-                this.follower.setX(botpose.getPosition().x * -39.37 + X_OFFSET);
+                this.follower.setY(botpose.getPosition().y * -39.37 + OFFSET_Y);
+                this.follower.setX(botpose.getPosition().x * -39.37 + OFFSET_X);
                 this.follower.updatePose();
             }
 
@@ -171,5 +189,9 @@ public class Drivetrain extends SubsystemBase {
 
     public Follower getFollower() {
         return this.follower;
+    }
+
+    public Limelight3A getLimelight(){
+        return limelight;
     }
 }

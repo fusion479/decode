@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Configurable
 public class BlueFarTip extends CommandBase {
-    public static Pose tip = new Pose(56, 22, Math.toRadians(202));
+    public static Pose tip = new Pose(70, 22, Math.toRadians(207.7));
 
     private final Drivetrain drivetrain;
     private final Follower follower;

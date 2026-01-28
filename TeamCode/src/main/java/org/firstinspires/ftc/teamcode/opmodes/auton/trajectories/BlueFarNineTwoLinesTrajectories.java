@@ -12,12 +12,12 @@ import java.io.File;
 import java.util.HashMap;
 
 @Configurable
-public class BlueFarTrajectories {
+public class BlueFarNineTwoLinesTrajectories {
     private final HashMap<String, Pose> poses;
 
     public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
 
-    public BlueFarTrajectories() {
+    public BlueFarNineTwoLinesTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarSix.pp"));
 
         this.shootFirst = buildLine(

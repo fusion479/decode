@@ -9,13 +9,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarTwoLinesTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
 @Autonomous(name = "Red Far", preselectTeleOp = "RedMain")
-public class RedFar extends OpModeCore {
+public class RedFarTwoLines extends OpModeCore {
     public static double SCORE_SPEED = 0.75;
     public static double NORMAL_SPEED = 0.75;
     public static double INTAKE_SPEED = 0.5;
@@ -23,11 +23,11 @@ public class RedFar extends OpModeCore {
     public static int INTAKE_DURATION = 2000;
     public static int SHOOT_WAIT = 900;
     private CommandRobot robot;
-    private RedFarTrajectories trajectories;
+    private RedFarTwoLinesTrajectories trajectories;
 
     @Override
     public void initialize() {
-        this.trajectories = new RedFarTrajectories();
+        this.trajectories = new RedFarTwoLinesTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
     }

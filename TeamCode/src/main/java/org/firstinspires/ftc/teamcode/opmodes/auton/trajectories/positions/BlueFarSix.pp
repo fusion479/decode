@@ -14,7 +14,7 @@
             "x":57,
             "y":10.5,
             "heading":"linear",
-            "startDeg":90,
+            "startDeg":180,
             "endDeg":201,
             "index":1
          },

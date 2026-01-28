@@ -14,7 +14,7 @@
             "x":88,
             "y":12,
             "heading":"linear",
-            "startDeg":90,
+            "startDeg":180,
             "endDeg":156,
             "index":1
          },
@@ -30,7 +30,7 @@
             "y":32,
             "heading":"linear",
             "reverse":false,
-            "startDeg":147,adb
+            "startDeg":156,
             "endDeg":180,
             "index":2
          },
@@ -45,7 +45,7 @@
             "x":128,
             "y":32,
             "heading":"linear",
-            "reverse":false,™£™¡
+            "reverse":false,
             "index":3,
             "startDeg":180,
             "endDeg":180

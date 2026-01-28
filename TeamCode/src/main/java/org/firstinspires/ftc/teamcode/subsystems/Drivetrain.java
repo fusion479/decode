@@ -19,6 +19,9 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
 
+    public static double X_OFFSET = -42;
+    public static double Y_OFFSET = 72;
+
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
 
@@ -52,6 +55,7 @@ public class Drivetrain extends SubsystemBase {
 
         this.limelight = hwMap.get(Limelight3A.class, "limelight");
         this.limelight.pipelineSwitch(0);
+        this.limelight.setPollRateHz(50);
         this.limelight.start();
 
         drawOnlyCurrent();
@@ -128,19 +132,15 @@ public class Drivetrain extends SubsystemBase {
 //    }
 
     public void relocalize() {
-        LLResult llResult = limelight.getLatestResult();
+        this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
 
+        LLResult llResult = limelight.getLatestResult();
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
-            Pose3D botpose = llResult.getBotpose();
+            Pose3D botpose = llResult.getBotpose_MT2();
 
             if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
-                this.follower.setPose(
-                        new Pose(
-                                botpose.getPosition().y * 39 + 72,
-                                botpose.getPosition().x * -39 + 72,
-                                Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
-                        )
-                );
+                this.follower.setY(botpose.getPosition().y * -39.37 + Y_OFFSET);
+                this.follower.setX(botpose.getPosition().x * -39.37 + X_OFFSET);
                 this.follower.updatePose();
             }
 

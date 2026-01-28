@@ -3,10 +3,7 @@ package org.firstinspires.ftc.teamcode.commands.drivetrain;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.bylazar.configurables.annotations.Configurable;
-
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 
@@ -29,7 +26,7 @@ public class BlueCloseTip extends CommandBase {
     @Override
     public void initialize() {
         //Path traj = AutonomousHelpers.buildLine(this.drivetrain.getFollower().getPose(), tip,
-                //AutonomousHelpers.HeadingInterpolation.LINEAR);
+        //AutonomousHelpers.HeadingInterpolation.LINEAR);
 //
 //        new PathCommand(this.drivetrain, traj).schedule();
         follower.followPath(
@@ -42,8 +39,8 @@ public class BlueCloseTip extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted){
-        if (interrupted){
+    public void end(boolean interrupted) {
+        if (interrupted) {
             follower.breakFollowing();
         }
         follower.startTeleopDrive();

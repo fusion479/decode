@@ -42,7 +42,7 @@ public class CommandRobot {
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.drive = new Drivetrain(hwMap, new Pose(72, 72, 0), this.gamepad1, "teleop", color);
+        this.drive = new Drivetrain(hwMap, new Pose(72, 72, Math.toRadians(180)), this.gamepad1, "teleop", color);
 
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
@@ -87,15 +87,16 @@ public class CommandRobot {
     }
 
     public void configureControls() {
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whileHeld(this.holdShoot())
-                .whenReleased(this.releaseShoot());
+//        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+//                .whileHeld(this.holdShoot())
+//                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(this.goClose());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                .whileHeld(this.goFar());
+                .whileHeld(this.goFar())
+                .whenReleased(this.releaseShoot());
     }
 
     public Command ready() {
@@ -149,7 +150,8 @@ public class CommandRobot {
     public Command goFar() {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
-                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive)
+                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
+                holdShoot()
         );
     }
 
@@ -169,7 +171,7 @@ public class CommandRobot {
         return this.drive.getFollower();
     }
 
-    public Limelight3A getLimelight(){
+    public Limelight3A getLimelight() {
         return this.drive.getLimelight();
     }
 }

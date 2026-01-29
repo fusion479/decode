@@ -34,6 +34,7 @@ public class Drivetrain extends SubsystemBase {
     public static boolean ROBOT_CENTRIC = true;
 
     public static double AVG_THRESHOLD = 2.3;
+    public static double DIST_THRESHOLD = 5;
 
     private final Follower follower;
 
@@ -144,7 +145,11 @@ public class Drivetrain extends SubsystemBase {
             if (tagId == 20) {
                 Pose3D botpose = llResult.getBotpose_MT2();
 
-                if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
+                double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
+                double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
+                double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY,2));
+
+                if (dist < DIST_THRESHOLD) {
                     this.follower.setY(botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
                     this.follower.setX(botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
                     this.follower.updatePose();

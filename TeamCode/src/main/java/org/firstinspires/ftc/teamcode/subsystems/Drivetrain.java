@@ -22,6 +22,8 @@ public class Drivetrain extends SubsystemBase {
     public static double BLUE_X_OFFSET = -44;
     public static double BLUE_Y_OFFSET = 72;
 
+    public static double DIST_THRESHOLD = 30.0;
+
     public static double RED_X_OFFSET = 66;
     public static double RED_Y_OFFSET = 189;
 
@@ -33,7 +35,7 @@ public class Drivetrain extends SubsystemBase {
 
     public static boolean ROBOT_CENTRIC = true;
 
-    public static double AVG_THRESHOLD = 2.3;
+    public static double AVG_THRESHOLD = 2;
 
     private final Follower follower;
 
@@ -135,30 +137,45 @@ public class Drivetrain extends SubsystemBase {
 //    }
 
     public void relocalize() {
-
         LLResult llResult = limelight.getLatestResult();
-        this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
+
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
+            Pose3D botpose = llResult.getBotpose();
 
-            int tagId = llResult.getFiducialResults().get(0).getFiducialId();
-            if (tagId == 20) {
-                Pose3D botpose = llResult.getBotpose_MT2();
+            if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
+                this.follower.setPose(
+                        new Pose(
+                                botpose.getPosition().y * 39 + 72,
+                                botpose.getPosition().x * -39 + 72,
+                                Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
+                        )
+                );
+                this.follower.updatePose();
+            } else {
+                double dX = (botpose.getPosition().x * 39 + 72) - this.follower.getPose().getX();
+                double dY = (botpose.getPosition().y * 39 + 72) - this.follower.getPose().getY();
+                double dT = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
 
-                if (llResult.getBotposeAvgDist() < AVG_THRESHOLD) {
-                    this.follower.setY(botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
-                    this.follower.setX(botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
+                if (dT < DIST_THRESHOLD) {
+                    this.follower.setPose(
+                            new Pose(
+                                    botpose.getPosition().y * 39 + 72,
+                                    botpose.getPosition().x * -39 + 72,
+                                    Math.toRadians(botpose.getOrientation().getYaw()) + Math.PI / 2
+                            )
+                    );
                     this.follower.updatePose();
                 }
-
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
-
-                PanelsTelemetry.INSTANCE.getTelemetry().update();
             }
+
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
+
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
 
         }
     }

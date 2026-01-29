@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Transfer extends SubsystemBase {
     public static double STOP = 0.15;
     public static double ALLOW = 0;
-    private final CRServo leftTransfer;
+    private final CRServo leftTransfer, middleTransfer;
     private final Servo stop;
     private double power;
     private DistanceSensor ballOne, ballTwo;
@@ -21,6 +21,8 @@ public class Transfer extends SubsystemBase {
         this.stop = hwMap.get(Servo.class, "transferStop");
 
         this.leftTransfer = hwMap.get(CRServo.class, "leftFlicker");
+        this.middleTransfer = hwMap.get(CRServo.class, "middleFlicker");
+
 
         this.setStopPosiiton(STOP);
     }
@@ -28,6 +30,7 @@ public class Transfer extends SubsystemBase {
     @Override
     public void periodic() {
         this.leftTransfer.setPower(power);
+        this.middleTransfer.setPower(power / 4);
     }
 
     public double getleftVoltage() {

@@ -29,7 +29,7 @@ public class Transfer extends SubsystemBase {
     @Override
     public void periodic() {
         this.leftTransfer.setPower(power);
-        this.middleTransfer.setPower(power/4);
+        this.middleTransfer.setPower(power / 6);
     }
 
     public double getleftVoltage() {

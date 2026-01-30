@@ -49,13 +49,13 @@ public class CommandRobot {
         this.transfer = new Transfer(hwMap);
 
         this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {
-            this.intake.setIntakePower(-d);
+            this.intake.setIntakePower(-d * 0.75);
             this.transfer.setPower(d);
             (new TransferStop(transfer)).schedule();
         }, this.gamepad1);
 
         this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> {
-            this.intake.setOuttakePower(d);
+            this.intake.setOuttakePower(d * 0.75);
             this.transfer.setPower(-d);
             (new TransferStop(transfer)).schedule();
         }, this.gamepad1);
@@ -97,6 +97,17 @@ public class CommandRobot {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar())
                 .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(relocalizeRedCorner());
+    }
+
+    public Command relocalizeRedCorner() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.getFollower().setHeading(Math.toRadians(180))),
+                new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180)),
+                new InstantCommand(() -> this.getFollower().setY(3.9)),
+                new InstantCommand(() -> this.getFollower().setX(141.4))
+        );
     }
 
     public Command ready() {
@@ -124,7 +135,8 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new TransferStop(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(0)),
-                new InstantCommand(() -> this.intake.setIntakePower(0))
+                new InstantCommand(() -> this.intake.setIntakePower(0)),
+                new InstantCommand(() -> BlueFarTip.finished = false)
         );
     }
 

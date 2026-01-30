@@ -31,10 +31,10 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_VEL = 0.75;
     public static double MAX_ANGULAR_VEL = 0.6;
 
-    public static boolean ROBOT_CENTRIC = true;
+    public static boolean ROBOT_CENTRIC = false;
 
     public static double AVG_THRESHOLD = 2.3;
-    public static double DIST_THRESHOLD = 5;
+    public static double DIST_THRESHOLD = 20;
     public static double ANG_THRESHOLD = 0.5;
 
     private final Follower follower;
@@ -101,7 +101,7 @@ public class Drivetrain extends SubsystemBase {
 
             draw();
             if (Math.abs(follower.getAngularVelocity()) < ANG_THRESHOLD) {
-               this.relocalize();
+                this.relocalize();
             }
         }
     }
@@ -150,7 +150,7 @@ public class Drivetrain extends SubsystemBase {
 
                 double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
                 double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
-                double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY,2));
+                double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
 
                 if (dist < DIST_THRESHOLD) {
                     this.follower.setY(botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);

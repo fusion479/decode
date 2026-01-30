@@ -34,7 +34,8 @@ public class Drivetrain extends SubsystemBase {
     public static boolean ROBOT_CENTRIC = true;
 
     public static double AVG_THRESHOLD = 2.3;
-    public static double DIST_THRESHOLD = 1;
+    public static double DIST_THRESHOLD = 5;
+    public static double ANG_THRESHOLD = 0.5;
 
     private final Follower follower;
 
@@ -99,7 +100,9 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
             draw();
-            this.relocalize();
+            if (Math.abs(follower.getAngularVelocity()) < ANG_THRESHOLD) {
+               this.relocalize();
+            }
         }
     }
 

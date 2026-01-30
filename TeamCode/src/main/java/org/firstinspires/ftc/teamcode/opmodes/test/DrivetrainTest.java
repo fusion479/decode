@@ -9,6 +9,8 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -26,15 +28,15 @@ public class DrivetrainTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, 0), this.gamepad, "teleop", "blue");
+        this.drive = new Drivetrain(super.hardwareMap, new Pose(72, 72, Math.toRadians(180)), this.gamepad, "teleop", "blue");
 
         this.rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         this.leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         this.rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         this.leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new RedCloseTip(this.drive));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whileHeld(new RedFarTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new BlueCloseTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new BlueFarTip(this.drive));
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whileHeld(new InstantCommand(() -> this.rightFront.setPower(1)));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whileHeld(new InstantCommand(() -> this.leftFront.setPower(1)));

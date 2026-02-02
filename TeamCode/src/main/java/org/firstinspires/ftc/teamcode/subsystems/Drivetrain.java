@@ -139,34 +139,39 @@ public class Drivetrain extends SubsystemBase {
 //    }
 
     public void relocalize() {
-
+        double OFFSET_X, OFFSET_Y;
         LLResult llResult = limelight.getLatestResult();
         this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
         if (llResult != null && !follower.isBusy() && llResult.isValid()) {
 
             int tagId = llResult.getFiducialResults().get(0).getFiducialId();
-            if (tagId == 20) {
-                Pose3D botpose = llResult.getBotpose_MT2();
-
-                double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
-                double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
-                double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
-
-                if (dist < DIST_THRESHOLD) {
-                    this.follower.setY(botpose.getPosition().y * -39.37 + BLUE_Y_OFFSET);
-                    this.follower.setX(botpose.getPosition().x * -39.37 + BLUE_X_OFFSET);
-                    this.follower.updatePose();
-                }
-
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
-                PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
-
-                PanelsTelemetry.INSTANCE.getTelemetry().update();
+            if (tagId == 24) {
+                OFFSET_X = RED_X_OFFSET;
+                OFFSET_Y = RED_Y_OFFSET;
+            } else {
+                OFFSET_X = BLUE_X_OFFSET;
+                OFFSET_Y = BLUE_Y_OFFSET;
             }
+            Pose3D botpose = llResult.getBotpose_MT2();
+            double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + OFFSET_X);
+            double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + OFFSET_Y);
+            double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+
+            if (dist < DIST_THRESHOLD) {
+                this.follower.setY(botpose.getPosition().y * -39.37 + OFFSET_Y);
+                this.follower.setX(botpose.getPosition().x * -39.37 + OFFSET_X);
+                this.follower.updatePose();
+            }
+
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
+            PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
+
+            PanelsTelemetry.INSTANCE.getTelemetry().update();
+
 
         }
     }

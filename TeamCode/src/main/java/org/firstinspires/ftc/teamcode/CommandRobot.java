@@ -13,8 +13,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BluePark;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedPark;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseTip;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterFarTip;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAllow;
@@ -93,15 +95,22 @@ public class CommandRobot {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                .whileHeld(this.goClose());
+                .whileHeld(this.goClose())
+                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar())
                 .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(relocalizeBlueCorner());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(relocalizeRedCorner());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(relocalizeMid());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whileHeld(this.park());
     }
 
-    public Command relocalizeRedCorner() {
+    public Command relocalizeBlueCorner() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.getFollower().setHeading(Math.toRadians(180))),
                 new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180)),
@@ -109,6 +118,25 @@ public class CommandRobot {
                 new InstantCommand(() -> this.getFollower().setX(141.4))
         );
     }
+
+    public Command relocalizeRedCorner() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.getFollower().setHeading(Math.toRadians(180))),
+                new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180)),
+                new InstantCommand(() -> this.getFollower().setY(3.9)),
+                new InstantCommand(() -> this.getFollower().setX(2.6))
+        );
+    }
+
+    public Command relocalizeMid() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.getFollower().setHeading(Math.toRadians(180))),
+                new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180)),
+                new InstantCommand(() -> this.getFollower().setY(3.9)),
+                new InstantCommand(() -> this.getFollower().setX(72))
+        );
+    }
+
 
     public Command ready() {
         return new SequentialCommandGroup(
@@ -136,14 +164,24 @@ public class CommandRobot {
                 new TransferStop(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(0)),
                 new InstantCommand(() -> this.intake.setIntakePower(0)),
-                new InstantCommand(() -> BlueFarTip.finished = false)
+                new InstantCommand(() -> {
+                    if (color.equals("blue")){
+                        BlueFarTip.finished = false;
+                        BlueCloseTip.finished = false;
+                    }
+                    else {
+                        RedFarTip.finished = false;
+                        RedCloseTip.finished = false;
+                    }
+                })
         );
     }
 
     public Command goClose() {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
-                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive)
+                this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
+                holdShoot()
         );
     }
 
@@ -164,6 +202,12 @@ public class CommandRobot {
                 new ShooterFarTip(this.shooter),
                 this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
                 holdShoot()
+        );
+    }
+
+    public Command park() {
+        return new SequentialCommandGroup(
+                this.color.equals("blue") ? new BluePark(this.drive) : new RedPark(this.drive)
         );
     }
 

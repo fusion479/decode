@@ -14,6 +14,7 @@ public class Transfer extends SubsystemBase {
     private final CRServo leftTransfer, rightTransfer, middleTransfer;
     private final Servo stop;
     private double power;
+    private boolean intaking;
     private DistanceSensor ballOne, ballTwo;
     // add brakebeam
 
@@ -30,8 +31,13 @@ public class Transfer extends SubsystemBase {
     @Override
     public void periodic() {
         this.leftTransfer.setPower(power);
-        this.leftTransfer.setPower(power);
-        this.middleTransfer.setPower(power / 6);
+        this.rightTransfer.setPower(-power);
+        if (intaking) {
+            this.middleTransfer.setPower(-power);
+        }
+        else {
+            this.middleTransfer.setPower(power);
+        }
     }
 
     public double getleftVoltage() {
@@ -42,7 +48,8 @@ public class Transfer extends SubsystemBase {
         this.stop.setPosition(position);
     }
 
-    public void setPower(double power) {
+    public void setPower(double power, boolean intaking) {
         this.power = power;
+        this.intaking = intaking;
     }
 }

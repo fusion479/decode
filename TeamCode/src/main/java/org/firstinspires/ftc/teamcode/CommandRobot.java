@@ -52,13 +52,13 @@ public class CommandRobot {
 
         this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> {
             this.intake.setIntakePower(-d * 0.75);
-            this.transfer.setPower(d);
+            this.transfer.setPower(d, true);
             (new TransferStop(transfer)).schedule();
         }, this.gamepad1);
 
         this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> {
             this.intake.setOuttakePower(d * 0.75);
-            this.transfer.setPower(-d);
+            this.transfer.setPower(-d, false);
             (new TransferStop(transfer)).schedule();
         }, this.gamepad1);
 
@@ -101,7 +101,7 @@ public class CommandRobot {
                 .whileHeld(this.goFar())
                 .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(relocalizeBlueCorner());
+                 .whenPressed(relocalizeBlueCorner());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(relocalizeRedCorner());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
@@ -137,7 +137,6 @@ public class CommandRobot {
         );
     }
 
-
     public Command ready() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.shooter.setTarget(Shooter.ROAM_VELOCITY)),
@@ -154,7 +153,7 @@ public class CommandRobot {
     public Command holdShoot() {
         return new SequentialCommandGroup(
                 new TransferAllow(this.transfer),
-                new InstantCommand(() -> this.transfer.setPower(1)),
+                new InstantCommand(() -> this.transfer.setPower(1, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(-1))
         );
     }
@@ -162,7 +161,7 @@ public class CommandRobot {
     public Command releaseShoot() {
         return new SequentialCommandGroup(
                 new TransferStop(this.transfer),
-                new InstantCommand(() -> this.transfer.setPower(0)),
+                new InstantCommand(() -> this.transfer.setPower(0, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(0)),
                 new InstantCommand(() -> {
                     if (color.equals("blue")){

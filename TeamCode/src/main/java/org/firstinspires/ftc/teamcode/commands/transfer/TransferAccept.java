@@ -24,14 +24,14 @@ public class TransferAccept extends CommandBase {
     @Override
     public void initialize() {
         this.timer.reset();
-        this.transfer.setPower(1);
+        this.transfer.setPower(1, true);
         this.intake.setIntakePower(-1);
     }
 
     @Override
     public boolean isFinished() {
         if (this.timer.milliseconds() >= this.duration) {
-            this.transfer.setPower(0);
+            this.transfer.setPower(0, false);
             this.intake.setIntakePower(0);
             return true;
         }

@@ -19,11 +19,11 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
 
-    public static double BLUE_X_OFFSET = -44;
-    public static double BLUE_Y_OFFSET = 72;
+    public static double BLUE_X_OFFSET = -43;
+    public static double BLUE_Y_OFFSET = 75;
 
-    public static double RED_X_OFFSET = 66;
-    public static double RED_Y_OFFSET = 189;
+    public static double RED_X_OFFSET = 70;
+    public static double RED_Y_OFFSET = 183;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
@@ -35,7 +35,7 @@ public class Drivetrain extends SubsystemBase {
 
     public static double AVG_THRESHOLD = 2.3;
     public static double DIST_THRESHOLD = 20;
-    public static double ANG_THRESHOLD = 0.5;
+    public static double ANG_THRESHOLD = 0.001;
 
     private final Follower follower;
 
@@ -82,12 +82,12 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         if (OpMode.equals("teleop")) {
             if (color.equals("red")) {
-                this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, -gamepad.getLeftY());
-                this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
-                this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
-            } else {
                 this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
                 this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
+                this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
+            } else {
+                this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, -gamepad.getLeftY());
+                this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
                 this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
             }
 
@@ -142,7 +142,7 @@ public class Drivetrain extends SubsystemBase {
         double OFFSET_X, OFFSET_Y;
         LLResult llResult = limelight.getLatestResult();
         this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
-        if (llResult != null && !follower.isBusy() && llResult.isValid()) {
+        if (llResult != null && llResult.isValid()) {
 
             int tagId = llResult.getFiducialResults().get(0).getFiducialId();
             if (tagId == 24) {
@@ -171,8 +171,6 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
 
             PanelsTelemetry.INSTANCE.getTelemetry().update();
-
-
         }
     }
 

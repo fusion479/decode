@@ -30,8 +30,8 @@ public class TransferTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.transfer = new Transfer(super.hardwareMap);
 
-        this.transferAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.transfer.setPower(-d), this.gamepad);
-        this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.transfer::setPower, this.gamepad);
+        this.transferAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.transfer.setPower(-d, true), this.gamepad);
+        this.transferReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> this.transfer.setPower(d, true), this.gamepad);
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new TransferAllow(this.transfer));
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new TransferStop(this.transfer));
 

@@ -12,13 +12,13 @@ import java.io.File;
 import java.util.HashMap;
 
 @Configurable
-public class RedFarTwoLinesTrajectories {
+public class BlueFarTwoLinesTrajectories {
     private final HashMap<String, Pose> poses;
 
     public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
 
-    public RedFarTwoLinesTrajectories() {
-        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedFarTwoLines.pp"));
+    public BlueFarTwoLinesTrajectories() {
+        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarTwoLines.pp"));
 
         this.shootFirst = buildLine(
                 poses.get("startPoint"),

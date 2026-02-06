@@ -23,7 +23,7 @@
             "color": "#5CA675"
         },
         {
-            "name": "intakeSecond",
+            "name": "intakeHP",
             "endPoint": {
                 "x": 134,
                 "y": 12,

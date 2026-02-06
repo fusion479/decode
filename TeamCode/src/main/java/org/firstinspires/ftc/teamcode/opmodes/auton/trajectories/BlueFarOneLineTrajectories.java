@@ -12,13 +12,13 @@ import java.io.File;
 import java.util.HashMap;
 
 @Configurable
-public class BlueFarNineTwoLinesTrajectories {
+public class BlueFarOneLineTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
+    public Path shootFirst, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
 
-    public BlueFarNineTwoLinesTrajectories() {
-        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarSix.pp"));
+    public BlueFarOneLineTrajectories() {
+        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarOneLine.pp"));
 
         this.shootFirst = buildLine(
                 poses.get("startPoint"),
@@ -26,20 +26,14 @@ public class BlueFarNineTwoLinesTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupSecond = buildLine(
-                poses.get("shootFirst"),
-                poses.get("setupSecond"),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
         this.intakeSecond = buildLine(
-                poses.get("setupSecond"),
-                poses.get("intakeSecond"),
+                poses.get("shootFirst"),
+                poses.get("intakeHP"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.shootSecond = buildLine(
-                poses.get("setupSecond"),
+                poses.get("intakeHP"),
                 poses.get("shootSecond"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

@@ -9,13 +9,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarTwoLinesTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarOneLineTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Blue Far Two Lines", preselectTeleOp = "BlueMain")
-public class BlueFarTwoLines extends OpModeCore {
+@Autonomous(name = "Red Far One Line", preselectTeleOp = "RedMain")
+public class RedFarOneLine extends OpModeCore {
     public static double SCORE_SPEED = 0.65;
     public static double NORMAL_SPEED = 0.65;
     public static double INTAKE_SPEED = 0.5;
@@ -23,11 +23,11 @@ public class BlueFarTwoLines extends OpModeCore {
     public static int INTAKE_DURATION = 2000;
     public static int SHOOT_WAIT = 800;
     private CommandRobot robot;
-    private BlueFarTwoLinesTrajectories trajectories;
+    private RedFarOneLineTrajectories trajectories;
 
     @Override
     public void initialize() {
-        this.trajectories = new BlueFarTwoLinesTrajectories();
+        this.trajectories = new RedFarOneLineTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
     }
@@ -51,7 +51,6 @@ public class BlueFarTwoLines extends OpModeCore {
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
 
-                        new PathCommand(this.robot, this.trajectories.setupSecond, NORMAL_SPEED),
                         new ParallelCommandGroup(
                                 new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
                                 new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED)

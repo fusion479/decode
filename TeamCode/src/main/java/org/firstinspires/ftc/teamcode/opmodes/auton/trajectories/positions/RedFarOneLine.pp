@@ -3,7 +3,7 @@
         "x": 88,
         "y": 8.2,
         "heading": "linear",
-        "startDeg": 90,
+        "startDeg": 180,
         "endDeg": 180,
         "index": 0
     },
@@ -15,7 +15,7 @@
                 "y": 12,
                 "heading": "linear",
                 "startDeg": 180,
-                "endDeg": 156,
+                "endDeg": 162,
                 "name": "shootFirst",
                 "index": 1
             },
@@ -26,11 +26,11 @@
             "name": "intakeHP",
             "endPoint": {
                 "x": 134,
-                "y": 12,
+                "y": 9,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeSecond",
-                "startDeg": 156,
+                "startDeg": 161,
                 "endDeg": 180,
                 "index": 2
             },
@@ -46,7 +46,7 @@
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 156,
+                "endDeg": 162,
                 "index": 3
             },
             "controlPoints": [],
@@ -60,7 +60,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupThird",
-                "startDeg": 156,
+                "startDeg": 161,
                 "endDeg": 180,
                 "index": 4
             },
@@ -71,7 +71,7 @@
             "name": "intakeThird",
             "endPoint": {
                 "x": 128,
-                "y": 32,
+                "y": 34,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeThird",
@@ -91,7 +91,7 @@
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 156,
+                "endDeg": 158,
                 "index": 6
             },
             "controlPoints": [],
@@ -105,7 +105,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 156,
+                "startDeg": 158,
                 "endDeg": 180,
                 "index": 7
             },

@@ -3,7 +3,7 @@
         "x": 56,
         "y": 8.2,
         "heading": "linear",
-        "startDeg": 90,
+        "startDeg": 180,
         "endDeg": 180,
         "index": 0
     },
@@ -12,10 +12,10 @@
             "name": "shootFirst",
             "endPoint": {
                 "x": 57,
-                "y": 10.5,
+                "y": 12.5,
                 "heading": "linear",
                 "startDeg": 180,
-                "endDeg": 201,
+                "endDeg": 208,
                 "name": "shootFirst",
                 "index": 1
             },
@@ -30,7 +30,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeHP",
-                "startDeg": 201,
+                "startDeg": 208,
                 "endDeg": 180,
                 "index": 2
             },
@@ -70,7 +70,7 @@
         {
             "name": "intakeThird",
             "endPoint": {
-                "x": 16,
+                "x": 14,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -91,7 +91,7 @@
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 201,
+                "endDeg": 203,
                 "index": 6
             },
             "controlPoints": [],
@@ -105,7 +105,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 201,
+                "startDeg": 203,
                 "endDeg": 180,
                 "index": 7
             },

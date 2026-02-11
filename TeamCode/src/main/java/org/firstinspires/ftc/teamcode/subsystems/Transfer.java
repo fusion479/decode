@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Transfer extends SubsystemBase {
-    public static double STOP = 0.15;
-    public static double ALLOW = 0;
-    private final CRServo leftTransfer, rightTransfer, middleTransfer;
+    public static double STOP = 0.43;
+    public static double ALLOW = 0.65;
+    private final CRServo leftTransfer, rightTransfer;
     private final Servo stop;
     private double power;
     private boolean intaking;
@@ -23,8 +23,6 @@ public class Transfer extends SubsystemBase {
 
         this.leftTransfer = hwMap.get(CRServo.class, "leftFlicker");
         this.rightTransfer = hwMap.get(CRServo.class, "rightFlicker");
-        this.middleTransfer = hwMap.get(CRServo.class, "middleFlicker");
-
         this.setStopPosiiton(STOP);
     }
 
@@ -32,12 +30,6 @@ public class Transfer extends SubsystemBase {
     public void periodic() {
         this.leftTransfer.setPower(power);
         this.rightTransfer.setPower(-power);
-        if (intaking) {
-            this.middleTransfer.setPower(-power);
-        }
-        else {
-            this.middleTransfer.setPower(power);
-        }
     }
 
     public double getleftVoltage() {

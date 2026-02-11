@@ -22,11 +22,11 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        this.rightIntake.setPower(lowerPower);
-        this.leftIntake.setPower(-lowerPower);
+        this.rightIntake.setPower(lowerPower/1.4);
+        this.leftIntake.setPower(-lowerPower/1.4);
 
-        this.rightRoller.setPower(upperPower);
-        this.leftRoller.setPower(-upperPower);
+        this.rightRoller.setPower(upperPower/1.4);
+        this.leftRoller.setPower(-upperPower/1.4);
     }
 
     public void setIntakePower(double power) {

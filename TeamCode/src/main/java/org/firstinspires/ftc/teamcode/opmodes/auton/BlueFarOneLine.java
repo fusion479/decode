@@ -21,6 +21,7 @@ public class BlueFarOneLine extends OpModeCore {
     public static double INTAKE_SPEED = 0.5;
     public static int SHOOT_DURATION = 3000;
     public static int INTAKE_DURATION = 2000;
+    public static int INTAKE_DURATION_HP = 5000;
     public static int SHOOT_WAIT = 800;
     private CommandRobot robot;
     private BlueFarOneLineTrajectories trajectories;
@@ -42,8 +43,8 @@ public class BlueFarOneLine extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
-                                robot.autonFar()
+                                new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED)
+                                //robot.autonFar()
                         ),
                         new WaitCommand(SHOOT_WAIT),
 
@@ -52,8 +53,11 @@ public class BlueFarOneLine extends OpModeCore {
                         robot.ready(),
 
                         new ParallelCommandGroup(
-                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION_HP),
+                                new SequentialCommandGroup(
+                                        new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED),
+                                        new WaitCommand(1000)
+                                )
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),

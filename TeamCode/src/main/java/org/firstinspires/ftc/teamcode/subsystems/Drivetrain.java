@@ -14,6 +14,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Drawing;
 
+import java.util.ArrayList;
+
 @Configurable
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
@@ -44,6 +46,8 @@ public class Drivetrain extends SubsystemBase {
 
     private final String color;
     private final String OpMode;
+    private final ArrayList<Pose3D> poses = new ArrayList<Pose3D>();
+    private int posesIdx = 0;
     private double xPower = 0.0;
     private double angPower = 0.0;
     private double yPower = 0.0;
@@ -138,29 +142,45 @@ public class Drivetrain extends SubsystemBase {
 //        }).start();
 //    }
 
-    public void relocalize() {
-        double OFFSET_X, OFFSET_Y;
-        LLResult llResult = limelight.getLatestResult();
-        this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
-        if (llResult != null && llResult.isValid()) {
+    private Pose getAvgPose() {
+        double x = 0;
+        double y = 0;
+        double ang = 0;
 
-            int tagId = llResult.getFiducialResults().get(0).getFiducialId();
-            if (tagId == 24) {
-                OFFSET_X = RED_X_OFFSET;
-                OFFSET_Y = RED_Y_OFFSET;
-            } else {
-                OFFSET_X = BLUE_X_OFFSET;
-                OFFSET_Y = BLUE_Y_OFFSET;
-            }
-            Pose3D botpose = llResult.getBotpose_MT2();
-            double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + OFFSET_X);
-            double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + OFFSET_Y);
-            double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+        for (Pose3D pose : poses) {
+            x += pose.getPosition().x;
+            y += pose.getPosition().y;
+            ang += pose.getOrientation().getYaw();
+        }
+
+        x /= poses.size();
+        y /= poses.size();
+        ang /= poses.size();
+
+        return new Pose(y * 39 + 72, x * 39 + 72, Math.toRadians(ang) + Math.PI / 2);
+    }
+
+    public void relocalize() {
+        LLResult llResult = limelight.getLatestResult();
+
+        if (llResult != null && !follower.isBusy() && llResult.isValid()) {
+            Pose3D botpose = llResult.getBotpose();
+
+            double x = botpose.getPosition().y * 39 + 72;
+            double y = botpose.getPosition().x * -39 + 72;
+
+            double dist = Math.sqrt(Math.pow(follower.getPose().getX() - x, 2) + Math.pow(follower.getPose().getY() - y, 2));
 
             if (dist < DIST_THRESHOLD) {
-                this.follower.setY(botpose.getPosition().y * -39.37 + OFFSET_Y);
-                this.follower.setX(botpose.getPosition().x * -39.37 + OFFSET_X);
-                this.follower.updatePose();
+                if (poses.size() == 10) {
+                    Pose avgPose = getAvgPose();
+                    this.follower.setPose(avgPose);
+                    this.follower.updatePose();
+                }
+
+                if (poses.size() == 10) poses.set(posesIdx, botpose);
+                else poses.add(botpose);
+                posesIdx = (posesIdx + 1) % 10;
             }
 
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
@@ -171,6 +191,7 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
 
             PanelsTelemetry.INSTANCE.getTelemetry().update();
+
         }
     }
 

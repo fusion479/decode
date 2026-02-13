@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class RedFarTip extends CommandBase {
     public static boolean finished = false;
     public static int duration = 1000;
-    public static Pose tip = new Pose(75, 21, Math.toRadians(154));
+    public static Pose tip = new Pose(76, 20, Math.toRadians(153.7));
     public static ElapsedTime timer;
 
     private final Drivetrain drivetrain;
@@ -65,7 +65,7 @@ public class RedFarTip extends CommandBase {
                     follower.getPose().getHeading()
             ) < 0 ? 360 : 0)
                     - Math.toDegrees(tip.getHeading()))
-                    < 3)) {
+                    < 1)) {
                 timer.reset();
                 finished = true;
             }

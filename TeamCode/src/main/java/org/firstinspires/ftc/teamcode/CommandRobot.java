@@ -106,6 +106,8 @@ public class CommandRobot {
                 .whenPressed(relocalizeRedCorner());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(relocalizeMid());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(relocalizeAngle());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whileHeld(this.park());
     }
@@ -134,6 +136,13 @@ public class CommandRobot {
                 new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180)),
                 new InstantCommand(() -> this.getFollower().setY(3.9)),
                 new InstantCommand(() -> this.getFollower().setX(72))
+        );
+    }
+
+    public Command relocalizeAngle() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.getFollower().setHeading(Math.toRadians(180))),
+                new InstantCommand(() -> this.getDrivetrain().getLimelight().updateRobotOrientation(180))
         );
     }
 

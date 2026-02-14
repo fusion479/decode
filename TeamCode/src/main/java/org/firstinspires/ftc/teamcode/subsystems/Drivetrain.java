@@ -14,16 +14,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.utils.Drawing;
 
+import java.util.ArrayList;
+
 @Configurable
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
     public static double MAX_ANGULAR_ACCEL = 0.2;
-
-    public static double BLUE_X_OFFSET = -43;
-    public static double BLUE_Y_OFFSET = 75;
-
-    public static double RED_X_OFFSET = 70;
-    public static double RED_Y_OFFSET = 183;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
@@ -33,9 +29,9 @@ public class Drivetrain extends SubsystemBase {
 
     public static boolean ROBOT_CENTRIC = false;
 
-    public static double AVG_THRESHOLD = 2.3;
-    public static double DIST_THRESHOLD = 7.5;
-    public static double ANG_THRESHOLD = 0.05;
+    public static double VEL_THRESHOLD = 0.25;
+    public static double DIST_THRESHOLD = 30;
+    public static double ANG_THRESHOLD = 0.1;
 
     private final Follower follower;
 
@@ -47,6 +43,10 @@ public class Drivetrain extends SubsystemBase {
     private double xPower = 0.0;
     private double angPower = 0.0;
     private double yPower = 0.0;
+
+    private ArrayList<Pose> poses = new ArrayList<Pose>();
+    private int posesI = 0;
+    private int relocalizes = 0;
 
     public Drivetrain(final HardwareMap hwMap, Pose startPose, GamepadEx gamepad, String OpMode, String color) {
         Drawing.init();
@@ -60,7 +60,7 @@ public class Drivetrain extends SubsystemBase {
 
         this.limelight = hwMap.get(Limelight3A.class, "limelight");
         this.limelight.pipelineSwitch(0);
-        this.limelight.setPollRateHz(50);
+        this.limelight.setPollRateHz(100);
         this.limelight.start();
 
         drawOnlyCurrent();
@@ -100,9 +100,8 @@ public class Drivetrain extends SubsystemBase {
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Heading: ", this.follower.getPose().getHeading());
 
             draw();
-            if (Math.abs(follower.getAngularVelocity()) < ANG_THRESHOLD) {
-                this.relocalize();
-            }
+
+            this.relocalize();
         }
     }
 
@@ -138,39 +137,55 @@ public class Drivetrain extends SubsystemBase {
 //        }).start();
 //    }
 
+    private Pose weightedPose() {
+        int n = poses.size();
+        int N = Math.min(n, 7);
+        double sumX = 0.0, sumY = 0.0;
+
+        for (int i = n - N; i < n; i++) {
+            Pose p = poses.get(i);
+            sumX += p.getX();
+            sumY += p.getY();
+        }
+
+        return new Pose(sumX / N, sumY / N); // in limelight coords
+    }
+
     public void relocalize() {
-        double OFFSET_X, OFFSET_Y;
-        LLResult llResult = limelight.getLatestResult();
-        this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
-        if (llResult != null && llResult.isValid()) {
+        if (Math.abs(follower.getAngularVelocity()) < ANG_THRESHOLD && Math.abs(follower.getVelocity().getMagnitude()) < VEL_THRESHOLD) {
+            LLResult llResult = limelight.getLatestResult();
+            this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
 
-            int tagId = llResult.getFiducialResults().get(0).getFiducialId();
-            if (tagId == 24) {
-                OFFSET_X = RED_X_OFFSET;
-                OFFSET_Y = RED_Y_OFFSET;
-            } else {
-                OFFSET_X = BLUE_X_OFFSET;
-                OFFSET_Y = BLUE_Y_OFFSET;
+            if (llResult != null && llResult.isValid()) {
+                Pose3D botpose = llResult.getBotpose_MT2();
+
+                if (poses.size() > 12) {
+                    Pose weighted = weightedPose();
+                    double x = weighted.getY() * 39.37 + 72; // y and x are flipped
+                    double y = weighted.getX() * -39.37 + 72;
+                    double dist = Math.hypot(follower.getPose().getX() - x, follower.getPose().getY() - y);
+
+                    if (dist < DIST_THRESHOLD) {
+                        this.follower.setX(x);
+                        this.follower.setY(y);
+                        this.follower.updatePose();
+
+                        relocalizes++;
+                        PanelsTelemetry.INSTANCE.getTelemetry().addData("RELOCALIZINGS", relocalizes);
+                    }
+                }
+
+                if (poses.size() != 100)  poses.add(new Pose(botpose.getPosition().x, botpose.getPosition().y));
+                else {
+                    poses.set(posesI, new Pose(botpose.getPosition().x, botpose.getPosition().y));
+                    posesI = (posesI + 1) % 100;
+                }
             }
-            Pose3D botpose = llResult.getBotpose_MT2();
-            double dX = follower.getPose().getX() - (botpose.getPosition().x * -39.37 + OFFSET_X);
-            double dY = follower.getPose().getY() - (botpose.getPosition().y * -39.37 + OFFSET_Y);
-            double dist = Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
+        }
 
-            if (dist < DIST_THRESHOLD) {
-                this.follower.setY(botpose.getPosition().y * -39.37 + OFFSET_Y);
-                this.follower.setX(botpose.getPosition().x * -39.37 + OFFSET_X);
-                this.follower.updatePose();
-            }
-
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target X", llResult.getTx());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Y", llResult.getTy());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Target Area", llResult.getTa());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose Avg Dist", llResult.getBotposeAvgDist());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Bot Pose", botpose.toString());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Yaw", botpose.getOrientation().getYaw());
-
-            PanelsTelemetry.INSTANCE.getTelemetry().update();
+        else {
+            poses.clear();
+            posesI = 0;
         }
     }
 

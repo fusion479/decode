@@ -40,13 +40,13 @@
         {
             "name": "shootSecond",
             "endPoint": {
-                "x": 88,
-                "y": 12,
+                "x": 96,
+                "y": 13,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 162,
+                "endDeg": 168,
                 "index": 3
             },
             "controlPoints": [],
@@ -60,7 +60,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupThird",
-                "startDeg": 161,
+                "startDeg": 168,
                 "endDeg": 180,
                 "index": 4
             },
@@ -85,17 +85,47 @@
         {
             "name": "shootThird",
             "endPoint": {
-                "x": 88,
-                "y": 12,
+                "x": 91,
+                "y": 15,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 158,
+                "endDeg": 159,
                 "index": 6
             },
             "controlPoints": [],
             "color": "#A87CAD"
+        },
+        {
+            "name": "intakeFourth",
+            "endPoint": {
+                "x": 129,
+                "y": 16,
+                "heading": "linear",
+                "reverse": false,
+                "name": "intakeSecond",
+                "startDeg": 159,
+                "endDeg": 180,
+                "index": 2
+            },
+            "controlPoints": [],
+            "color": "#C5C679"
+        },
+        {
+            "name": "shootFourth",
+            "endPoint": {
+                "x": 92,
+                "y": 14,
+                "heading": "linear",
+                "reverse": false,
+                "name": "shootFourth",
+                "startDeg": 180,
+                "endDeg": 167,
+                "index": 3
+            },
+            "controlPoints": [],
+            "color": "#9B87A8"
         },
         {
             "name": "park",
@@ -105,7 +135,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 158,
+                "startDeg": 167,
                 "endDeg": 180,
                 "index": 7
             },

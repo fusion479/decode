@@ -11,12 +11,18 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueClose;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BluePark;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedClose;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedPark;
+import org.firstinspires.ftc.teamcode.commands.shooter.ShooterClose;
+import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseHori;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseTip;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterFarTip;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAllow;
@@ -92,10 +98,14 @@ public class CommandRobot {
 //        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
 //                .whileHeld(this.holdShoot())
 //                .whenReleased(this.releaseShoot());
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.ready());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                .whileHeld(this.goCloseTip())
+                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                 .whileHeld(this.goClose())
+                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                .whileHeld(this.goCloseHori())
                 .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar())
@@ -185,10 +195,25 @@ public class CommandRobot {
         );
     }
 
-    public Command goClose() {
+    public Command goCloseTip() {
         return new SequentialCommandGroup(
                 new ShooterCloseTip(this.shooter),
                 this.color.equals("blue") ? new BlueCloseTip(this.drive) : new RedCloseTip(this.drive),
+                holdShoot()
+        );
+    }
+    public Command goClose() {
+        return new SequentialCommandGroup(
+                new ShooterClose(this.shooter),
+                this.color.equals("blue") ? new BlueClose(this.drive) : new RedClose(this.drive),
+                holdShoot()
+        );
+    }
+
+    public Command goCloseHori() {
+        return new SequentialCommandGroup(
+                new ShooterCloseHori(this.shooter),
+                this.color.equals("blue") ? new BlueCloseHori(this.drive) : new RedCloseHori(this.drive),
                 holdShoot()
         );
     }

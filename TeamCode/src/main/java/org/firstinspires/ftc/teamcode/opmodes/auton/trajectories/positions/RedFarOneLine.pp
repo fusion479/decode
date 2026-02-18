@@ -15,7 +15,7 @@
                 "y": 12,
                 "heading": "linear",
                 "startDeg": 180,
-                "endDeg": 150,
+                "endDeg": 157,
                 "name": "shootFirst",
                 "index": 1
             },

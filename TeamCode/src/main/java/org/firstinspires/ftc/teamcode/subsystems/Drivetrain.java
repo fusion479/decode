@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.bylazar.configurables.annotations.Configurable;
+import com.bylazar.panels.Panels;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -31,7 +32,8 @@ public class Drivetrain extends SubsystemBase {
 
     public static double VEL_THRESHOLD = 12;
     public static double DIST_THRESHOLD = 30;
-    public static double ANG_THRESHOLD = 0.6;
+    public static double ANG_VEL_THRESHOLD = 0.75;
+    public static double ANG_THRESHOLD = 100;
 
     private final Follower follower;
 
@@ -140,24 +142,26 @@ public class Drivetrain extends SubsystemBase {
     private Pose weightedPose() {
         int n = poses.size();
         int N = Math.min(n, 7);
-        double sumX = 0.0, sumY = 0.0;
+        double sumX = 0.0, sumY = 0.0, yaw = 0.0;
 
         for (int i = n - N; i < n; i++) {
             Pose p = poses.get(i);
             sumX += p.getX();
             sumY += p.getY();
+            yaw += p.getHeading();
         }
 
-        return new Pose(sumX / N, sumY / N); // in limelight coords
+        return new Pose(sumX / N, sumY / N, yaw / N); // in limelight coords
     }
 
     public void relocalize() {
-        if (Math.abs(follower.getAngularVelocity()) < ANG_THRESHOLD && Math.abs(follower.getVelocity().getMagnitude()) < VEL_THRESHOLD) {
+        if (Math.abs(follower.getAngularVelocity()) < ANG_VEL_THRESHOLD && Math.abs(follower.getVelocity().getMagnitude()) < VEL_THRESHOLD) {
             LLResult llResult = limelight.getLatestResult();
             this.limelight.updateRobotOrientation(Math.toDegrees(this.follower.getHeading()));
 
             if (llResult != null && llResult.isValid()) {
                 Pose3D botpose = llResult.getBotpose_MT2();
+                double yaw = llResult.getBotpose().getOrientation().getYaw();
 
                 if (poses.size() > 12) {
                     Pose weighted = weightedPose();
@@ -165,21 +169,28 @@ public class Drivetrain extends SubsystemBase {
                     double y = weighted.getX() * -39.37 + 72;
                     double dist = Math.hypot(follower.getPose().getX() - x, follower.getPose().getY() - y);
 
-                    if (dist < DIST_THRESHOLD) {
+                    if (dist < DIST_THRESHOLD && Math.abs(Math.abs(weightedPose().getHeading()) - this.follower.getHeading()) < ANG_THRESHOLD) {
                         this.follower.setX(x);
                         this.follower.setY(y);
+                        this.follower.setHeading(weightedPose().getHeading());
                         this.follower.updatePose();
 
                         relocalizes++;
-                        PanelsTelemetry.INSTANCE.getTelemetry().addData("RELOCALIZINGS", relocalizes);
+                        PanelsTelemetry.INSTANCE.getTelemetry().addData("RELOCALIZING", relocalizes);
+                    } else {
+                        PanelsTelemetry.INSTANCE.getTelemetry().addLine("DIST THRESHOLD");
                     }
                 }
 
-                if (poses.size() != 100)  poses.add(new Pose(botpose.getPosition().x, botpose.getPosition().y));
-                else {
-                    poses.set(posesI, new Pose(botpose.getPosition().x, botpose.getPosition().y));
-                    posesI = (posesI + 1) % 100;
-                }
+//                if (poses.size() != 100)  poses.add(new Pose(botpose.getPosition().x, botpose.getPosition().y));
+//                else {
+//                    poses.set(posesI, new Pose(botpose.getPosition().x, botpose.getPosition().y));
+//                    posesI = (posesI + 1) % 100;
+//                }
+
+                poses.add(new Pose(botpose.getPosition().x, botpose.getPosition().y, Math.toRadians(yaw)));
+            } else {
+                PanelsTelemetry.INSTANCE.getTelemetry().addLine("ANG THRESHOLD OR VEL THRESHOLD");
             }
         }
 

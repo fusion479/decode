@@ -29,7 +29,7 @@ public class BlueFarTwoLines extends OpModeCore {
     public void initialize() {
         this.trajectories = new BlueFarTwoLinesTrajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
     }
 
     @Override

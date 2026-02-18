@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class BlueFarOneLineTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
+    public Path shootFirst, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, intakeFourth, shootFourth, park;
 
     public BlueFarOneLineTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueFarOneLine.pp"));
@@ -53,6 +53,18 @@ public class BlueFarOneLineTrajectories {
         this.shootThird = buildLine(
                 poses.get("intakeThird"),
                 poses.get("shootThird"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.shootFourth = buildLine(
+                poses.get("intakeFourth"),
+                poses.get("shootFourth"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.park = buildLine(
+                poses.get("shootFourth"),
+                poses.get("park"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 

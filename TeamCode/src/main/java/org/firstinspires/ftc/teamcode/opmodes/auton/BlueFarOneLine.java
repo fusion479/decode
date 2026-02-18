@@ -16,13 +16,15 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Configurable
 @Autonomous(name = "Blue Far One Line", preselectTeleOp = "BlueMain")
 public class BlueFarOneLine extends OpModeCore {
-    public static double SCORE_SPEED = 0.65;
-    public static double NORMAL_SPEED = 0.65;
-    public static double INTAKE_SPEED = 0.5;
-    public static int SHOOT_DURATION = 3000;
-    public static int INTAKE_DURATION = 2000;
-    public static int INTAKE_DURATION_HP = 5000;
-    public static int SHOOT_WAIT = 800;
+    public static double SCORE_SPEED = 0.63;
+    public static double NORMAL_SPEED = 0.70;
+    public static double INTAKE_SPEED = 0.65;
+    public static int SHOOT_DURATION = 2500;
+    public static int INTAKE_DURATION = 1500;
+    public static int INTAKE_DURATION_HP = 3000;
+    public static int SHOOT_WAIT = 1200;
+    public static int INTAKE_HP_WAIT = 0;
+
     private CommandRobot robot;
     private BlueFarOneLineTrajectories trajectories;
 
@@ -30,7 +32,7 @@ public class BlueFarOneLine extends OpModeCore {
     public void initialize() {
         this.trajectories = new BlueFarOneLineTrajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
     }
 
     @Override
@@ -43,8 +45,8 @@ public class BlueFarOneLine extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
-                                new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED)
-                                //robot.autonFar()
+                                new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
+                                robot.autonFar()
                         ),
                         new WaitCommand(SHOOT_WAIT),
 
@@ -56,7 +58,7 @@ public class BlueFarOneLine extends OpModeCore {
                                 new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION_HP),
                                 new SequentialCommandGroup(
                                         new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED),
-                                        new WaitCommand(1000)
+                                        new WaitCommand(INTAKE_HP_WAIT)
                                 )
                         ),
 
@@ -76,7 +78,20 @@ public class BlueFarOneLine extends OpModeCore {
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
 
-                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
+                        new ParallelCommandGroup(
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION_HP),
+                                new SequentialCommandGroup(
+                                        new PathCommand(this.robot, this.trajectories.intakeFourth, INTAKE_SPEED),
+                                        new WaitCommand(INTAKE_HP_WAIT)
+                                )
+                        ),
+
+                        new PathCommand(this.robot, this.trajectories.shootFourth, SCORE_SPEED),
+                        robot.shoot(),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
+                        robot.ready(),
+
+                        new PathCommand(this.robot, this.trajectories.park, 1)
                 )
         );
 

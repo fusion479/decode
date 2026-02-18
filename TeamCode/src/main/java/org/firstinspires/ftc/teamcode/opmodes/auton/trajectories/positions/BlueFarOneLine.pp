@@ -98,6 +98,36 @@
             "color": "#A577BD"
         },
         {
+            "name": "intakeFourth",
+            "endPoint": {
+                "x": 14,
+                "y": 16,
+                "heading": "linear",
+                "reverse": false,
+                "name": "intakeThird",
+                "startDeg": 180,
+                "endDeg": 180,
+                "index": 5
+            },
+            "controlPoints": [],
+            "color": "#ABC6D8"
+        },
+        {
+            "name": "shootFourth",
+            "endPoint": {
+                "x": 57,
+                "y": 10.5,
+                "heading": "linear",
+                "reverse": false,
+                "name": "shootThird",
+                "startDeg": 180,
+                "endDeg": 203,
+                "index": 6
+            },
+            "controlPoints": [],
+            "color": "#A577BD"
+        },
+        {
             "name": "park",
             "endPoint": {
                 "x": 54,

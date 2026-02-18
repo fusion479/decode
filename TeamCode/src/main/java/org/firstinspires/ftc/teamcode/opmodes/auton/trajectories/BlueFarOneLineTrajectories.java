@@ -56,6 +56,12 @@ public class BlueFarOneLineTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
+        this.intakeFourth = buildLine(
+                poses.get("shootThird"),
+                poses.get("intakeFourth"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
         this.shootFourth = buildLine(
                 poses.get("intakeFourth"),
                 poses.get("shootFourth"),
@@ -64,12 +70,6 @@ public class BlueFarOneLineTrajectories {
 
         this.park = buildLine(
                 poses.get("shootFourth"),
-                poses.get("park"),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
-        this.park = buildLine(
-                poses.get("shootThird"),
                 poses.get("park"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

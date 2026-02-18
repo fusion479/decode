@@ -16,13 +16,13 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Configurable
 @Autonomous(name = "Blue Far One Line", preselectTeleOp = "BlueMain")
 public class BlueFarOneLine extends OpModeCore {
-    public static double SCORE_SPEED = 0.63;
-    public static double NORMAL_SPEED = 0.70;
-    public static double INTAKE_SPEED = 0.65;
-    public static int SHOOT_DURATION = 2500;
+    public static double SCORE_SPEED = 0.55;
+    public static double NORMAL_SPEED = 0.66;
+    public static double INTAKE_SPEED = 0.66;
+    public static int SHOOT_DURATION = 2300;
     public static int INTAKE_DURATION = 1500;
     public static int INTAKE_DURATION_HP = 3000;
-    public static int SHOOT_WAIT = 1200;
+    public static int SHOOT_WAIT = 800;
     public static int INTAKE_HP_WAIT = 0;
 
     private CommandRobot robot;
@@ -63,6 +63,7 @@ public class BlueFarOneLine extends OpModeCore {
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
@@ -74,6 +75,7 @@ public class BlueFarOneLine extends OpModeCore {
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
@@ -87,6 +89,7 @@ public class BlueFarOneLine extends OpModeCore {
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootFourth, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),

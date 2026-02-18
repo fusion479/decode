@@ -11,11 +11,11 @@
         {
             "name": "shootFirst",
             "endPoint": {
-                "x": 57,
+                "x": 55,
                 "y": 12.5,
                 "heading": "linear",
                 "startDeg": 180,
-                "endDeg": 208,
+                "endDeg": 205,
                 "name": "shootFirst",
                 "index": 1
             },
@@ -25,7 +25,7 @@
         {
             "name": "intakeHP",
             "endPoint": {
-                "x": 10,
+                "x": 12,
                 "y": 10.5,
                 "heading": "linear",
                 "reverse": false,
@@ -40,13 +40,13 @@
         {
             "name": "shootSecond",
             "endPoint": {
-                "x": 57,
-                "y": 10.5,
+                "x": 55,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 201,
+                "endDeg": 205,
                 "index": 3
             },
             "controlPoints": [],
@@ -85,13 +85,13 @@
         {
             "name": "shootThird",
             "endPoint": {
-                "x": 57,
-                "y": 10.5,
+                "x": 55,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 203,
+                "endDeg": 205,
                 "index": 6
             },
             "controlPoints": [],
@@ -115,13 +115,13 @@
         {
             "name": "shootFourth",
             "endPoint": {
-                "x": 57,
-                "y": 10.5,
+                "x": 55,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 203,
+                "endDeg": 205,
                 "index": 6
             },
             "controlPoints": [],

@@ -186,10 +186,14 @@ public class CommandRobot {
                     if (color.equals("blue")){
                         BlueFarTip.finished = false;
                         BlueCloseTip.finished = false;
+                        BlueClose.finished = false;
+                        BlueCloseHori.finished = false;
                     }
                     else {
                         RedFarTip.finished = false;
                         RedCloseTip.finished = false;
+                        RedClose.finished = false;
+                        BlueCloseHori.finished = false;
                     }
                 })
         );

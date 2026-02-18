@@ -15,7 +15,7 @@
                 "y": 12,
                 "heading": "linear",
                 "startDeg": 180,
-                "endDeg": 162,
+                "endDeg": 150,
                 "name": "shootFirst",
                 "index": 1
             },
@@ -25,8 +25,8 @@
         {
             "name": "intakeHP",
             "endPoint": {
-                "x": 134,
-                "y": 9,
+                "x": 132,
+                "y": 10.5,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeSecond",
@@ -46,7 +46,7 @@
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 168,
+                "endDeg": 165,
                 "index": 3
             },
             "controlPoints": [],

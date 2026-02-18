@@ -46,7 +46,7 @@
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 205,
+                "endDeg": 201,
                 "index": 3
             },
             "controlPoints": [],

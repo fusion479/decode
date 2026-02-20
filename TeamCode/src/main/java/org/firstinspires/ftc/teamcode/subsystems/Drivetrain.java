@@ -31,7 +31,7 @@ public class Drivetrain extends SubsystemBase {
     public static boolean ROBOT_CENTRIC = false;
 
     public static double VEL_THRESHOLD = 12;
-    public static double DIST_THRESHOLD = 30;
+    public static double DIST_THRESHOLD = 65;
     public static double ANG_VEL_THRESHOLD = 0.75;
     public static double ANG_THRESHOLD = 100;
 

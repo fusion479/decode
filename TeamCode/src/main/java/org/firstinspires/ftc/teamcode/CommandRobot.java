@@ -95,18 +95,18 @@ public class CommandRobot {
     }
 
     public void configureControls() {
-//        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-//                .whileHeld(this.holdShoot())
-//                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                .whileHeld(this.holdShoot())
+                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(this.goCloseTip())
                 .whenReleased(this.releaseShoot());
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                .whileHeld(this.goClose())
-                .whenReleased(this.releaseShoot());
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whileHeld(this.goCloseHori())
-                .whenReleased(this.releaseShoot());
+//        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+//                .whileHeld(this.goClose())
+//                .whenReleased(this.releaseShoot());
+//        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+//                .whileHeld(this.goCloseHori())
+//                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar())
                 .whenReleased(this.releaseShoot());

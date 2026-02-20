@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 @Configurable
 public class RedCloseTip extends CommandBase {
     public static boolean finished = false;
-    public static int duration = 1000;
+    public static int duration = 200;
     public static Pose tip = new Pose(73, 74, Math.toRadians(137));
 
     private final Drivetrain drivetrain;
@@ -67,7 +67,7 @@ public class RedCloseTip extends CommandBase {
                     follower.getPose().getHeading()
             ) < 0 ? 360 : 0)
                     - Math.toDegrees(tip.getHeading()))
-                    < 3)) {
+                    < 1)) {
                 timer.reset();
                 finished = true;
             }

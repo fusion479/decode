@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 @Configurable
 public class BlueFarTip extends CommandBase {
     public static boolean finished = false;
-    public static int duration = 1000;
-    public static Pose tip = new Pose(70, 22, Math.toRadians(209.7));
+    public static int duration = 200;
+    public static Pose tip = new Pose(70, 22, Math.toRadians(208.2));
     public static ElapsedTime timer;
 
     private final Drivetrain drivetrain;
@@ -64,7 +64,7 @@ public class BlueFarTip extends CommandBase {
                     follower.getPose().getHeading()
             ) < 0 ? 360 : 0)
                     - Math.toDegrees(tip.getHeading()))
-                    < 3)) {
+                    < 1)) {
                 timer.reset();
                 finished = true;
             }

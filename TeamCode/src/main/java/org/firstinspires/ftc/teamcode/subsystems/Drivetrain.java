@@ -31,9 +31,11 @@ public class Drivetrain extends SubsystemBase {
     public static boolean ROBOT_CENTRIC = false;
 
     public static double VEL_THRESHOLD = 12;
-    public static double DIST_THRESHOLD = 65;
+    public static double DIST_THRESHOLD = 100;
     public static double ANG_VEL_THRESHOLD = 0.75;
     public static double ANG_THRESHOLD = 100;
+    public static double TAG_DIST_THRESHOLD = 2.6;
+    public static double YAW_OFFSET = 0;
 
     private final Follower follower;
 
@@ -172,7 +174,8 @@ public class Drivetrain extends SubsystemBase {
                     if (dist < DIST_THRESHOLD && Math.abs(Math.abs(weightedPose().getHeading()) - this.follower.getHeading()) < ANG_THRESHOLD) {
                         this.follower.setX(x);
                         this.follower.setY(y);
-                        this.follower.setHeading(weightedPose().getHeading());
+                        if (llResult.getBotposeAvgDist() < TAG_DIST_THRESHOLD)
+                            this.follower.setHeading(weightedPose().getHeading() + YAW_OFFSET) ;
                         this.follower.updatePose();
 
                         relocalizes++;

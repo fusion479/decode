@@ -27,11 +27,14 @@ import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseTip;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterFarTip;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAllow;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferStop;
+import org.firstinspires.ftc.teamcode.subsystems.Brake;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
+
+import kotlin.time.Instant;
 
 public class CommandRobot {
     public static long SHOOT_WAIT = 500;
@@ -41,6 +44,7 @@ public class CommandRobot {
     private final Shooter shooter;
     private final Transfer transfer;
     private final GamepadEx gamepad1;
+//    private final Brake brake;
     private GamepadEx gamepad2;
     private GamepadTrigger intakeAccept, intakeReject;
 
@@ -52,6 +56,7 @@ public class CommandRobot {
 
         this.drive = new Drivetrain(hwMap, new Pose(72, 72, Math.toRadians(180)), this.gamepad1, "teleop", color);
 
+//        this.brake = new Brake(hwMap);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
@@ -79,6 +84,7 @@ public class CommandRobot {
         this.drive = new Drivetrain(hwMap, startPose, this.gamepad1, "auton", color);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
+//        this.brake = new Brake(hwMap);
         this.transfer = new Transfer(hwMap);
 
         this.configureControls();
@@ -171,6 +177,7 @@ public class CommandRobot {
 
     public Command holdShoot() {
         return new SequentialCommandGroup(
+//                new InstantCommand(() -> this.brake.setBrakePosition(Brake.BRAKE_POSITION)),
                 new TransferAllow(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(1, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(-1))
@@ -179,6 +186,7 @@ public class CommandRobot {
 
     public Command releaseShoot() {
         return new SequentialCommandGroup(
+//                new InstantCommand(() -> this.brake.setBrakePosition(Brake.UNBRAKE_POSITION)),
                 new TransferStop(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(0, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(0)),

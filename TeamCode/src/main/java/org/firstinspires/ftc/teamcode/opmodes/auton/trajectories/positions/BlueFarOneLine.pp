@@ -30,7 +30,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeHP",
-                "startDeg": 208,
+                "startDeg": 205,
                 "endDeg": 180,
                 "index": 2
             },
@@ -40,13 +40,13 @@
         {
             "name": "shootSecond",
             "endPoint": {
-                "x": 55,
+                "x": 50,
                 "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 201,
+                "endDeg": 194,
                 "index": 3
             },
             "controlPoints": [],
@@ -60,7 +60,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupThird",
-                "startDeg": 201,
+                "startDeg": 196,
                 "endDeg": 180,
                 "index": 4
             },
@@ -85,13 +85,13 @@
         {
             "name": "shootThird",
             "endPoint": {
-                "x": 55,
+                "x": 53,
                 "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 205,
+                "endDeg": 200,
                 "index": 6
             },
             "controlPoints": [],
@@ -105,7 +105,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeThird",
-                "startDeg": 180,
+                "startDeg": 200,
                 "endDeg": 180,
                 "index": 5
             },
@@ -115,13 +115,13 @@
         {
             "name": "shootFourth",
             "endPoint": {
-                "x": 55,
+                "x": 51,
                 "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 205,
+                "endDeg": 197,
                 "index": 6
             },
             "controlPoints": [],
@@ -135,7 +135,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 203,
+                "startDeg": 197,
                 "endDeg": 180,
                 "index": 7
             },

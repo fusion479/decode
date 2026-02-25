@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class BlueClose extends CommandBase {
     public static boolean finished = false;
     public static int duration = 1000;
-    public static Pose close = new Pose(52, 93.5, Math.toRadians(226.9));
+    public static Pose close = new Pose(47, 96.5, Math.toRadians(226.9));
     public static ElapsedTime timer;
 
     private final Drivetrain drivetrain;

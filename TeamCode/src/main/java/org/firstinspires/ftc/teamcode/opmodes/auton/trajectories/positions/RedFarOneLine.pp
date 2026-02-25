@@ -30,7 +30,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeSecond",
-                "startDeg": 161,
+                "startDeg": 157,
                 "endDeg": 180,
                 "index": 2
             },
@@ -46,7 +46,7 @@
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 165,
+                "endDeg": 164,
                 "index": 3
             },
             "controlPoints": [],
@@ -60,7 +60,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupThird",
-                "startDeg": 168,
+                "startDeg": 164,
                 "endDeg": 180,
                 "index": 4
             },
@@ -91,7 +91,7 @@
                 "reverse": false,
                 "name": "shootThird",
                 "startDeg": 180,
-                "endDeg": 159,
+                "endDeg": 157,
                 "index": 6
             },
             "controlPoints": [],
@@ -105,7 +105,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeSecond",
-                "startDeg": 159,
+                "startDeg": 156,
                 "endDeg": 180,
                 "index": 2
             },
@@ -116,12 +116,12 @@
             "name": "shootFourth",
             "endPoint": {
                 "x": 92,
-                "y": 14,
+                "y": 15,
                 "heading": "linear",
                 "reverse": false,
                 "name": "shootFourth",
                 "startDeg": 180,
-                "endDeg": 167,
+                "endDeg": 156,
                 "index": 3
             },
             "controlPoints": [],
@@ -135,7 +135,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 167,
+                "startDeg": 157,
                 "endDeg": 180,
                 "index": 7
             },

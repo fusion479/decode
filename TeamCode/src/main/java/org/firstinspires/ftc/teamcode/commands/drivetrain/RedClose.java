@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class RedClose extends CommandBase {
     public static boolean finished = false;
     public static int duration = 1000;
-    public static Pose close = new Pose(105, 103.5, Math.toRadians(209.7));
+    public static Pose close = new Pose(95, 94.5, Math.toRadians(138.1));
     public static ElapsedTime timer;
 
     private final Drivetrain drivetrain;

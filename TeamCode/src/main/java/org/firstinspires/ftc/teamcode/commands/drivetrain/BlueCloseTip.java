@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 @Configurable
 public class BlueCloseTip extends CommandBase {
     public static boolean finished = false;
-    public static int duration = 200;
+    public static int duration = 1000;
     public static Pose tip = new Pose(73, 74, Math.toRadians(226.8));
 
     private final Drivetrain drivetrain;

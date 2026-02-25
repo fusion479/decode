@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -36,15 +37,20 @@ import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 
 import kotlin.time.Instant;
 
+@Configurable
 public class CommandRobot {
     public static long SHOOT_WAIT = 500;
+
+    public static Pose RED_START = new Pose(87, 43, Math.toRadians(180));
+
+    public static Pose BLUE_START = new Pose(56, 35, Math.toRadians(180));
     private final String color;
     private final Intake intake;
     private final Drivetrain drive;
     private final Shooter shooter;
     private final Transfer transfer;
     private final GamepadEx gamepad1;
-//    private final Brake brake;
+    private final Brake brake;
     private GamepadEx gamepad2;
     private GamepadTrigger intakeAccept, intakeReject;
 
@@ -54,9 +60,9 @@ public class CommandRobot {
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.drive = new Drivetrain(hwMap, new Pose(72, 72, Math.toRadians(180)), this.gamepad1, "teleop", color);
+        this.drive = new Drivetrain(hwMap, this.color.equals("blue") ? BLUE_START : RED_START, this.gamepad1, "teleop", color);
 
-//        this.brake = new Brake(hwMap);
+        this.brake = new Brake(hwMap);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
         this.transfer = new Transfer(hwMap);
@@ -84,7 +90,7 @@ public class CommandRobot {
         this.drive = new Drivetrain(hwMap, startPose, this.gamepad1, "auton", color);
         this.intake = new Intake(hwMap);
         this.shooter = new Shooter(hwMap);
-//        this.brake = new Brake(hwMap);
+        this.brake = new Brake(hwMap);
         this.transfer = new Transfer(hwMap);
 
         this.configureControls();
@@ -101,18 +107,18 @@ public class CommandRobot {
     }
 
     public void configureControls() {
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whileHeld(this.holdShoot())
                 .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whileHeld(this.goCloseTip())
                 .whenReleased(this.releaseShoot());
-//        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-//                .whileHeld(this.goClose())
-//                .whenReleased(this.releaseShoot());
-//        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-//                .whileHeld(this.goCloseHori())
-//                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                .whileHeld(this.goClose())
+                .whenReleased(this.releaseShoot());
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                .whileHeld(this.goCloseHori())
+                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whileHeld(this.goFar())
                 .whenReleased(this.releaseShoot());
@@ -177,7 +183,7 @@ public class CommandRobot {
 
     public Command holdShoot() {
         return new SequentialCommandGroup(
-//                new InstantCommand(() -> this.brake.setBrakePosition(Brake.BRAKE_POSITION)),
+                new InstantCommand(() -> this.brake.setBrakePosition(Brake.BRAKE_POSITION)),
                 new TransferAllow(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(1, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(-1))
@@ -186,7 +192,7 @@ public class CommandRobot {
 
     public Command releaseShoot() {
         return new SequentialCommandGroup(
-//                new InstantCommand(() -> this.brake.setBrakePosition(Brake.UNBRAKE_POSITION)),
+                new InstantCommand(() -> this.brake.setBrakePosition(Brake.UNBRAKE_POSITION)),
                 new TransferStop(this.transfer),
                 new InstantCommand(() -> this.transfer.setPower(0, false)),
                 new InstantCommand(() -> this.intake.setIntakePower(0)),
@@ -201,7 +207,7 @@ public class CommandRobot {
                         RedFarTip.finished = false;
                         RedCloseTip.finished = false;
                         RedClose.finished = false;
-                        BlueCloseHori.finished = false;
+                        RedCloseHori.finished = false;
                     }
                 })
         );

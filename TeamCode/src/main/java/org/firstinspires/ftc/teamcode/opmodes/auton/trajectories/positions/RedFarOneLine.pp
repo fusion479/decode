@@ -130,12 +130,12 @@
         {
             "name": "park",
             "endPoint": {
-                "x": 86,
+                "x": 88,
                 "y": 40,
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",
-                "startDeg": 157,
+                "startDeg": 156,
                 "endDeg": 180,
                 "index": 7
             },

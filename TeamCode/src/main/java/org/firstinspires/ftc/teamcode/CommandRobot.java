@@ -17,15 +17,18 @@ import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BluePark;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueTurn;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedClose;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedPark;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedTurn;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterClose;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseHori;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterCloseTip;
 import org.firstinspires.ftc.teamcode.commands.shooter.ShooterFarTip;
+import org.firstinspires.ftc.teamcode.commands.shooter.ShooterInterpolated;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAllow;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferStop;
 import org.firstinspires.ftc.teamcode.subsystems.Brake;
@@ -224,6 +227,18 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new ShooterClose(this.shooter),
                 this.color.equals("blue") ? new BlueClose(this.drive) : new RedClose(this.drive),
+                holdShoot()
+        );
+    }
+
+    public Command interpolatedShot() {
+        double dist = color.equals("blue") ?
+                Math.hypot(getFollower().getPose().getX() - 16, getFollower().getPose().getY() - 130) :
+                Math.hypot(getFollower().getPose().getX() - 130, getFollower().getPose().getY() - 130);
+
+        return new SequentialCommandGroup(
+                new ShooterInterpolated(this.shooter, dist),
+                this.color.equals("blue") ? new BlueTurn(this.drive) : new RedTurn(this.drive),
                 holdShoot()
         );
     }

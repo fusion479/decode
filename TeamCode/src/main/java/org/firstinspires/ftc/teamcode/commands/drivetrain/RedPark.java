@@ -45,7 +45,7 @@ public class RedPark extends CommandBase {
     @Override
     public boolean isFinished() {
 
-        return (Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())) < 3);
+        return (Math.abs(follower.getPose().getY() - tip.getY()) < 1) && (Math.abs(follower.getPose().getX() - tip.getX()) < 1) && (Math.abs(Math.toDegrees(follower.getPose().getHeading()) - Math.toDegrees(tip.getHeading())) < 1);
     }
 }
 

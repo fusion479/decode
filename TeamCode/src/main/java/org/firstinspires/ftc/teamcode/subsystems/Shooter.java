@@ -14,9 +14,12 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Configurable
 public class Shooter extends SubsystemBase {
+    public static double VERY_CLOSE = 0.5;
+    public static double CLOSE = 1.0;
+
     public static double CLOSE_TIP_VELOCITY = 1015;
-    public static double FAR_TIP_VELOCITY = 1235;
-    public static double ROAM_VELOCITY = 1235;
+    public static double FAR_TIP_VELOCITY = 1225;
+    public static double ROAM_VELOCITY = 1225;
     public static double CLOSE_VELOCITY = 1000;
     public static double CLOSE_HORI_VELOCITY = 1050;
     public static double COMPENSATE = 12.0;
@@ -104,5 +107,11 @@ public class Shooter extends SubsystemBase {
 
     public synchronized void setConstants() {
         this.controller.setCoefficients(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
+    }
+
+    public double interpolatedPower(double dist) {
+        if (dist < VERY_CLOSE) return CLOSE_TIP_VELOCITY;
+        else if (dist < CLOSE) return CLOSE_VELOCITY;
+        else return FAR_TIP_VELOCITY;
     }
 }

@@ -58,7 +58,7 @@ public class BlueCloseTip extends CommandBase {
         if (finished && timer.milliseconds() > duration)
             return true;
         else if (!finished) {
-            if ((Math.abs(follower.getPose().getY() - tip.getY()) < 6) && (Math.abs(follower.getPose().getX() - tip.getX()) < 6) && (Math.abs(Math.toDegrees(
+            if ((Math.abs(follower.getPose().getY() - tip.getY()) < 3) && (Math.abs(follower.getPose().getX() - tip.getX()) < 3) && (Math.abs(Math.toDegrees(
                     follower.getPose().getHeading()
             )
                     + (Math.toDegrees(

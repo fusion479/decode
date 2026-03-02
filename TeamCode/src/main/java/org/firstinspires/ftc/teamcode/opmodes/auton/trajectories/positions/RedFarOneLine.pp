@@ -46,7 +46,7 @@
                 "reverse": false,
                 "name": "shootSecond",
                 "startDeg": 180,
-                "endDeg": 164,
+                "endDeg": 163,
                 "index": 3
             },
             "controlPoints": [],
@@ -60,7 +60,7 @@
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupThird",
-                "startDeg": 164,
+                "startDeg": 163,
                 "endDeg": 180,
                 "index": 4
             },

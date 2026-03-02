@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Transfer extends SubsystemBase {
     public static double STOP = 0.43;
     public static double ALLOW = 0.65;
+    public static double MULTIPLIER = 0.8;
     private final CRServo leftTransfer, rightTransfer;
     private final Servo stop;
     private double power;
@@ -28,8 +29,8 @@ public class Transfer extends SubsystemBase {
 
     @Override
     public void periodic() {
-        this.leftTransfer.setPower(power);
-        this.rightTransfer.setPower(-power);
+        this.leftTransfer.setPower(power * MULTIPLIER);
+        this.rightTransfer.setPower(-power * MULTIPLIER);
     }
 
     public double getleftVoltage() {

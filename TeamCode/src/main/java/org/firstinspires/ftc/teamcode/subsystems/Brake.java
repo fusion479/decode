@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Configurable
 public class Brake extends SubsystemBase {
-        public static double BRAKE_POSITION = 0.38;
+        public static double BRAKE_POSITION = 0.36;
         public static double UNBRAKE_POSITION = 0.52;
 
         private final Servo brakeServo;

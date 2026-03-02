@@ -57,14 +57,14 @@ public class RedClose extends CommandBase {
         if (finished && timer.milliseconds() > duration)
             return true;
         else if (!finished) {
-            if ((Math.abs(follower.getPose().getY() - close.getY()) < 6) && (Math.abs(follower.getPose().getX() - close.getX()) < 6) && (Math.abs(Math.toDegrees(
+            if ((Math.abs(follower.getPose().getY() - close.getY()) < 3) && (Math.abs(follower.getPose().getX() - close.getX()) < 3) && (Math.abs(Math.toDegrees(
                     follower.getPose().getHeading()
             )
                     + (Math.toDegrees(
                     follower.getPose().getHeading()
             ) < 0 ? 360 : 0)
                     - Math.toDegrees(close.getHeading()))
-                    < 3)) {
+                    < 1)) {
                 timer.reset();
                 finished = true;
             }

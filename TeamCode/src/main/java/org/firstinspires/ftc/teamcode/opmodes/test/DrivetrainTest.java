@@ -9,9 +9,14 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueClose;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.BluePark;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueTurn;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedClose;
+import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseHori;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedCloseTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedFarTip;
 import org.firstinspires.ftc.teamcode.commands.drivetrain.RedPark;
@@ -37,10 +42,21 @@ public class DrivetrainTest extends OpModeCore {
         this.rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         this.leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new BlueCloseTip(this.drive));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new BlueFarTip(this.drive));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whileHeld(new RedCloseTip(this.drive));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whileHeld(new RedFarTip(this.drive));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new BlueCloseTip(this.drive)).whenReleased(() -> {
+            BlueFarTip.finished = false;
+            BlueCloseTip.finished = false;
+            BlueTurn.finished = false;
+        });
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new BlueFarTip(this.drive)).whenReleased(() -> {
+            BlueFarTip.finished = false;
+            BlueCloseTip.finished = false;
+            BlueTurn.finished = false;
+        });
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whileHeld(new BlueTurn(this.drive)).whenReleased(() -> {
+            BlueFarTip.finished = false;
+            BlueCloseTip.finished = false;
+            BlueTurn.finished = false;
+        });
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whileHeld(new RedPark(this.drive));
         this.gamepad.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whileHeld(new BluePark(this.drive));

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Configurable
 @Autonomous(name = "Blue Far One Line 15", preselectTeleOp = "BlueMain")
 public class BlueFarOneLine15 extends OpModeCore {
-    public static double SCORE_SPEED = 1;
+    public static double SCORE_SPEED = 0.75;
     public static double NORMAL_SPEED = 1;
 
     public static double HP_SPEED = 0.7;

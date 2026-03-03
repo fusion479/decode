@@ -22,7 +22,7 @@ public class Constants {
             .lateralZeroPowerAcceleration(-59.07927183968)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.1, 0, 0.01, 0.05))
             .headingPIDFCoefficients(new PIDFCoefficients(0.8, 0, 0.02,0.03))
-            .mass(12.8);
+            .mass(13);
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 

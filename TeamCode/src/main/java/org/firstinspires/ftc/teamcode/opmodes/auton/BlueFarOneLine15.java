@@ -17,18 +17,17 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Configurable
 @Autonomous(name = "Blue Far One Line 15", preselectTeleOp = "BlueMain")
 public class BlueFarOneLine15 extends OpModeCore {
-    public static double SCORE_SPEED = 0.75;
-    public static double NORMAL_SPEED = 1;
+    public static double SCORE_SPEED = 0.65;
+    public static double NORMAL_SPEED = 0.83;
 
-    public static double HP_SPEED = 0.7;
+    public static double HP_SPEED = 0.6;
     public static double INTAKE_SPEED = 1;
     public static int SHOOT_DURATION = 1500;
     public static int INTAKE_DURATION = 1700;
     public static int INTAKE_DURATION_HP = 2500;
     public static int SHOOT_WAIT = 100;
 
-    public static int FIRST_SHOOT_WAIT = 1100;
-
+    public static int FIRST_SHOOT_WAIT = 2000;
     public static int INTAKE_HP_WAIT = 0;
 
     private CommandRobot robot;

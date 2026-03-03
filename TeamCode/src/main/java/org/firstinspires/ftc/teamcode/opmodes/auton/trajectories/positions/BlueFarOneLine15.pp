@@ -15,7 +15,7 @@
         "y": 12.5,
         "heading": "linear",
         "startDeg": 180,
-        "endDeg": 206,
+        "endDeg": 208,
         "name": "shootFirst",
         "index": 1
       },
@@ -25,12 +25,12 @@
     {
       "name": "intakeHP",
       "endPoint": {
-        "x": 15,
+        "x": 14.5,
         "y": 8.5,
         "heading": "linear",
         "reverse": false,
         "name": "intakeHP",
-        "startDeg": 206,
+        "startDeg": 208,
         "endDeg": 180,
         "index": 2
       },
@@ -46,7 +46,7 @@
         "reverse": false,
         "name": "shootSecond",
         "startDeg": 180,
-        "endDeg": 192,
+        "endDeg": 196,
         "index": 3
       },
       "controlPoints": [],
@@ -60,7 +60,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "setupThird",
-        "startDeg": 192,
+        "startDeg": 196,
         "endDeg": 180,
         "index": 4
       },
@@ -91,7 +91,7 @@
         "reverse": false,
         "name": "shootThird",
         "startDeg": 180,
-        "endDeg": 192,
+        "endDeg": 196,
         "index": 6
       },
       "controlPoints": [],
@@ -105,7 +105,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "intakeFourth",
-        "startDeg": 192,
+        "startDeg": 196,
         "endDeg": 180,
         "index": 5
       },
@@ -121,7 +121,7 @@
         "reverse": false,
         "name": "shootFourth",
         "startDeg": 180,
-        "endDeg": 189,
+        "endDeg": 194,
         "index": 6
       },
       "controlPoints": [],
@@ -135,7 +135,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "intakeFifth",
-        "startDeg": 189,
+        "startDeg": 194,
         "endDeg": 180,
         "index": 5
       },
@@ -151,7 +151,7 @@
         "reverse": false,
         "name": "shootFifth",
         "startDeg": 180,
-        "endDeg": 190,
+        "endDeg": 192,
         "index": 6
       },
       "controlPoints": [],
@@ -160,12 +160,12 @@
     {
       "name": "park",
       "endPoint": {
-        "x": 54,
-        "y": 40,
+        "x": 42,
+        "y": 16,
         "heading": "linear",
         "reverse": false,
         "name": "park",
-        "startDeg": 190,
+        "startDeg": 192,
         "endDeg": 180,
         "index": 7
       },

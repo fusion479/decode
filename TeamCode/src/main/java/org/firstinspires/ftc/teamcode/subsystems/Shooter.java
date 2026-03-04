@@ -18,17 +18,17 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE = 1.0;
 
     public static double CLOSE_TIP_VELOCITY = 1015;
-    public static double FAR_TIP_VELOCITY = 1230;
-    public static double ROAM_VELOCITY = 1230;
+    public static double FAR_TIP_VELOCITY = 1875;
+    public static double ROAM_VELOCITY = 1875;
     public static double CLOSE_VELOCITY = 1000;
     public static double CLOSE_HORI_VELOCITY = 1050;
     public static double COMPENSATE = 12.0;
 
-    public static double kP = 0.01;
+    public static double kP = 0.5;
     public static double kI = 0;
-    public static double kD = 0;
-    public static double kF = 0.005;
-    public static double kS = 1.3;
+    public static double kD = 0.02;
+    public static double kF = 0.015;
+    public static double kS = 0;
 
     private final DcMotorEx rightShooter, leftShooter;
     private final VoltageSensor voltageSensor;
@@ -52,7 +52,7 @@ public class Shooter extends SubsystemBase {
         this.leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
-        this.controller.setAllowedError(15);
+        this.controller.setAllowedError(0);
 
         this.setTarget(ROAM_VELOCITY);
     }

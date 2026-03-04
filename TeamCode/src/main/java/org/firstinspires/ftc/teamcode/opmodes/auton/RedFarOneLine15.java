@@ -11,12 +11,13 @@ import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLine15Trajectories;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLineTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedFarOneLine15Trajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Blue Far One Line 15", preselectTeleOp = "BlueMain")
-public class BlueFarOneLine15 extends OpModeCore {
+@Autonomous(name = "Red Far One Line 15", preselectTeleOp = "RedMain")
+public class RedFarOneLine15 extends OpModeCore {
     public static double SCORE_SPEED = 0.65;
     public static double NORMAL_SPEED = 0.83;
 
@@ -27,15 +28,15 @@ public class BlueFarOneLine15 extends OpModeCore {
     public static int INTAKE_DURATION_HP = 2800;
     public static int SHOOT_WAIT = 100;
 
-    public static int FIRST_SHOOT_WAIT = 2000;
+    public static int FIRST_SHOOT_WAIT = 1700;
     public static int INTAKE_HP_WAIT = 0;
 
     private CommandRobot robot;
-    private BlueFarOneLine15Trajectories trajectories;
+    private RedFarOneLine15Trajectories trajectories;
 
     @Override
     public void initialize() {
-        this.trajectories = new BlueFarOneLine15Trajectories();
+        this.trajectories = new RedFarOneLine15Trajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
     }

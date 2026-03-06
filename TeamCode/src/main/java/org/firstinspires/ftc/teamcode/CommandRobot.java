@@ -44,7 +44,7 @@ import kotlin.time.Instant;
 public class CommandRobot {
     public static long SHOOT_WAIT = 500;
 
-    public static Pose RED_START = new Pose(87, 43, Math.toRadians(180));
+    public static Pose RED_START = new Pose(107, 16, Math.toRadians(180));
 
     public static Pose BLUE_START = new Pose(56, 35, Math.toRadians(180));
     private final String color;

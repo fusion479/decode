@@ -79,7 +79,7 @@
               "heading": "linear",
               "reverse": false,
               "name": "intakeHP",
-              "startDeg": 208,
+              "startDeg": 197,
               "endDeg": 180,
               "index": 2
             },
@@ -110,7 +110,7 @@
               "heading": "linear",
               "reverse": false,
               "name": "park",
-              "startDeg": 192,
+              "startDeg": 199,
               "endDeg": 180,
               "index": 7
             },

@@ -22,6 +22,8 @@ public class BlueFarTwoLines extends OpModeCore {
     public static int SHOOT_DURATION = 3000;
     public static int INTAKE_DURATION = 2000;
     public static int SHOOT_WAIT = 800;
+    public static int INTAKE_DURATION_HP = 2800;
+    public static int INTAKE_HP_WAIT = 0;
     private CommandRobot robot;
     private BlueFarTwoLinesTrajectories trajectories;
 
@@ -62,12 +64,13 @@ public class BlueFarTwoLines extends OpModeCore {
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
 
-                        new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
                         new ParallelCommandGroup(
-                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
-                                new PathCommand(this.robot, this.trajectories.intakeThird, INTAKE_SPEED)
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION_HP),
+                                new SequentialCommandGroup(
+                                        new PathCommand(this.robot, this.trajectories.intakeThird, INTAKE_SPEED),
+                                        new WaitCommand(INTAKE_HP_WAIT)
+                                )
                         ),
-
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),

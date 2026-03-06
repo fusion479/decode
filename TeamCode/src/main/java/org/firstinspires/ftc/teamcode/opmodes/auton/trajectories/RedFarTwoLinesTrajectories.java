@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class RedFarTwoLinesTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, intakeThird, shootThird, park;
 
     public RedFarTwoLinesTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedFarTwoLines.pp"));
@@ -41,12 +41,6 @@ public class RedFarTwoLinesTrajectories {
         this.shootSecond = buildLine(
                 poses.get("setupSecond"),
                 poses.get("shootSecond"),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
-        this.setupThird = buildLine(
-                poses.get("shootSecond"),
-                poses.get("setupThird"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 

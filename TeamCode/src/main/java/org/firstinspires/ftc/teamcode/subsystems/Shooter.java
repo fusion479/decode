@@ -17,14 +17,14 @@ public class Shooter extends SubsystemBase {
     public static double VERY_CLOSE = 0.5;
     public static double CLOSE = 1.0;
 
-    public static double CLOSE_TIP_VELOCITY = 1015;
-    public static double FAR_TIP_VELOCITY = 1875;
-    public static double ROAM_VELOCITY = 1875;
+    public static double CLOSE_TIP_VELOCITY = 1530;
+    public static double FAR_TIP_VELOCITY = 1920;
+    public static double ROAM_VELOCITY = 1920;
     public static double CLOSE_VELOCITY = 1000;
-    public static double CLOSE_HORI_VELOCITY = 1050;
+    public static double CLOSE_HORI_VELOCITY = 1450;
     public static double COMPENSATE = 12.0;
 
-    public static double kP = 0.5;
+    public static double kP = 0.52;
     public static double kI = 0;
     public static double kD = 0.02;
     public static double kF = 0.015;

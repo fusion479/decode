@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class RedFarTip extends CommandBase {
     public static boolean finished = false;
     public static int duration = 1000;
-    public static Pose tip = new Pose(76, 20, Math.toRadians(153.7));
+    public static Pose tip = new Pose(76, 18, Math.toRadians(155.7));
     public static ElapsedTime timer;
 
     private final Drivetrain drivetrain;

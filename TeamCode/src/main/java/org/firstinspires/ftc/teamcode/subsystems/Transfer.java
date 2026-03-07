@@ -11,7 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Transfer extends SubsystemBase {
     public static double STOP = 0.43;
     public static double ALLOW = 0.65;
-    public static double MULTIPLIER = 0.2;
+    public static double MULTIPLIER = 0.30;
+
     private final CRServo leftTransfer, rightTransfer;
     private final Servo stop;
     private double power;

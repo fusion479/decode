@@ -4,10 +4,11 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "RedMain")
-public class RedMain extends OpModeCore {
+@TeleOp(name = "Blue Close Main")
+public class BlueCloseMain extends OpModeCore {
     private CommandRobot robot;
 
     public void initialize() {
@@ -17,7 +18,8 @@ public class RedMain extends OpModeCore {
                 super.hardwareMap,
                 super.gamepad1,
                 super.gamepad2,
-                "red"
+                "blue",
+                "close"
         );
     }
 

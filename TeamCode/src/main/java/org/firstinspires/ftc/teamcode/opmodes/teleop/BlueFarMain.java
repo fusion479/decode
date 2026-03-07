@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 
-import org.firstinspires.ftc.teamcode.commands.drivetrain.BlueFarTip;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "BlueMain")
-public class BlueMain extends OpModeCore {
+@TeleOp(name = "Blue Far Main")
+public class BlueFarMain extends OpModeCore {
     private CommandRobot robot;
 
     public void initialize() {
@@ -21,7 +18,8 @@ public class BlueMain extends OpModeCore {
                 super.hardwareMap,
                 super.gamepad1,
                 super.gamepad2,
-                "blue"
+                "blue",
+                "far"
         );
     }
 

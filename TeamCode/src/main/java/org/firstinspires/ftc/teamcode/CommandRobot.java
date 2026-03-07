@@ -44,9 +44,11 @@ import kotlin.time.Instant;
 public class CommandRobot {
     public static long SHOOT_WAIT = 500;
 
-    public static Pose RED_START = new Pose(107, 16, Math.toRadians(180));
+    public static Pose RED_FAR_START = new Pose(102, 16, Math.toRadians(180));
+    public static Pose BLUE_FAR_START = new Pose(42, 16, Math.toRadians(180));
+    public static Pose BLUE_CLOSE_START = new Pose(47, 70, Math.toRadians(180));
+    public static Pose RED_CLOSE_START = new Pose(95, 70, Math.toRadians(180));
 
-    public static Pose BLUE_START = new Pose(35, 16, Math.toRadians(180));
     private final String color;
     private final Intake intake;
     private final Drivetrain drive;
@@ -57,13 +59,22 @@ public class CommandRobot {
     private GamepadEx gamepad2;
     private GamepadTrigger intakeAccept, intakeReject;
 
-    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, String color) {
+    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, String color, String type) {
         this.color = color;
 
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.drive = new Drivetrain(hwMap, this.color.equals("blue") ? BLUE_START : RED_START, this.gamepad1, "teleop", color);
+        Pose pose = new Pose(0, 0, 0);
+        if (color.equals("blue")) {
+            if (type.equals("far")) pose = BLUE_FAR_START;
+            else pose = BLUE_CLOSE_START;
+        } else if (color.equals("red")) {
+            if (type.equals("far")) pose = RED_FAR_START;
+            else pose = RED_FAR_START;
+        }
+
+        this.drive = new Drivetrain(hwMap, pose, this.gamepad1, "teleop", color);
 
         this.brake = new Brake(hwMap);
         this.intake = new Intake(hwMap);

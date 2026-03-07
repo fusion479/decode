@@ -34,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
     public static double DIST_THRESHOLD = 30;
     public static double ANG_VEL_THRESHOLD = 0.75;
     public static double ANG_THRESHOLD = 25;
-    public static double TAG_DIST_THRESHOLD = 2.6;
+    public static double TAG_DIST_THRESHOLD = 2.8;
     public static double YAW_OFFSET = 0;
 
     private final Follower follower;

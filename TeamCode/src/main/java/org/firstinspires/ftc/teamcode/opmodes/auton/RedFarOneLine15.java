@@ -39,7 +39,7 @@ public class RedFarOneLine15 extends OpModeCore {
     public void initialize() {
         this.trajectories = new RedFarOneLine15Trajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
     }
 
     @Override

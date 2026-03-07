@@ -1,6 +1,6 @@
 {
   "startPoint": {
-    "x": 32.5,
+    "x": 111,
     "y": 136,
     "heading": "linear",
     "startDeg": 90,
@@ -9,17 +9,17 @@
   },
   "lines": [
     {
-      "id": "line-7rgv4goywd8",
+      "id": "line-tq5vni313r",
       "name": "shootFirst",
       "endPoint": {
-        "x": 50,
-        "y": 93.5,
+        "x": 92,
+        "y": 91.5,
         "heading": "linear",
         "startDeg": 90,
-        "endDeg": 225
+        "endDeg": 136
       },
       "controlPoints": [],
-      "color": "#CC87D5",
+      "color": "#5B6D9B",
       "locked": false,
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
@@ -27,28 +27,28 @@
       "waitAfterName": ""
     },
     {
-      "id": "mmfe11v9-b39fdw",
+      "id": "mmfelfv3-38ky79",
       "name": "setupSecond",
       "endPoint": {
-        "x": 47,
+        "x": 95,
         "y": 85,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 227,
+        "startDeg": 138,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#698569",
+      "color": "#859DDA",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "id": "mmfe1vkd-vg2u0q",
+      "id": "mmfem58w-0jhfcu",
       "name": "intakeSecond",
       "endPoint": {
-        "x": 20,
+        "x": 125,
         "y": 85,
         "heading": "linear",
         "reverse": false,
@@ -56,53 +56,53 @@
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#BD7557",
+      "color": "#5DB78D",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "id": "mmfe1x65-93o35m",
+      "id": "mmfengqc-kp8mio",
       "name": "shootSecond",
       "endPoint": {
-        "x": 50,
-        "y": 93.25,
+        "x": 92,
+        "y": 91.5,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 220
+        "endDeg": 144
       },
       "controlPoints": [],
-      "color": "#A5CBD8",
+      "color": "#A78967",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "id": "mmfe5kx2-vji9bq",
+      "id": "mmfeoehs-or0gni",
       "name": "setupThird",
       "endPoint": {
-        "x": 47,
+        "x": 95,
         "y": 60,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 220,
+        "startDeg": 138,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#6AA7BB",
+      "color": "#9A6CDC",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "id": "mmfe6550-6mwmvw",
+      "id": "mmfepakp-kp743b",
       "name": "intakeThird",
       "endPoint": {
-        "x": 10,
+        "x": 130,
         "y": 60,
         "heading": "linear",
         "reverse": false,
@@ -110,102 +110,48 @@
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#5DD6DA",
+      "color": "#67DD78",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
     {
-      "id": "mmfe65wr-uz5qw0",
+      "id": "mmfeq1bv-d1nrkv",
       "name": "shootThird",
       "endPoint": {
-        "x": 50,
-        "y": 93.25,
+        "x": 92,
+        "y": 91.6,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 227
+        "endDeg": 130
       },
       "controlPoints": [
         {
-          "x": 40,
-          "y": 60.3
+          "x": 110,
+          "y": 60
         }
       ],
-      "color": "#79B775",
+      "color": "#BAC777",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",
       "waitAfterName": ""
     },
-        {
-          "id": "mmfe5kx2-vji9bq",
-          "name": "setupFourth",
-          "endPoint": {
-            "x": 47,
-            "y": 37,
-            "heading": "linear",
-            "reverse": false,
-            "startDeg": 227,
-            "endDeg": 180
-          },
-          "controlPoints": [],
-          "color": "#6AA7BB",
-          "waitBeforeMs": 0,
-          "waitAfterMs": 0,
-          "waitBeforeName": "",
-          "waitAfterName": ""
-        },
-            {
-              "id": "mmfe6550-6mwmvw",
-              "name": "intakeFourth",
-              "endPoint": {
-                "x": 17,
-                "y": 37,
-                "heading": "linear",
-                "reverse": false,
-                "startDeg": 180,
-                "endDeg": 180
-              },
-              "controlPoints": [],
-              "color": "#5DD6DA",
-              "waitBeforeMs": 0,
-              "waitAfterMs": 0,
-              "waitBeforeName": "",
-              "waitAfterName": ""
-            },
-                {
-                  "id": "mmfe1x65-93o35m",
-                  "name": "shootFourth",
-                  "endPoint": {
-                    "x": 50,
-                    "y": 93.25,
-                    "heading": "linear",
-                    "reverse": false,
-                    "startDeg": 180,
-                    "endDeg": 218
-                  },
-                  "controlPoints": [],
-                  "color": "#A5CBD8",
-                  "waitBeforeMs": 0,
-                  "waitAfterMs": 0,
-                  "waitBeforeName": "",
-                  "waitAfterName": ""
-                },
     {
-      "id": "mmfeb6so-y63egf",
+      "id": "mmfercsr-bvsik8",
       "name": "park",
       "endPoint": {
-        "x": 47,
+        "x": 95,
         "y": 70,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 227,
+        "startDeg": 122,
         "endDeg": 180
       },
       "controlPoints": [],
-      "color": "#7A89C7",
+      "color": "#56C6B7",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
       "waitBeforeName": "",

@@ -139,60 +139,6 @@
       "waitBeforeName": "",
       "waitAfterName": ""
     },
-        {
-          "id": "mmfe5kx2-vji9bq",
-          "name": "setupFourth",
-          "endPoint": {
-            "x": 47,
-            "y": 37,
-            "heading": "linear",
-            "reverse": false,
-            "startDeg": 227,
-            "endDeg": 180
-          },
-          "controlPoints": [],
-          "color": "#6AA7BB",
-          "waitBeforeMs": 0,
-          "waitAfterMs": 0,
-          "waitBeforeName": "",
-          "waitAfterName": ""
-        },
-            {
-              "id": "mmfe6550-6mwmvw",
-              "name": "intakeFourth",
-              "endPoint": {
-                "x": 17,
-                "y": 37,
-                "heading": "linear",
-                "reverse": false,
-                "startDeg": 180,
-                "endDeg": 180
-              },
-              "controlPoints": [],
-              "color": "#5DD6DA",
-              "waitBeforeMs": 0,
-              "waitAfterMs": 0,
-              "waitBeforeName": "",
-              "waitAfterName": ""
-            },
-                {
-                  "id": "mmfe1x65-93o35m",
-                  "name": "shootFourth",
-                  "endPoint": {
-                    "x": 50,
-                    "y": 93.25,
-                    "heading": "linear",
-                    "reverse": false,
-                    "startDeg": 180,
-                    "endDeg": 218
-                  },
-                  "controlPoints": [],
-                  "color": "#A5CBD8",
-                  "waitBeforeMs": 0,
-                  "waitAfterMs": 0,
-                  "waitBeforeName": "",
-                  "waitAfterName": ""
-                },
     {
       "id": "mmfeb6so-y63egf",
       "name": "park",

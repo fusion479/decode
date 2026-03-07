@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class BlueCloseTip extends CommandBase {
     public static boolean finished = false;
     public static int duration = 1000;
-    public static Pose tip = new Pose(73, 76, Math.toRadians(226.8));
+    public static Pose tip = new Pose(73, 76, Math.toRadians(225.1));
 
     private final Drivetrain drivetrain;
     private final Follower follower;

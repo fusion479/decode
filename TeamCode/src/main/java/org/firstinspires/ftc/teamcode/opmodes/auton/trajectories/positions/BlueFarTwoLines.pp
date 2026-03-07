@@ -72,37 +72,20 @@
          "color":"#679756"
       },
       {
-         "name":"setupThird",
-         "endPoint":{
-            "x":44,
-            "y":54,
-            "heading":"linear",
-            "reverse":false,
-            "startDeg":197,
-            "endDeg":180,
-            "index":5
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#8D58B6"
-      },
-      {
-         "name":"intakeThird",
-         "endPoint":{
-            "x":11,
-            "y":54,
-            "heading":"linear",
-            "reverse":false,
-            "index":6,
-            "startDeg":180,
-            "endDeg":180
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#978CDC"
-      },
+            "name": "intakeThird",
+            "endPoint": {
+              "x": 11.5,
+              "y": 8.5,
+              "heading": "linear",
+              "reverse": false,
+              "name": "intakeHP",
+              "startDeg": 197,
+              "endDeg": 180,
+              "index": 2
+            },
+            "controlPoints": [],
+            "color": "#59DA8D"
+          },
       {
          "name":"shootThird",
          "endPoint":{
@@ -120,20 +103,19 @@
          "color":"#6B57DD"
       },
       {
-         "name":"park",
-         "endPoint":{
-            "x":54,
-            "y":40,
-            "heading":"linear",
-            "reverse":false,
-            "index":6,
-            "startDeg":199,
-            "endDeg":180
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#CCDCD7"
-      }
+            "name": "park",
+            "endPoint": {
+              "x": 42,
+              "y": 16,
+              "heading": "linear",
+              "reverse": false,
+              "name": "park",
+              "startDeg": 199,
+              "endDeg": 180,
+              "index": 7
+            },
+            "controlPoints": [],
+            "color": "#88ACB5"
+          }
    ]
 }

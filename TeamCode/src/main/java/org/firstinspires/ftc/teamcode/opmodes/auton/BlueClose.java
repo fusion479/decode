@@ -9,27 +9,30 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarTwoLinesTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueCloseTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLine15Trajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLineTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Blue Far Two Lines", preselectTeleOp = "BlueMain")
-public class BlueFarTwoLines extends OpModeCore {
+@Autonomous(name = "Blue Close", preselectTeleOp = "BlueMain")
+public class BlueClose extends OpModeCore {
     public static double SCORE_SPEED = 0.65;
-    public static double NORMAL_SPEED = 0.65;
-    public static double INTAKE_SPEED = 0.5;
-    public static int SHOOT_DURATION = 3000;
-    public static int INTAKE_DURATION = 2000;
-    public static int SHOOT_WAIT = 800;
-    public static int INTAKE_DURATION_HP = 2800;
-    public static int INTAKE_HP_WAIT = 0;
+    public static double NORMAL_SPEED = 0.83;
+    public static double INTAKE_SPEED = 1;
+    public static int SHOOT_DURATION = 1500;
+    public static int INTAKE_DURATION = 1700;
+    public static int SHOOT_WAIT = 100;
+
+    public static int FIRST_SHOOT_WAIT = 1000;
+
     private CommandRobot robot;
-    private BlueFarTwoLinesTrajectories trajectories;
+    private BlueCloseTrajectories trajectories;
 
     @Override
     public void initialize() {
-        this.trajectories = new BlueFarTwoLinesTrajectories();
+        this.trajectories = new BlueCloseTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
     }
@@ -45,9 +48,9 @@ public class BlueFarTwoLines extends OpModeCore {
                 new SequentialCommandGroup(
                         new ParallelCommandGroup(
                                 new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
-                                robot.autonFar()
+                                robot.autonClose()
                         ),
-                        new WaitCommand(SHOOT_WAIT),
+                        new WaitCommand(FIRST_SHOOT_WAIT),
 
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
@@ -60,18 +63,19 @@ public class BlueFarTwoLines extends OpModeCore {
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),
 
+                        new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
                         new ParallelCommandGroup(
-                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION_HP),
-                                new SequentialCommandGroup(
-                                        new PathCommand(this.robot, this.trajectories.intakeThird, INTAKE_SPEED),
-                                        new WaitCommand(INTAKE_HP_WAIT)
-                                )
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
+                                new PathCommand(this.robot, this.trajectories.intakeThird, INTAKE_SPEED)
                         ),
+
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.ready(),

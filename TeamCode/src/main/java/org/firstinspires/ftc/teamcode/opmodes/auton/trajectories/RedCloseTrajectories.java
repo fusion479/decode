@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.trajectories;
 
+import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
 import com.bylazar.configurables.annotations.Configurable;
@@ -12,13 +13,13 @@ import java.io.File;
 import java.util.HashMap;
 
 @Configurable
-public class RedFarTwoLinesTrajectories {
+public class RedCloseTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, setupSecond, intakeSecond, shootSecond, intakeThird, shootThird, park;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
 
-    public RedFarTwoLinesTrajectories() {
-        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedFarTwoLines.pp"));
+    public RedCloseTrajectories() {
+        this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/RedClose.pp"));
 
         this.shootFirst = buildLine(
                 poses.get("startPoint"),
@@ -39,8 +40,14 @@ public class RedFarTwoLinesTrajectories {
         );
 
         this.shootSecond = buildLine(
-                poses.get("setupSecond"),
+                poses.get("intakeSecond"),
                 poses.get("shootSecond"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.setupThird = buildLine(
+                poses.get("shootSecond"),
+                poses.get("setupThird"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
@@ -50,8 +57,9 @@ public class RedFarTwoLinesTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.shootThird = buildLine(
+        this.shootThird = buildCurve(
                 poses.get("intakeThird"),
+                poses.get("shootThirdControl0"),
                 poses.get("shootThird"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

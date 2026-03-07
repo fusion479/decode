@@ -46,7 +46,7 @@ public class CommandRobot {
 
     public static Pose RED_START = new Pose(107, 16, Math.toRadians(180));
 
-    public static Pose BLUE_START = new Pose(56, 35, Math.toRadians(180));
+    public static Pose BLUE_START = new Pose(35, 16, Math.toRadians(180));
     private final String color;
     private final Intake intake;
     private final Drivetrain drive;
@@ -132,7 +132,8 @@ public class CommandRobot {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(relocalizeMid());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(relocalizeAngle());
+                .whileHeld(this.breakManual())
+                .whenReleased(this.releaseShoot());
         this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whileHeld(this.park());
     }
@@ -193,6 +194,11 @@ public class CommandRobot {
         );
     }
 
+    public Command breakManual() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.brake.setBrakePosition(Brake.BRAKE_POSITION))
+        );
+    }
     public Command releaseShoot() {
         return new SequentialCommandGroup(
                 new InstantCommand(() -> this.brake.setBrakePosition(Brake.UNBRAKE_POSITION)),
@@ -230,7 +236,6 @@ public class CommandRobot {
                 holdShoot()
         );
     }
-
     public Command interpolatedShot() {
         double dist = color.equals("blue") ?
                 Math.hypot(getFollower().getPose().getX() - 16, getFollower().getPose().getY() - 130) :

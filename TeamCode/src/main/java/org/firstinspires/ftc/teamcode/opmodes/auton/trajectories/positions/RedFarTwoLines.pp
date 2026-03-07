@@ -72,36 +72,19 @@
          "color":"#A88B75"
       },
       {
-         "name":"setupThird",
-         "endPoint":{
-            "x":100,
-            "y":57,
-            "heading":"linear",
-            "reverse":false,
-            "startDeg":156,
-            "endDeg":180,
-            "index":5
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#989A69"
-      },
-      {
          "name":"intakeThird",
-         "endPoint":{
-            "x":130,
-            "y":57,
-            "heading":"linear",
-            "reverse":false,
-            "index":6,
-            "startDeg":180,
-            "endDeg":180
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#CCDCD7"
+         "endPoint": {
+                 "x": 132.5,
+                 "y": 8.5,
+                 "heading": "linear",
+                 "reverse": false,
+                 "name": "intakeHP",
+                 "startDeg": 157,
+                 "endDeg": 180,
+                 "index": 2
+               },
+               "controlPoints": [],
+               "color": "#59DA8D"
       },
       {
          "name":"shootThird",
@@ -127,7 +110,7 @@
             "heading":"linear",
             "reverse":false,
             "index":6,
-            "startDeg":157,
+            "startDeg":160,
             "endDeg":180
          },
          "controlPoints":[

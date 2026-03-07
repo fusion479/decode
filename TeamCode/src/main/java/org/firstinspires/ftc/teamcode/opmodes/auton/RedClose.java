@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Red Close", preselectTeleOp = "RedMain")
+@Autonomous(name = "Red Close", preselectTeleOp = "Red Close Main")
 public class RedClose extends OpModeCore {
     public static double SCORE_SPEED = 0.70;
     public static double NORMAL_SPEED = 0.85;
@@ -35,7 +35,7 @@ public class RedClose extends OpModeCore {
     public void initialize() {
         this.trajectories = new RedCloseTrajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "blue");
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
     }
 
     @Override
@@ -76,6 +76,18 @@ public class RedClose extends OpModeCore {
                         ),
 
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
+                        robot.shoot(),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
+                        robot.closeready(),
+
+                        new PathCommand(this.robot, this.trajectories.setupFourth, NORMAL_SPEED),
+                        new ParallelCommandGroup(
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
+                                new PathCommand(this.robot, this.trajectories.intakeFourth, INTAKE_SPEED)
+                        ),
+
+                        new PathCommand(this.robot, this.trajectories.shootFourth, SCORE_SPEED),
                         new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),

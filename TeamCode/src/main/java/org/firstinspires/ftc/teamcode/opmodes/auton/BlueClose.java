@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Blue Close", preselectTeleOp = "RedMain")
+@Autonomous(name = "Blue Close", preselectTeleOp = "Blue Close Main")
 public class BlueClose extends OpModeCore {
     public static double SCORE_SPEED = 0.70;
     public static double NORMAL_SPEED = 0.85;

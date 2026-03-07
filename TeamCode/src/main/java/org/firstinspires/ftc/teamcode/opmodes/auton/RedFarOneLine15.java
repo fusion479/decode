@@ -24,11 +24,12 @@ public class RedFarOneLine15 extends OpModeCore {
     public static double HP_SPEED = 0.6;
     public static double INTAKE_SPEED = 1;
     public static int SHOOT_DURATION = 1500;
+    public static int FIRST_SHOOT_DURATION = 1500;
     public static int INTAKE_DURATION = 1700;
     public static int INTAKE_DURATION_HP = 2800;
     public static int SHOOT_WAIT = 100;
 
-    public static int FIRST_SHOOT_WAIT = 1700;
+    public static int FIRST_SHOOT_WAIT = 2000;
     public static int INTAKE_HP_WAIT = 0;
 
     private CommandRobot robot;
@@ -57,7 +58,7 @@ public class RedFarOneLine15 extends OpModeCore {
                         new WaitCommand(FIRST_SHOOT_WAIT),
 
                         robot.shoot(),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), FIRST_SHOOT_DURATION),
                         robot.ready(),
 
                         new ParallelCommandGroup(

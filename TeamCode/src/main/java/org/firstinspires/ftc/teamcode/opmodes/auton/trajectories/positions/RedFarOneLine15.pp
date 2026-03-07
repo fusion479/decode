@@ -25,7 +25,7 @@
     {
       "name": "intakeHP",
       "endPoint": {
-        "x": 132.5,
+        "x": 133.8,
         "y": 8.5,
         "heading": "linear",
         "reverse": false,
@@ -46,7 +46,7 @@
         "reverse": false,
         "name": "shootSecond",
         "startDeg": 180,
-        "endDeg": 166,
+        "endDeg": 163,
         "index": 3
       },
       "controlPoints": [],
@@ -60,7 +60,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "setupThird",
-        "startDeg": 166,
+        "startDeg": 163,
         "endDeg": 180,
         "index": 4
       },
@@ -91,7 +91,7 @@
         "reverse": false,
         "name": "shootThird",
         "startDeg": 180,
-        "endDeg": 162,
+        "endDeg": 163,
         "index": 6
       },
       "controlPoints": [],
@@ -105,7 +105,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "intakeFourth",
-        "startDeg": 162,
+        "startDeg": 163,
         "endDeg": 180,
         "index": 5
       },
@@ -115,7 +115,7 @@
     {
       "name": "shootFourth",
       "endPoint": {
-        "x": 98,
+        "x": 95,
         "y": 18,
         "heading": "linear",
         "reverse": false,
@@ -145,8 +145,8 @@
     {
       "name": "shootFifth",
       "endPoint": {
-        "x": 98,
-        "y": 18,
+        "x": 95,
+        "y": 16,
         "heading": "linear",
         "reverse": false,
         "name": "shootFifth",

@@ -25,7 +25,7 @@
     {
       "name": "intakeHP",
       "endPoint": {
-        "x": 11.5,
+        "x": 10.2,
         "y": 8.5,
         "heading": "linear",
         "reverse": false,
@@ -41,12 +41,12 @@
       "name": "shootSecond",
       "endPoint": {
         "x": 46,
-        "y": 14,
+        "y": 12,
         "heading": "linear",
         "reverse": false,
         "name": "shootSecond",
         "startDeg": 180,
-        "endDeg": 196,
+        "endDeg": 194,
         "index": 3
       },
       "controlPoints": [],
@@ -60,7 +60,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "setupThird",
-        "startDeg": 196,
+        "startDeg": 194,
         "endDeg": 180,
         "index": 4
       },
@@ -91,7 +91,7 @@
         "reverse": false,
         "name": "shootThird",
         "startDeg": 180,
-        "endDeg": 196,
+        "endDeg": 198,
         "index": 6
       },
       "controlPoints": [],
@@ -105,7 +105,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "intakeFourth",
-        "startDeg": 196,
+        "startDeg": 198,
         "endDeg": 180,
         "index": 5
       },
@@ -121,7 +121,7 @@
         "reverse": false,
         "name": "shootFourth",
         "startDeg": 180,
-        "endDeg": 194,
+        "endDeg": 197,
         "index": 6
       },
       "controlPoints": [],
@@ -131,11 +131,11 @@
       "name": "intakeFifth",
       "endPoint": {
         "x": 18,
-        "y": 16,
+        "y": 20,
         "heading": "linear",
         "reverse": false,
         "name": "intakeFifth",
-        "startDeg": 194,
+        "startDeg": 197,
         "endDeg": 180,
         "index": 5
       },
@@ -151,7 +151,7 @@
         "reverse": false,
         "name": "shootFifth",
         "startDeg": 180,
-        "endDeg": 192,
+        "endDeg": 196,
         "index": 6
       },
       "controlPoints": [],
@@ -165,7 +165,7 @@
         "heading": "linear",
         "reverse": false,
         "name": "park",
-        "startDeg": 192,
+        "startDeg": 196,
         "endDeg": 180,
         "index": 7
       },

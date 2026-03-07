@@ -179,6 +179,13 @@ public class CommandRobot {
         );
     }
 
+    public Command closeready() {
+        return new SequentialCommandGroup(
+                new InstantCommand(() -> this.shooter.setTarget(Shooter.CLOSE_VELOCITY)),
+                new TransferStop(this.transfer)
+        );
+    }
+
     public Command shoot() {
         return new SequentialCommandGroup(
                 new TransferAllow(this.transfer)
@@ -258,7 +265,7 @@ public class CommandRobot {
 
     public Command autonClose() {
         return new SequentialCommandGroup(
-                new ShooterCloseTip(this.shooter)
+                new ShooterClose(this.shooter)
         );
     }
 

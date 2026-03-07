@@ -15,7 +15,7 @@
             "y":10.5,
             "heading":"linear",
             "startDeg":180,
-            "endDeg":201,
+            "endDeg":210,
             "index":1
          },
          "controlPoints":[
@@ -63,7 +63,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":197,
+            "endDeg":204,
             "index":4
          },
          "controlPoints":[
@@ -94,7 +94,7 @@
             "heading":"linear",
             "reverse":false,
             "startDeg":180,
-            "endDeg":199,
+            "endDeg":201,
             "index":7
          },
          "controlPoints":[

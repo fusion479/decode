@@ -12,15 +12,16 @@ import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueCloseTrajectories;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLine15Trajectories;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.BlueFarOneLineTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedCloseTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Configurable
-@Autonomous(name = "Blue Close", preselectTeleOp = "BlueMain")
+@Autonomous(name = "Blue Close", preselectTeleOp = "RedMain")
 public class BlueClose extends OpModeCore {
-    public static double SCORE_SPEED = 0.65;
-    public static double NORMAL_SPEED = 0.83;
-    public static double INTAKE_SPEED = 1;
+    public static double SCORE_SPEED = 0.70;
+    public static double NORMAL_SPEED = 0.85;
+    public static double INTAKE_SPEED = 0.85;
     public static int SHOOT_DURATION = 1500;
     public static int INTAKE_DURATION = 1700;
     public static int SHOOT_WAIT = 100;
@@ -54,7 +55,7 @@ public class BlueClose extends OpModeCore {
 
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
-                        robot.ready(),
+                        robot.closeready(),
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, NORMAL_SPEED),
                         new ParallelCommandGroup(
@@ -66,7 +67,7 @@ public class BlueClose extends OpModeCore {
                         new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
-                        robot.ready(),
+                        robot.closeready(),
 
                         new PathCommand(this.robot, this.trajectories.setupThird, NORMAL_SPEED),
                         new ParallelCommandGroup(
@@ -78,7 +79,7 @@ public class BlueClose extends OpModeCore {
                         new WaitCommand(SHOOT_WAIT),
                         robot.shoot(),
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
-                        robot.ready(),
+                        robot.closeready(),
 
                         new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )

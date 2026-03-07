@@ -12,11 +12,11 @@
       "id": "line-tq5vni313r",
       "name": "shootFirst",
       "endPoint": {
-        "x": 95,
-        "y": 94.5,
+        "x": 92,
+        "y": 91.5,
         "heading": "linear",
         "startDeg": 90,
-        "endDeg": 138
+        "endDeg": 136
       },
       "controlPoints": [],
       "color": "#5B6D9B",
@@ -66,12 +66,12 @@
       "id": "mmfengqc-kp8mio",
       "name": "shootSecond",
       "endPoint": {
-        "x": 95,
-        "y": 94.5,
+        "x": 92,
+        "y": 91.5,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 138
+        "endDeg": 144
       },
       "controlPoints": [],
       "color": "#A78967",
@@ -120,12 +120,12 @@
       "id": "mmfeq1bv-d1nrkv",
       "name": "shootThird",
       "endPoint": {
-        "x": 95,
-        "y": 94.6,
+        "x": 92,
+        "y": 91.6,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 122
+        "endDeg": 130
       },
       "controlPoints": [
         {

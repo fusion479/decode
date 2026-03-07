@@ -103,20 +103,19 @@
          "color":"#6B699A"
       },
       {
-         "name":"park",
-         "endPoint":{
-            "x":86,
-            "y":40,
-            "heading":"linear",
-            "reverse":false,
-            "index":6,
-            "startDeg":160,
-            "endDeg":180
-         },
-         "controlPoints":[
-
-         ],
-         "color":"#CCDCD7"
-      }
+            "name": "park",
+            "endPoint": {
+              "x": 102,
+              "y": 16,
+              "heading": "linear",
+              "reverse": false,
+              "name": "park",
+              "startDeg": 166,
+              "endDeg": 180,
+              "index": 7
+            },
+            "controlPoints": [],
+            "color": "#88ACB5"
+          }
    ]
 }

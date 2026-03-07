@@ -19,12 +19,17 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 public class RedFarTwoLines extends OpModeCore {
     public static double SCORE_SPEED = 0.65;
     public static double NORMAL_SPEED = 0.65;
-    public static double INTAKE_SPEED = 0.5;
+    public static double INTAKE_SPEED = 0.65;
     public static int SHOOT_DURATION = 3000;
     public static int INTAKE_DURATION = 2000;
     public static int SHOOT_WAIT = 800;
     public static int INTAKE_DURATION_HP = 2800;
     public static int INTAKE_HP_WAIT = 0;
+
+    public static int FIRST_SHOOT_WAIT = 2000;
+
+    public static int FIRST_SHOOT_DURATION = 1500;
+
     private CommandRobot robot;
     private RedFarTwoLinesTrajectories trajectories;
 
@@ -48,10 +53,10 @@ public class RedFarTwoLines extends OpModeCore {
                                 new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
                                 robot.autonFar()
                         ),
-                        new WaitCommand(SHOOT_WAIT),
+                        new WaitCommand(FIRST_SHOOT_WAIT),
 
                         robot.shoot(),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), FIRST_SHOOT_DURATION),
                         robot.ready(),
 
                         new PathCommand(this.robot, this.trajectories.setupSecond, NORMAL_SPEED),

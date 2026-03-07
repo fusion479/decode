@@ -12,8 +12,8 @@
       "id": "line-7rgv4goywd8",
       "name": "shootFirst",
       "endPoint": {
-        "x": 47,
-        "y": 96.5,
+        "x": 50,
+        "y": 93.5,
         "heading": "linear",
         "startDeg": 90,
         "endDeg": 227
@@ -66,12 +66,12 @@
       "id": "mmfe1x65-93o35m",
       "name": "shootSecond",
       "endPoint": {
-        "x": 47,
-        "y": 96.25,
+        "x": 50,
+        "y": 93.25,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 227
+        "endDeg": 220
       },
       "controlPoints": [],
       "color": "#A5CBD8",
@@ -88,7 +88,7 @@
         "y": 60,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 227,
+        "startDeg": 220,
         "endDeg": 180
       },
       "controlPoints": [],
@@ -107,7 +107,7 @@
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 179
+        "endDeg": 180
       },
       "controlPoints": [],
       "color": "#5DD6DA",
@@ -120,8 +120,8 @@
       "id": "mmfe65wr-uz5qw0",
       "name": "shootThird",
       "endPoint": {
-        "x": 47,
-        "y": 96.25,
+        "x": 50,
+        "y": 93.25,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,

@@ -45,7 +45,7 @@ public class BlueFarTwoLinesTrajectories {
         );
 
         this.intakeThird = buildLine(
-                poses.get("setupThird"),
+                poses.get("shootSecond"),
                 poses.get("intakeThird"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

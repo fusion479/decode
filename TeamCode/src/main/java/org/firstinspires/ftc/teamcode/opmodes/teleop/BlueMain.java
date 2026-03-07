@@ -38,27 +38,6 @@ public class BlueMain extends OpModeCore {
 
             this.robot.update();
 
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Y", Math.abs(this.robot.getDrivetrain().getFollower().getPose().getY() - BlueFarTip.tip.getY()) < 6);
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("X",Math.abs(this.robot.getDrivetrain().getFollower().getPose().getX() - BlueFarTip.tip.getX()) < 6);
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Current Heading", Math.toDegrees(
-                    this.robot.getDrivetrain().getFollower().getPose().getHeading()
-            )
-                    + (Math.toDegrees(
-                    this.robot.getDrivetrain().getFollower().getPose().getHeading()
-            ) < 0 ? 360 : 0));
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Blue Close Heading", Math.toDegrees(BlueFarTip.tip.getHeading()));
-            PanelsTelemetry.INSTANCE.getTelemetry().addData(
-                    "Heading",
-                    Math.abs(Math.toDegrees(
-                            this.robot.getDrivetrain().getFollower().getPose().getHeading()
-                    )
-                            + (Math.toDegrees(
-                            this.robot.getDrivetrain().getFollower().getPose().getHeading()
-                    ) < 0 ? 360 : 0)
-                            - Math.toDegrees(BlueFarTip.tip.getHeading()))
-                            < 3
-            );
-
             super.logCycles();
             super.telemetry.update();
         }

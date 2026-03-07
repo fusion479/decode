@@ -81,6 +81,18 @@ public class BlueClose extends OpModeCore {
                         new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
                         robot.closeready(),
 
+                        new PathCommand(this.robot, this.trajectories.setupFourth, NORMAL_SPEED),
+                        new ParallelCommandGroup(
+                                new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
+                                new PathCommand(this.robot, this.trajectories.intakeFourth, INTAKE_SPEED)
+                        ),
+
+                        new PathCommand(this.robot, this.trajectories.shootFourth, SCORE_SPEED),
+                        new WaitCommand(SHOOT_WAIT),
+                        robot.shoot(),
+                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), SHOOT_DURATION),
+                        robot.closeready(),
+
                         new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )
         );

@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class BlueCloseTrajectories {
     private final HashMap<String, Pose> poses;
 
-    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park;
+    public Path shootFirst, setupSecond, intakeSecond, shootSecond, setupThird, intakeThird, shootThird, park, setupFourth, intakeFourth, shootFourth;
 
     public BlueCloseTrajectories() {
         this.poses = AutonomousHelpers.getPosesByName(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/BlueClose.pp"));
@@ -64,8 +64,26 @@ public class BlueCloseTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.park = buildLine(
+        this.setupFourth = buildLine(
                 poses.get("shootThird"),
+                poses.get("setupFourth"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.intakeFourth = buildLine(
+                poses.get("setupFourth"),
+                poses.get("intakeFourth"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.shootFourth = buildLine(
+                poses.get("intakeFourth"),
+                poses.get("shootFourth"),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.park = buildLine(
+                poses.get("shootFourth"),
                 poses.get("park"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

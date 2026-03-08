@@ -289,8 +289,8 @@ public class CommandRobot {
     public Command goFar() {
         return new SequentialCommandGroup(
                 new ShooterFarTip(this.shooter),
-                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive),
-                holdShoot()
+                this.color.equals("blue") ? new BlueFarTip(this.drive) : new RedFarTip(this.drive)
+    //            holdShoot()
         );
     }
 

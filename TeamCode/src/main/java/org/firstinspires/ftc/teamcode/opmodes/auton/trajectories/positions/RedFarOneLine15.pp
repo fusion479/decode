@@ -46,7 +46,7 @@
         "reverse": false,
         "name": "shootSecond",
         "startDeg": 180,
-        "endDeg": 163,
+        "endDeg": 165,
         "index": 3
       },
       "controlPoints": [],
@@ -91,7 +91,7 @@
         "reverse": false,
         "name": "shootThird",
         "startDeg": 180,
-        "endDeg": 163,
+        "endDeg": 162.5,
         "index": 6
       },
       "controlPoints": [],
@@ -131,7 +131,7 @@
       "name": "intakeFifth",
       "endPoint": {
         "x": 126,
-        "y": 16,
+        "y": 20,
         "heading": "linear",
         "reverse": false,
         "name": "intakeFifth",
@@ -151,7 +151,7 @@
         "reverse": false,
         "name": "shootFifth",
         "startDeg": 180,
-        "endDeg": 166,
+        "endDeg": 165,
         "index": 6
       },
       "controlPoints": [],

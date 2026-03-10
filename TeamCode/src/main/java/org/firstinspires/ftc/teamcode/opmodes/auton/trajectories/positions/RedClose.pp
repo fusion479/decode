@@ -125,7 +125,7 @@
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 130
+        "endDeg": 132
       },
       "controlPoints": [
         {

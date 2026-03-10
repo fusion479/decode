@@ -71,7 +71,7 @@
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 220
+        "endDeg": 214
       },
       "controlPoints": [],
       "color": "#A5CBD8",
@@ -184,7 +184,7 @@
                     "heading": "linear",
                     "reverse": false,
                     "startDeg": 180,
-                    "endDeg": 218
+                    "endDeg": 222
                   },
                   "controlPoints": [],
                   "color": "#A5CBD8",

@@ -25,8 +25,8 @@ public class Intake extends SubsystemBase {
         this.rightIntake.setPower(lowerPower);
         this.leftIntake.setPower(-lowerPower);
 
-        this.rightRoller.setPower(upperPower);
-        this.leftRoller.setPower(-upperPower);
+        this.rightRoller.setPower(-upperPower);
+        this.leftRoller.setPower(upperPower);
     }
 
     public void setIntakePower(double power) {

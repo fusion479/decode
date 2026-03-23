@@ -20,6 +20,6 @@ public class ShooterFarTip extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return this.shooter.getVelocity() >= 1880;
     }
 }

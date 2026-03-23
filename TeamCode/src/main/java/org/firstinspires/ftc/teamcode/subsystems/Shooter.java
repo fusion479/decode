@@ -24,7 +24,7 @@ public class Shooter extends SubsystemBase {
     public static double CLOSE_HORI_VELOCITY = 1450;
     public static double COMPENSATE = 12.0;
 
-    public static double kP = 3;
+    public static double kP = 4;
     public static double kI = 0;
     public static double kD = 0.04;
     public static double kF = 0.03;

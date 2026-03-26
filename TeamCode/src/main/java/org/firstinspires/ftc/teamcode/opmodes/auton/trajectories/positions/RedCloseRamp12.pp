@@ -73,7 +73,12 @@
         "startDeg": 180,
         "endDeg": 136
       },
-      "controlPoints": [],
+      "controlPoints": [
+        {
+            "x": 110,
+            "y": 60
+        }
+      ],
       "color": "#7DA79D",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,

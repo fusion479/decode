@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedCloseTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedCloseRamp12Trajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 public class RedCloseRamp12 extends OpModeCore {
     public static double SCORE_SPEED = 0.70;
     public static double NORMAL_SPEED = 0.85;
-    public static double INTAKE_SPEED = 0.85;
+    public static double INTAKE_SPEED = 0.90;
     public static int SHOOT_DURATION = 1500;
     public static int INTAKE_DURATION = 1700;
     public static int SHOOT_WAIT = 100;
@@ -26,11 +26,11 @@ public class RedCloseRamp12 extends OpModeCore {
     public static int FIRST_SHOOT_WAIT = 1000;
 
     private CommandRobot robot;
-    private RedCloseTrajectories trajectories;
+    private RedCloseRamp12Trajectories trajectories;
 
     @Override
     public void initialize() {
-        this.trajectories = new RedCloseTrajectories();
+        this.trajectories = new RedCloseRamp12Trajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
     }

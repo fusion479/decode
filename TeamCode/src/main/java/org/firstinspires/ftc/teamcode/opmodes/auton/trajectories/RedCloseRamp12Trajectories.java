@@ -58,8 +58,9 @@ public class RedCloseRamp12Trajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.shootThird = buildLine(
+        this.shootThird = buildCurve(
                 poses.get("intakeThird"),
+                poses.get("shootThirdControl0"),
                 poses.get("shootThird"),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

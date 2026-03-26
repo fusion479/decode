@@ -71,7 +71,7 @@
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 136
+        "endDeg": 138
       },
       "controlPoints": [
         {
@@ -108,7 +108,7 @@
       "name": "intakeThird",
       "endPoint": {
         "x": 133,
-        "y": 62,
+        "y": 65,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
@@ -132,7 +132,12 @@
         "startDeg": 210,
         "endDeg": 136
       },
-      "controlPoints": [],
+      "controlPoints": [
+        {
+            "x": 98,
+            "y": 65
+        }
+      ],
       "color": "#75C959",
       "waitBeforeMs": 0,
       "waitAfterMs": 0,
@@ -161,7 +166,7 @@
       "id": "mn6gro8k-11ly0k",
       "name": "intakeFourth",
       "endPoint": {
-        "x": 125,
+        "x": 120,
         "y": 85,
         "heading": "linear",
         "reverse": false,
@@ -184,7 +189,7 @@
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 136
+        "endDeg": 148
       },
       "controlPoints": [],
       "color": "#97A985",

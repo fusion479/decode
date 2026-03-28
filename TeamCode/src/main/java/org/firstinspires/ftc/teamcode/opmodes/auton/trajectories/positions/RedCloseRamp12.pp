@@ -89,7 +89,7 @@
       "id": "mn6gffoe-wv3s9b",
       "name": "setupThird",
       "endPoint": {
-        "x": 115,
+        "x": 128,
         "y": 66,
         "heading": "linear",
         "reverse": false,
@@ -107,12 +107,12 @@
       "id": "mn6ggwv9-4re09b",
       "name": "intakeThird",
       "endPoint": {
-        "x": 133,
-        "y": 65,
+        "x": 132,
+        "y": 55,
         "heading": "linear",
         "reverse": false,
         "startDeg": 180,
-        "endDeg": 210
+        "endDeg": 200
       },
       "controlPoints": [],
       "color": "#9957A7",
@@ -129,7 +129,7 @@
         "y": 91.5,
         "heading": "linear",
         "reverse": false,
-        "startDeg": 210,
+        "startDeg": 200,
         "endDeg": 136
       },
       "controlPoints": [

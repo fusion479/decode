@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
     public static double ROAM_VELOCITY = 1910;
     public static double CLOSE_VELOCITY = 1530;
     public static double CLOSE_HORI_VELOCITY = 1450;
-    public static double COMPENSATE = 14.0;
+    public static double COMPENSATE = 14.24;
 
     public static double kP = 4;
     public static double kI = 0;

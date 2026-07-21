@@ -1,6 +1,6 @@
-# FTC 479 Stuy Fusion's Into The Deep Codebase
+# FTC 479 Stuy Fusion's Decode Codebase
 
-This is the codebase for the 2021-2022 season of FTC 479 Stuy Fusion's robot, Into The Deep.
+This is the codebase for the 2025-2026 season of FTC 479 Stuy Fusion's robot, Decode.
 For the most up-to-date code, please refer to the `main` branch.
 
 ## Installation
